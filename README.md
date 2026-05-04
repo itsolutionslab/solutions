@@ -47,3 +47,44 @@ To create a new demo for a new industry (e.g., "Mining"):
 - **SEO**: The path automatically defines the URL on the main web application.
 - **English**: All directories and files must be named in English.
 - **Agility**: Demos are intended to be self-contained and ready in minutes.
+
+solutions/
+├── legal/
+│   ├── labor/
+│   │   ├── standard/
+│   │   │   ├── essential.html
+│   │   │   ├── growth.html
+│   │   │   └── exponential.html
+│   │   └── custom/
+│   │       └── estudio-perez/
+│   │           ├── essential.html
+│   │           ├── growth.html
+│   │           ├── exponential.html
+│   │           └── assets/
+│   │               ├── hero.jpg
+│   │               └── logo.png
+│   │
+│   ├── real-estate/
+│   │   └── standard/
+│   │       ├── essential.html
+│   │       ├── growth.html
+│   │       └── exponential.html
+│   │
+│   └── corporate/
+│       └── standard/
+│           ├── essential.html
+│           ├── growth.html
+│           └── exponential.html
+│
+├── healthcare/
+│   └── clinics/
+│       └── standard/
+│           ├── essential.html
+│           ├── growth.html
+│           └── exponential.html
+│
+└── mining/
+    └── standard/
+        ├── essential.html
+        ├── growth.html
+        └── exponential.html
