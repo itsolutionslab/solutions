@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmaciasenlinea | Business Ecosystem</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --sky-blue: #2B7FFF;
+            --lime-green: #39FF14;
+            --heart-red: #FF0000;
+            --deep-blue: #0A192F;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: radial-gradient(circle at 0% 0%, #2563eb 0%, #2563eb 50%, #9aef1a 100%);
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            padding: 2rem;
+            color: #1a202c;
+        }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-template-rows: repeat(12, 1fr);
+            gap: 1.25rem;
+            flex-grow: 1;
+        }
+
+        .premium-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border-radius: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .premium-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 30px 60px rgba(43, 127, 255, 0.1);
+            background: rgba(255, 255, 255, 0.9);
+            border-color: var(--sky-blue);
+        }
+
+        .pill-logo {
+            width: 50px;
+            height: 24px;
+            border-radius: 50px;
+            background: linear-gradient(90deg, var(--sky-blue) 50%, var(--lime-green) 50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .heart {
+            color: var(--heart-red);
+            font-size: 12px;
+        }
+
+        h2 {
+            color: var(--sky-blue);
+            font-weight: 800;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            margin-bottom: 0.75rem;
+            opacity: 0.8;
+        }
+
+        .price-text {
+            color: var(--sky-blue);
+            font-weight: 800;
+            font-size: 1.5rem;
+        }
+
+        .green-glow {
+            color: #22c55e;
+            font-weight: 700;
+            text-shadow: 0 0 20px rgba(57, 255, 20, 0.2);
+        }
+
+        .matrix-table th {
+            color: #64748b;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 0.75rem;
+            border-bottom: 2px solid #f1f5f9;
+        }
+
+        .matrix-table td {
+            padding: 0.8rem 0.75rem;
+            font-size: 0.85rem;
+            border-bottom: 1px solid #f8fafc;
+        }
+
+        /* Estilo para el bloque oscuro de visión */
+        .vision-card {
+            background: var(--deep-blue);
+            color: white;
+            border: none;
+        }
+
+        .cta-tag {
+            background: var(--lime-green);
+            color: #000;
+            padding: 4px 12px;
+            border-radius: 10px;
+            font-weight: 800;
+            font-size: 0.7rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="flex justify-between items-center mb-6">
+        <div class="flex items-center gap-4">
+            <div class="flex flex-col">
+                <h1 class="text-4xl  to-blue-800 text-white">Farmacias<span class="text-[#fff]">enlinea</span></h1>
+                <div class="flex gap-2 mt-1">
+                    <div class="pill-logo"><span class="heart">❤</span></div>
+                    <div class="pill-logo" style="transform:rotate(-15deg)"><span class="heart">❤</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="flex gap-6 items-center">
+            <div class="text-right">
+                <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Infraestructura PaaS</p>
+                <p class="text-sm font-semibold text-slate-700">Health-Tech Ecosystem 2026</p>
+            </div>
+            <div class="h-12 w-[1px] bg-slate-200"></div>
+            <img src="https://brecomperu.com/_next/static/media/bpLogo.034a2279.png" alt="Brecomperu"
+                class="h-8 grayscale opacity-50">
+        </div>
+    </nav>
+
+    <main class="bento-grid">
+
+        <div
+            class="premium-card col-span-4 row-span-4 justify-center bg-gradient-to-br from-blue-600 to-blue-800 text-white">
+            <h2 class="text-blue-200">Nuestra Esencia</h2>
+            <p class="text-2xl font-bold leading-tight">Vendemos eficiencia, conectividad y el futuro de los datos
+                médicos.</p>
+            <p class="mt-4 text-blue-100 opacity-80 text-sm">No somos solo una conexión; somos el Marketplace de
+                Infraestructura que redefine la cadena de suministro de salud.</p>
+        </div>
+
+        <div class="premium-card col-span-4 row-span-5 border-t-4 border-t-[#39FF14]">
+            <div class="flex justify-between items-start">
+                <h2>A. Farmacias (Stock)</h2>
+                <span class="cta-tag">MÁS RENTABLE</span>
+            </div>
+            <ul class="mt-4 space-y-4">
+                <li>
+                    <p class="text-xs uppercase font-bold text-slate-400">Transaccional</p>
+                    <p class="text-lg font-bold">Comisión <span class="green-glow">3% — 7%</span></p>
+                    <p class="text-xs text-slate-500 italic">Por venta lograda vía API Pagos.</p>
+                </li>
+                <li>
+                    <p class="text-xs uppercase font-bold text-slate-400">SaaS Mensual</p>
+                    <div class="flex justify-between items-center bg-slate-50 p-3 rounded-2xl mt-1">
+                        <span class="text-sm font-semibold">Tier Premium</span>
+                        <span class="price-text">$50 - $200</span>
+                    </div>
+                </li>
+                <li>
+                    <p class="text-xs uppercase font-bold text-slate-400 italic">Control de Calidad</p>
+                    <p class="text-sm font-bold">$0.10 - $0.50 <span
+                            class="font-normal text-slate-500">p/cotización</span></p>
+                </li>
+            </ul>
+        </div>
+
+        <div class="premium-card col-span-4 row-span-5 border-t-4 border-t-blue-500">
+            <h2>B. Apps & Telemedicina</h2>
+            <div class="space-y-4 mt-2">
+                <div class="p-4 rounded-2xl bg-blue-50">
+                    <p class="text-xs font-bold text-blue-600 uppercase">Suscripción API Keys</p>
+                    <div class="flex justify-between mt-2">
+                        <span>Tier 1 (10k)</span>
+                        <span class="font-black">$100/mo</span>
+                    </div>
+                    <div class="flex justify-between mt-1">
+                        <span>Tier 2 (Ilimitado)</span>
+                        <span class="font-black">$500/mo</span>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div class="h-10 w-10 rounded-full bg-slate-100 flex items-center justify-center text-xl">🏷</div>
+                    <div>
+                        <p class="font-bold text-sm">White Label Setup</p>
+                        <p class="text-xs text-slate-500">Integración nativa de mapas.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="premium-card col-span-6 row-span-5">
+            <h2>Resumen de Monetización</h2>
+            <table class="matrix-table w-full mt-2">
+                <thead>
+                    <tr>
+                        <th>Actor</th>
+                        <th>Concepto</th>
+                        <th>Costo Estimado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="font-bold">Farmacias</td>
+                        <td>Comisión de Venta</td>
+                        <td class="green-glow text-right">5% Total</td>
+                    </tr>
+                    <tr>
+                        <td class="font-bold">Apps Salud</td>
+                        <td>Suscripción / Receta</td>
+                        <td class="font-bold text-blue-600 text-right">$200 USD + $0.05</td>
+                    </tr>
+                    <tr>
+                        <td class="font-bold">Pacientes</td>
+                        <td>Service Fee</td>
+                        <td class="font-bold text-right">$1.00 USD</td>
+                    </tr>
+                    <tr>
+                        <td class="font-bold">Laboratorios</td>
+                        <td>Data Insights</td>
+                        <td class="green-glow text-right">+$1,000 USD</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="premium-card col-span-3 row-span-3">
+            <h2>C. Paciente Final</h2>
+            <p class="text-3xl font-black mt-2">$1.00<span class="text-xs font-medium text-slate-400"> /orden</span></p>
+            <p class="text-xs text-slate-500 mt-2">Tarifa de conveniencia + <span class="font-bold">Markup
+                    Logístico</span> sobre envío.</p>
+        </div>
+
+        <div class="premium-card col-span-3 row-span-3 vision-card relative overflow-hidden">
+            <div class="relative z-10">
+                <h2 class="text-blue-400">Big Data Asset</h2>
+                <p class="text-sm font-semibold opacity-90">La data es el nuevo petróleo. Los laboratorios pagan por
+                    insights geográficos en tiempo real.</p>
+            </div>
+            <div class="absolute -right-4 -bottom-4 opacity-20 text-7xl">📈</div>
+        </div>
+
+        <div class="premium-card col-span-6 row-span-3 bg-slate-100 border-dashed border-2 border-slate-300">
+            <div class="flex gap-4 items-center h-full">
+                <div class="text-4xl">⚖</div>
+                <div>
+                    <h2 class="text-slate-500">Fiscal & Compliance Engine</h2>
+                    <p class="text-xs text-slate-600">Arquitectura preparada para declaraciones de impuestos
+                        automáticas. Soporte para <b>Split Payments</b> (Comisión vs Pago Farmacia) integrado en el
+                        core.</p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="mt-6 flex justify-between items-center opacity-60 text-[10px] uppercase tracking-[3px] font-bold">
+        <p>© 2026 Farmaciasenlinea — API Farmacias SaaS</p>
+        <p>Developed by <a href="https://brecomperu.com"
+                class="text-blue-600 hover:text-blue-800 transition-colors">Brecomperu</a></p>
+    </footer>
+
+</body>
+
+</html>

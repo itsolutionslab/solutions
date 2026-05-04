@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+    <title>Sonlink Motors | Catálogo + Crédito + Gestión IA</title>
+    <!-- TailwindCSS + FontAwesome + Google Fonts + Three.js -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- React & ReactDOM & Babel -->
+    <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.development.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.development.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone/babel.min.js"></script>
+    <style>
+        * { font-family: 'Inter', sans-serif; }
+        body { background: #f5f7fb; }
+        .signature-canvas { border: 2px dashed #ccc; border-radius: 12px; background: white; touch-action: none; }
+        .glass-card { backdrop-filter: blur(2px); background: rgba(255,255,255,0.9); }
+        .transition-smooth { transition: all 0.2s ease; }
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .modal-3d { z-index: 1000; }
+    </style>
+</head>
+<body class="antialiased">
+    <div id="root"></div>
+    <script type="text/babel">
+        // ---------- MOCK DATA & STORAGE HELPERS ----------
+        const STORAGE_KEYS = {
+            MOTORCYCLES: 'sonlink_motos',
+            SELLERS: 'sonlink_vendedores',
+            SALES: 'sonlink_ventas'
+        };
+
+        // Precios referenciales en Soles (PEN)
+        const defaultMotos = [
+            { id: 'm1', name: 'SL150-F1', category: 'Pisteras', price: 5890, images: ['https://placehold.co/600x400/1e293b/white?text=SL150-F1'], engine: 'TGF(OHV) 150cc', transmission: '5 vel', maxPower: '13/8500 HP', torque: '11.5/7500 Nm', fuelCap: '14.5L', specs: 'Freno Disco/Disco, suspensión telescópica' },
+            { id: 'm2', name: 'SL200-6F', category: 'Pisteras', price: 7290, images: ['https://placehold.co/600x400/2d3748/white?text=SL200-6F'], engine: 'TGF(OHV) 200cc', transmission: '6 vel', maxPower: '16/8000 HP', torque: '15/5000 Nm', fuelCap: '15L', specs: 'Barras invertidas, Monoshock' },
+            { id: 'm3', name: 'SL150/200-F7', category: 'Pisteras', price: 7950, images: ['https://placehold.co/600x400/4a5568/white?text=SL200-F7'], engine: 'SDEQ(OHC) 200cc', transmission: '5 vel', maxPower: '16.5/8000 HP', torque: '15/5000 Nm', fuelCap: '21L', specs: 'Barras invertidas, Monoshock' },
+            { id: 'm4', name: 'SL10-W5', category: 'Paseo', price: 3450, images: ['https://placehold.co/600x400/2b6e4f/white?text=SL10-W5'], engine: '110cc', transmission: '4 vel', maxPower: '7.5/7500 HP', torque: '8/6500 Nm', fuelCap: '3.9L', specs: 'Freno Disco/Tambor' },
+            { id: 'm5', name: 'SL200GY-3', category: 'Todo Terreno', price: 8490, images: ['https://placehold.co/600x400/7c2d12/white?text=GY-3'], engine: 'OHV 200cc', transmission: '5 vel', maxPower: '15/8000 HP', torque: '15/5000 Nm', fuelCap: '14L', specs: 'Suspensión telescópica/Monoshock' },
+            { id: 'm6', name: 'SL150-4G', category: 'Ciudad', price: 4990, images: ['https://placehold.co/600x400/1e3a8a/white?text=SL150-4G'], engine: '150cc OHC', transmission: '5 vel', maxPower: '12.5/8500 HP', torque: '11.5/7000 Nm', fuelCap: '12L', specs: 'Disco/Tambor, ligera' }
+        ];
+
+        const defaultSellers = [
+            { id: 'v1', name: 'Gabriela Pinedo', phone: '964687088', email: 'gabriela@sonlink.com' },
+            { id: 'v2', name: 'Carlos Mendoza', phone: '987654321', email: 'carlos@sonlink.com' },
+            { id: 'v3', name: 'Lucia Fernandez', phone: '912345678', email: 'lucia@sonlink.com' }
+        ];
+
+        function initStorage() {
+            if (!localStorage.getItem(STORAGE_KEYS.MOTORCYCLES)) {
+                localStorage.setItem(STORAGE_KEYS.MOTORCYCLES, JSON.stringify(defaultMotos));
+            }
+            if (!localStorage.getItem(STORAGE_KEYS.SELLERS)) {
+                localStorage.setItem(STORAGE_KEYS.SELLERS, JSON.stringify(defaultSellers));
+            }
+            if (!localStorage.getItem(STORAGE_KEYS.SALES)) {
+                localStorage.setItem(STORAGE_KEYS.SALES, JSON.stringify([]));
+            }
+        }
+        initStorage();
+
+        const getMotos = () => JSON.parse(localStorage.getItem(STORAGE_KEYS.MOTORCYCLES));
+        const saveMotos = (data) => localStorage.setItem(STORAGE_KEYS.MOTORCYCLES, JSON.stringify(data));
+        const getSellers = () => JSON.parse(localStorage.getItem(STORAGE_KEYS.SELLERS));
+        const getSales = () => JSON.parse(localStorage.getItem(STORAGE_KEYS.SALES));
+        const saveSales = (data) => localStorage.setItem(STORAGE_KEYS.SALES, JSON.stringify(data));
+
+        // ---------- Helper: Simular tasa CrediCalidda (sin inicial, cuota fija) ----------
+        const calcularCuotaCrediCalidda = (monto, cuotas) => {
+            const tasaInteresAnual = 0.22; // 22% TEA simulado
+            const tasaMensual = Math.pow(1 + tasaInteresAnual, 1/12) - 1;
+            const cuota = monto * (tasaMensual * Math.pow(1 + tasaMensual, cuotas)) / (Math.pow(1 + tasaMensual, cuotas) - 1);
+            return isNaN(cuota) ? monto / cuotas : cuota;
+        };
+
+        // Componente modal 3D con IA generativa (textura desde primera imagen + geometría moto estilizada)
+        const ThreeDViewer = ({ images, onClose, motoName }) => {
+            const mountRef = React.useRef(null);
+            React.useEffect(() => {
+                if (!mountRef.current) return;
+                const scene = new THREE.Scene();
+                scene.background = new THREE.Color(0x111122);
+                const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000);
+                camera.position.set(3, 2, 5);
+                camera.lookAt(0, 0, 0);
+                const renderer = new THREE.WebGLRenderer({ antialias: true });
+                renderer.setSize(mountRef.current.clientWidth, mountRef.current.clientHeight);
+                mountRef.current.appendChild(renderer.domElement);
+                
+                // Luz ambiental y direccional
+                const ambientLight = new THREE.AmbientLight(0x404060);
+                scene.add(ambientLight);
+                const dirLight = new THREE.DirectionalLight(0xffffff, 1);
+                dirLight.position.set(2, 5, 3);
+                scene.add(dirLight);
+                const backLight = new THREE.PointLight(0x4466cc, 0.5);
+                backLight.position.set(-2, 1, -3);
+                scene.add(backLight);
+                
+                // Cuerpo genérico de moto (composición)
+                const group = new THREE.Group();
+                // chasis principal
+                const bodyGeo = new THREE.BoxGeometry(1.2, 0.6, 2.2);
+                const material = new THREE.MeshStandardMaterial({ color: 0xdd3333, roughness: 0.4, metalness: 0.7 });
+                if (images && images[0]) {
+                    const textureLoader = new THREE.TextureLoader();
+                    textureLoader.load(images[0], (tex) => {
+                        material.map = tex;
+                        material.needsUpdate = true;
+                    });
+                }
+                const body = new THREE.Mesh(bodyGeo, material);
+                body.position.y = 0.3;
+                group.add(body);
+                // ruedas
+                const wheelGeo = new THREE.CylinderGeometry(0.35, 0.35, 0.5, 24);
+                const wheelMat = new THREE.MeshStandardMaterial({ color: 0x222222, roughness: 0.2 });
+                const wheelFront = new THREE.Mesh(wheelGeo, wheelMat);
+                wheelFront.position.set(0, 0.15, 1);
+                wheelFront.rotation.z = Math.PI / 2;
+                const wheelRear = new THREE.Mesh(wheelGeo, wheelMat);
+                wheelRear.position.set(0, 0.15, -1);
+                wheelRear.rotation.z = Math.PI / 2;
+                group.add(wheelFront, wheelRear);
+                // manillar
+                const handle = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.1, 0.8), new THREE.MeshStandardMaterial({ color: 0xaaaaaa }));
+                handle.position.set(0, 0.65, 1.1);
+                group.add(handle);
+                scene.add(group);
+                
+                // animación rotación
+                let angle = 0;
+                const animate = () => {
+                    angle += 0.008;
+                    group.rotation.y = angle;
+                    renderer.render(scene, camera);
+                    requestAnimationFrame(animate);
+                };
+                animate();
+                
+                return () => {
+                    if (mountRef.current && renderer.domElement) mountRef.current.removeChild(renderer.domElement);
+                    renderer.dispose();
+                };
+            }, [images]);
+            
+            return (
+                <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={onClose}>
+                    <div className="bg-white rounded-2xl w-full max-w-3xl h-[70vh] flex flex-col" onClick={e => e.stopPropagation()}>
+                        <div className="flex justify-between items-center p-4 border-b">
+                            <h3 className="text-xl font-bold">🔄 Vista 3D IA: {motoName}</h3>
+                            <button onClick={onClose} className="text-gray-500 hover:text-black text-2xl">&times;</button>
+                        </div>
+                        <div ref={mountRef} className="flex-1 w-full rounded-b-2xl"></div>
+                        <div className="p-3 text-center text-sm text-gray-500 bg-gray-50">✨ Modelo generado por IA con textura real - vista interactiva</div>
+                    </div>
+                </div>
+            );
+        };
+
+        // Componente Firma Digital Canvas
+        const SignaturePad = ({ onSave }) => {
+            const canvasRef = React.useRef(null);
+            let drawing = false;
+            const startDrawing = (e) => {
+                drawing = true;
+                const canvas = canvasRef.current;
+                const ctx = canvas.getContext('2d');
+                const rect = canvas.getBoundingClientRect();
+                const x = (e.clientX || (e.touches?.[0]?.clientX)) - rect.left;
+                const y = (e.clientY || (e.touches?.[0]?.clientY)) - rect.top;
+                ctx.beginPath();
+                ctx.moveTo(x, y);
+                ctx.lineTo(x, y);
+                ctx.stroke();
+            };
+            const draw = (e) => {
+                if (!drawing) return;
+                const canvas = canvasRef.current;
+                const ctx = canvas.getContext('2d');
+                const rect = canvas.getBoundingClientRect();
+                const x = (e.clientX || (e.touches?.[0]?.clientX)) - rect.left;
+                const y = (e.clientY || (e.touches?.[0]?.clientY)) - rect.top;
+                ctx.lineTo(x, y);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(x, y);
+            };
+            const endDrawing = () => { drawing = false; };
+            const clearCanvas = () => {
+                const canvas = canvasRef.current;
+                const ctx = canvas.getContext('2d');
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = '#fff';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.strokeStyle = '#000';
+                ctx.lineWidth = 2;
+            };
+            const saveSignature = () => {
+                const dataURL = canvasRef.current.toDataURL();
+                onSave(dataURL);
+            };
+            React.useEffect(() => {
+                const canvas = canvasRef.current;
+                canvas.width = 400;
+                canvas.height = 150;
+                const ctx = canvas.getContext('2d');
+                ctx.fillStyle = '#fff';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.strokeStyle = '#000';
+                ctx.lineWidth = 2;
+                canvas.addEventListener('mousedown', startDrawing);
+                canvas.addEventListener('mousemove', draw);
+                canvas.addEventListener('mouseup', endDrawing);
+                canvas.addEventListener('touchstart', startDrawing);
+                canvas.addEventListener('touchmove', draw);
+                canvas.addEventListener('touchend', endDrawing);
+                return () => {
+                    canvas.removeEventListener('mousedown', startDrawing);
+                    canvas.removeEventListener('mousemove', draw);
+                    canvas.removeEventListener('mouseup', endDrawing);
+                };
+            }, []);
+            return (
+                <div className="space-y-2">
+                    <canvas ref={canvasRef} className="signature-canvas w-full h-36 border rounded-lg"></canvas>
+                    <div className="flex gap-2">
+                        <button type="button" onClick={clearCanvas} className="text-sm bg-gray-200 px-3 py-1 rounded">Limpiar</button>
+                        <button type="button" onClick={saveSignature} className="text-sm bg-blue-600 text-white px-3 py-1 rounded">Guardar firma</button>
+                    </div>
+                </div>
+            );
+        };
+
+        // Componente principal App
+        const App = () => {
+            const [activeTab, setActiveTab] = React.useState('catalogo'); // catalogo, admin
+            const [motos, setMotos] = React.useState(getMotos());
+            const [ventas, setVentas] = React.useState(getSales());
+            const [vendedores] = React.useState(getSellers());
+            const [showCotizador, setShowCotizador] = React.useState(null);
+            const [compraMoto, setCompraMoto] = React.useState(null);
+            const [refreshFlag, setRefreshFlag] = React.useState(0);
+            const [view3DMoto, setView3DMoto] = React.useState(null);
+            
+            const syncData = () => {
+                setMotos(getMotos());
+                setVentas(getSales());
+            };
+            
+            React.useEffect(() => { syncData(); }, [refreshFlag]);
+            
+            const actualizarVentas = (nuevasVentas) => {
+                saveSales(nuevasVentas);
+                setVentas(nuevasVentas);
+            };
+            
+            // Agregar nueva venta (compra)
+            const crearVenta = (dataVenta) => {
+                const newSale = {
+                    id: Date.now().toString(),
+                    ...dataVenta,
+                    estado: 'Pendiente Crédito',
+                    fechaSolicitud: new Date().toISOString(),
+                    firmaCliente: null,
+                    fechaEntregaProgramada: null,
+                    sellerId: vendedores[0]?.id,
+                };
+                const updated = [...ventas, newSale];
+                actualizarVentas(updated);
+                alert('✅ Solicitud de compra creada. Un asesor se pondrá en contacto.');
+                setCompraMoto(null);
+            };
+            
+            // actualizar venta (admin)
+            const updateVenta = (ventaId, updates) => {
+                const nuevas = ventas.map(v => v.id === ventaId ? { ...v, ...updates } : v);
+                actualizarVentas(nuevas);
+                syncData();
+            };
+            
+            // subir nueva moto con multiples fotos y IA 3D mock
+            const agregarMoto = (motoData, files) => {
+                const imagesPromises = files.map(f => {
+                    return new Promise((resolve) => {
+                        const reader = new FileReader();
+                        reader.onloadend = () => resolve(reader.result);
+                        reader.readAsDataURL(f);
+                    });
+                });
+                Promise.all(imagesPromises).then(imgsData => {
+                    const newMoto = {
+                        id: Date.now().toString(),
+                        ...motoData,
+                        images: imgsData.length ? imgsData : ['https://placehold.co/600x400/222/white?text=Nueva+Moto'],
+                    };
+                    const updated = [...motos, newMoto];
+                    saveMotos(updated);
+                    setMotos(updated);
+                    setRefreshFlag(prev => prev+1);
+                    alert('✅ Moto agregada exitosamente. Ya visible en catálogo.');
+                });
+            };
+            
+            // Financiamiento popup
+            const CotizarModal = ({ moto, onClose }) => {
+                const [cuotas, setCuotas] = React.useState(12);
+                const cuotaMensual = calcularCuotaCrediCalidda(moto.price, cuotas);
+                return (
+                    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" onClick={onClose}>
+                        <div className="bg-white rounded-2xl max-w-md w-full p-6 space-y-4" onClick={e=>e.stopPropagation()}>
+                            <h3 className="text-2xl font-bold">💸 CrediCálidda</h3>
+                            <p className="text-gray-600">Moto: <strong>{moto.name}</strong> — Precio S/ {moto.price.toFixed(2)}</p>
+                            <div>
+                                <label className="block mb-1">Número de cuotas (hasta 60)</label>
+                                <input type="range" min="6" max="60" step="6" value={cuotas} onChange={e=>setCuotas(parseInt(e.target.value))} className="w-full"/>
+                                <span className="font-semibold">{cuotas} cuotas</span>
+                            </div>
+                            <div className="bg-blue-50 p-4 rounded-xl">
+                                <p className="text-sm">Cuota mensual aproximada:</p>
+                                <p className="text-3xl font-bold text-blue-700">S/ {cuotaMensual.toFixed(2)}</p>
+                                <p className="text-xs">*Sin inicial, Tasa referencial 22% TEA. Aprobación sujeta a evaluación.</p>
+                            </div>
+                            <button onClick={onClose} className="w-full bg-gray-200 py-2 rounded-xl">Cerrar</button>
+                        </div>
+                    </div>
+                );
+            };
+            
+            // Formulario compra rápida
+            const CompraForm = ({ moto, onCancel, onSubmit }) => {
+                const [cliente, setCliente] = React.useState({ nombre: '', telefono: '', email: '' });
+                const [cuotasSeleccionadas, setCuotasSel] = React.useState(24);
+                const montoCuota = calcularCuotaCrediCalidda(moto.price, cuotasSeleccionadas);
+                const handleSubmit = (e) => {
+                    e.preventDefault();
+                    if(!cliente.nombre || !cliente.telefono) return alert('Completa datos del cliente');
+                    onSubmit({
+                        motorcycleId: moto.id,
+                        customerName: cliente.nombre,
+                        customerPhone: cliente.telefono,
+                        customerEmail: cliente.email,
+                        totalPrecio: moto.price,
+                        cuotasSeleccionadas,
+                        montoMensual: montoCuota,
+                        estado: 'Pendiente Crédito'
+                    });
+                };
+                return (
+                    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" onClick={onCancel}>
+                        <div className="bg-white rounded-2xl max-w-lg w-full p-6 space-y-4 max-h-[90vh] overflow-auto" onClick={e=>e.stopPropagation()}>
+                            <h2 className="text-2xl font-bold">🛵 Comprar {moto.name}</h2>
+                            <form onSubmit={handleSubmit} className="space-y-4">
+                                <input required placeholder="Nombre completo" className="w-full border p-3 rounded-xl" value={cliente.nombre} onChange={e=>setCliente({...cliente, nombre:e.target.value})}/>
+                                <input required placeholder="Teléfono" className="w-full border p-3 rounded-xl" value={cliente.telefono} onChange={e=>setCliente({...cliente, telefono:e.target.value})}/>
+                                <input placeholder="Email" className="w-full border p-3 rounded-xl" value={cliente.email} onChange={e=>setCliente({...cliente, email:e.target.value})}/>
+                                <div>
+                                    <label>Financiar en cuotas (CrediCalidda)</label>
+                                    <select className="w-full border p-3 rounded-xl" value={cuotasSeleccionadas} onChange={e=>setCuotasSel(parseInt(e.target.value))}>
+                                        {[12,18,24,30,36,48,60].map(q=> <option key={q}>{q} cuotas</option>)}
+                                    </select>
+                                    <p className="text-green-700 mt-1">Cuota mensual: S/ {montoCuota.toFixed(2)}</p>
+                                </div>
+                                <div className="flex gap-3 pt-2">
+                                    <button type="button" onClick={onCancel} className="flex-1 bg-gray-300 py-2 rounded-xl">Cancelar</button>
+                                    <button type="submit" className="flex-1 bg-red-600 text-white py-2 rounded-xl">Solicitar Crédito y Comprar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                );
+            };
+            
+            // Panel administrativo: Ventas + Gestión de Motos + Firmas
+            const AdminPanel = () => {
+                const [subView, setSubView] = React.useState('ventas');
+                const [newMotoForm, setNewMotoForm] = React.useState({ name:'', category:'', price:0, engine:'', transmission:'', fuelCap:'', specs:'' });
+                const [selectedFiles, setSelectedFiles] = React.useState([]);
+                const [signatureTarget, setSignatureTarget] = React.useState(null);
+                
+                const handleAddMoto = () => {
+                    if (!newMotoForm.name || !newMotoForm.price) return alert('Nombre y precio requeridos');
+                    agregarMoto({ ...newMotoForm, price: parseFloat(newMotoForm.price) }, selectedFiles);
+                    setNewMotoForm({ name:'', category:'', price:0, engine:'', transmission:'', fuelCap:'', specs:'' });
+                    setSelectedFiles([]);
+                };
+                
+                const handleFirmaVenta = (ventaId, firmaDataURL) => {
+                    updateVenta(ventaId, { firmaCliente: firmaDataURL, estado: 'Firmado por Cliente' });
+                    setSignatureTarget(null);
+                };
+                
+                const programarEntrega = (ventaId, fecha) => {
+                    updateVenta(ventaId, { fechaEntregaProgramada: fecha, estado: 'Entrega Programada' });
+                };
+                
+                return (
+                    <div className="bg-white rounded-2xl shadow-xl p-5 md:p-6 mt-6">
+                        <div className="flex flex-wrap gap-3 border-b pb-3 mb-5">
+                            <button onClick={()=>setSubView('ventas')} className={`px-4 py-2 rounded-full ${subView==='ventas'?'bg-blue-600 text-white':'bg-gray-100'}`}>📋 Ventas & Seguimiento</button>
+                            <button onClick={()=>setSubView('motos')} className={`px-4 py-2 rounded-full ${subView==='motos'?'bg-blue-600 text-white':'bg-gray-100'}`}>🏍️ Gestión de Motos + IA 3D</button>
+                            <button onClick={()=>setSubView('vendedores')} className={`px-4 py-2 rounded-full ${subView==='vendedores'?'bg-blue-600 text-white':'bg-gray-100'}`}>👥 Vendedores</button>
+                        </div>
+                        
+                        {subView === 'ventas' && (
+                            <div className="space-y-6">
+                                <h3 className="text-xl font-bold">Flujo de ventas (Cotizaciones activas)</h3>
+                                {ventas.length===0 && <p className="text-gray-400">No hay ventas aún. Los clientes comprarán desde el catálogo.</p>}
+                                {ventas.map(venta => {
+                                    const motoAssigned = motos.find(m=>m.id === venta.motorcycleId);
+                                    const vendedor = vendedores.find(v=>v.id === venta.sellerId);
+                                    return (
+                                        <div key={venta.id} className="border rounded-xl p-4 shadow-sm bg-gray-50">
+                                            <div className="flex flex-wrap justify-between items-start">
+                                                <div><span className="font-bold">{motoAssigned?.name || 'Moto'}</span> - Cliente: {venta.customerName} <br/>📞 {venta.customerPhone}</div>
+                                                <span className={`px-3 py-1 rounded-full text-xs font-bold ${venta.estado==='Pendiente Crédito'?'bg-yellow-200':'bg-green-200'}`}>{venta.estado}</span>
+                                            </div>
+                                            <p>Monto S/ {venta.totalPrecio} | Cuotas: {venta.cuotasSeleccionadas} | Cuota S/ {venta.montoMensual?.toFixed(2)}</p>
+                                            <p className="text-sm">Vendedor asignado: 
+                                                <select value={venta.sellerId} onChange={e=>updateVenta(venta.id,{sellerId:e.target.value})} className="ml-2 border rounded p-1 text-sm">
+                                                    {vendedores.map(v=> <option key={v.id} value={v.id}>{v.name}</option>)}
+                                                </select>
+                                            </p>
+                                            {!venta.firmaCliente && venta.estado !== 'Firmado por Cliente' && (
+                                                <button onClick={()=>setSignatureTarget(venta.id)} className="mt-2 bg-indigo-600 text-white px-3 py-1 rounded text-sm">✍️ Tomar firma cliente</button>
+                                            )}
+                                            {venta.firmaCliente && <p className="text-green-600 text-sm">✔️ Firma registrada</p>}
+                                            <div className="mt-2 flex flex-wrap gap-2">
+                                                <input type="date" onChange={e=>programarEntrega(venta.id, e.target.value)} className="border p-1 rounded text-sm"/>
+                                                <button onClick={()=>updateVenta(venta.id,{estado:'Aprobado Crédito'})} className="bg-blue-500 text-white px-2 py-1 rounded text-xs">Aprobar crédito</button>
+                                                <button onClick={()=>updateVenta(venta.id,{estado:'Entregado'})} className="bg-green-600 text-white px-2 py-1 rounded text-xs">Cerrar entrega</button>
+                                            </div>
+                                            {venta.fechaEntregaProgramada && <p className="text-xs mt-1">📅 Entrega programada: {new Date(venta.fechaEntregaProgramada).toLocaleDateString()}</p>}
+                                        </div>
+                                    );
+                                })}
+                                {signatureTarget && (
+                                    <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
+                                        <div className="bg-white rounded-2xl p-5 max-w-md w-full">
+                                            <h4 className="font-bold mb-2">Firma digital del cliente</h4>
+                                            <SignaturePad onSave={(sig)=>handleFirmaVenta(signatureTarget, sig)} />
+                                            <button onClick={()=>setSignatureTarget(null)} className="mt-3 w-full bg-gray-300 py-2 rounded">Cerrar</button>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        )}
+                        
+                        {subView === 'motos' && (
+                            <div className="space-y-6">
+                                <div className="bg-gray-50 p-4 rounded-2xl">
+                                    <h4 className="font-bold text-lg">➕ Subir nuevo modelo</h4>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-3">
+                                        <input placeholder="Nombre Moto" className="border p-2 rounded" value={newMotoForm.name} onChange={e=>setNewMotoForm({...newMotoForm, name:e.target.value})}/>
+                                        <input placeholder="Categoría" className="border p-2 rounded" value={newMotoForm.category} onChange={e=>setNewMotoForm({...newMotoForm, category:e.target.value})}/>
+                                        <input type="number" placeholder="Precio S/." className="border p-2 rounded" value={newMotoForm.price} onChange={e=>setNewMotoForm({...newMotoForm, price:e.target.value})}/>
+                                        <input placeholder="Motor / Especificaciones" className="border p-2 rounded" value={newMotoForm.engine} onChange={e=>setNewMotoForm({...newMotoForm, engine:e.target.value})}/>
+                                        <input placeholder="Transmisión" className="border p-2 rounded" value={newMotoForm.transmission} onChange={e=>setNewMotoForm({...newMotoForm, transmission:e.target.value})}/>
+                                        <input placeholder="Combustible" className="border p-2 rounded" value={newMotoForm.fuelCap} onChange={e=>setNewMotoForm({...newMotoForm, fuelCap:e.target.value})}/>
+                                    </div>
+                                    <div className="mt-3">
+                                        <label className="block text-sm">Subir fotos (múltiples)</label>
+                                        <input type="file" multiple accept="image/*" onChange={e=>setSelectedFiles(Array.from(e.target.files))} className="border p-1 w-full"/>
+                                    </div>
+                                    <button onClick={handleAddMoto} className="mt-4 bg-black text-white py-2 px-5 rounded-xl">Publicar Moto (Catálogo realtime)</button>
+                                </div>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5">
+                                    {motos.map(m=>(
+                                        <div key={m.id} className="border rounded-xl p-3 flex items-center gap-3">
+                                            <img src={m.images[0]} className="w-20 h-20 object-cover rounded-lg"/>
+                                            <div><p className="font-bold">{m.name}</p><p className="text-sm">S/ {m.price}</p>
+                                            <button onClick={()=>setView3DMoto(m)} className="text-xs bg-purple-600 text-white px-2 py-1 rounded mt-1">🤖 Generar 3D con IA</button>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+                        
+                        {subView === 'vendedores' && (
+                            <div><h3 className="text-xl">👥 Equipo Comercial</h3>{vendedores.map(v=> <div key={v.id} className="p-3 border-b">{v.name} - 📞 {v.phone} - ✉️ {v.email}</div>)}</div>
+                        )}
+                    </div>
+                );
+            };
+            
+            return (
+                <div className="max-w-7xl mx-auto px-4 py-6 pb-24">
+                    <header className="flex flex-wrap justify-between items-center mb-8 gap-3">
+                        <div className="flex items-center gap-2"><i className="fas fa-motorcycle text-3xl text-red-600"></i><span className="font-black text-2xl">SONLINK<span className="text-red-600"> Motors</span></span></div>
+                        <div className="flex gap-2">
+                            <button onClick={()=>setActiveTab('catalogo')} className={`px-5 py-2 rounded-full ${activeTab==='catalogo' ? 'bg-red-600 text-white' : 'bg-gray-200'}`}><i className="fas fa-list"></i> Catálogo</button>
+                            <button onClick={()=>setActiveTab('admin')} className={`px-5 py-2 rounded-full ${activeTab==='admin' ? 'bg-red-600 text-white' : 'bg-gray-200'}`}><i className="fas fa-user-cog"></i> Admin/Ventas</button>
+                        </div>
+                    </header>
+                    
+                    {activeTab === 'catalogo' && (
+                        <>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                                {motos.map(moto => (
+                                    <div key={moto.id} className="bg-white rounded-2xl shadow-md overflow-hidden transition hover:shadow-xl">
+                                        <img src={moto.images[0]} className="h-48 w-full object-cover" alt={moto.name} />
+                                        <div className="p-4">
+                                            <h3 className="text-xl font-bold">{moto.name}</h3>
+                                            <p className="text-red-600 font-bold text-2xl">S/ {moto.price.toFixed(2)}</p>
+                                            <p className="text-sm text-gray-500 mt-1">{moto.engine} · {moto.transmission}</p>
+                                            <div className="flex flex-wrap gap-2 mt-4">
+                                                <button onClick={()=>setShowCotizador(moto)} className="flex-1 bg-blue-100 text-blue-800 py-2 rounded-xl text-sm"><i className="fas fa-calculator"></i> Cotizar crédito</button>
+                                                <button onClick={()=>setCompraMoto(moto)} className="flex-1 bg-red-600 text-white py-2 rounded-xl text-sm"><i className="fas fa-shopping-cart"></i> Lo quiero / Comprar</button>
+                                                <button onClick={()=>setView3DMoto(moto)} className="bg-gray-800 text-white px-2 py-1 rounded text-xs"><i className="fas fa-cube"></i> 3D IA</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                            {showCotizador && <CotizarModal moto={showCotizador} onClose={()=>setShowCotizador(null)}/>}
+                            {compraMoto && <CompraForm moto={compraMoto} onCancel={()=>setCompraMoto(null)} onSubmit={crearVenta}/>}
+                        </>
+                    )}
+                    
+                    {activeTab === 'admin' && <AdminPanel />}
+                    
+                    {view3DMoto && <ThreeDViewer images={view3DMoto.images} motoName={view3DMoto.name} onClose={()=>setView3DMoto(null)}/>}
+                    
+                    <footer className="mt-12 text-center text-gray-500 text-sm border-t pt-6">🏍️ Crédito CrediCalidda · sin inicial · hasta 60 cuotas · Gestión de ventas integrada · Modelos 3D con IA</footer>
+                </div>
+            );
+        };
+        
+        ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+    </script>
+</body>
+</html>

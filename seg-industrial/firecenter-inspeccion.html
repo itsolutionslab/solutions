@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fire Center - Módulo de Inspección</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #9b59b6;
+            --success-color: #27ae60;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --border-radius: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+
+        /* Layout */
+        .app-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px;
+            position: fixed;
+            height: 100vh;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            flex: 1;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+
+        /* Login */
+        .login-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: white;
+        }
+
+        .login-form {
+            width: 90%;
+            max-width: 400px;
+            padding: 30px;
+            background-color: white;
+            box-shadow: var(--shadow);
+            border-radius: var(--border-radius);
+            text-align: center;
+        }
+
+        .login-form h2 {
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .login-form input, .login-form button {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+        }
+
+        .login-form button {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* Dashboard */
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        /* Inspección */
+        .inspeccion-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+
+        .inspeccion-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .inspeccion-form input,
+        .inspeccion-form select,
+        .inspeccion-form textarea,
+        .inspeccion-form button {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+        }
+
+        .inspeccion-form button {
+            background-color: var(--secondary-color);
+            color: white;
+            cursor: pointer;
+            grid-column: 1 / -1;
+        }
+
+        /* Firma */
+        .firma-container {
+            margin: 20px 0;
+            border: 1px dashed #ccc;
+            padding: 20px;
+            text-align: center;
+            background-color: #f9f9f9;
+            border-radius: var(--border-radius);
+        }
+
+        .firma-canvas {
+            width: 100%;
+            height: 200px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            cursor: crosshair;
+        }
+
+        /* Fotos */
+        .fotos-container {
+            margin: 20px 0;
+        }
+
+        .fotos-preview {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .foto-item {
+            position: relative;
+            width: 120px;
+            height: 120px;
+        }
+
+        .foto-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: var(--border-radius);
+        }
+
+        .foto-item button {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            cursor: pointer;
+        }
+
+        /* Certificado */
+        .certificado-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-top: 20px;
+        }
+
+        .certificado-preview {
+            border: 2px solid var(--primary-color);
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .app-container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login -->
+    <div class="login-container" id="loginPage">
+        <div class="login-form">
+            <h2>Iniciar Sesión</h2>
+            <input type="email" placeholder="Correo electrónico" id="email" required>
+            <input type="password" placeholder="Contraseña" id="password" required>
+            <button onclick="login()">Iniciar sesión</button>
+        </div>
+    </div>
+
+    <!-- App Principal -->
+    <div class="app-container" id="appPage" style="display: none;">
+        <aside class="sidebar">
+            <h2>Fire Center</h2>
+            <nav>
+                <ul>
+                    <li><a href="#" onclick="showSection('nueva-inspeccion')">Nueva Inspección</a></li>
+                    <li><a href="#" onclick="showSection('historial')">Historial</a></li>
+                </ul>
+            </nav>
+        </aside>
+        <main class="main-content" id="mainContent">
+            <!-- Nueva Inspección -->
+            <div id="nueva-inspeccion" class="section">
+                <div class="inspeccion-container">
+                    <h2>Registro de Inspección/Fumigación</h2>
+                    <form class="inspeccion-form" onsubmit="registrarInspeccion(event)">
+                        <input type="text" placeholder="Nombre del Cliente" id="nombreCliente" required>
+                        <input type="text" placeholder="Dirección" id="direccion" required>
+                        <select id="tipoServicio" required>
+                            <option value="">Tipo de Servicio</option>
+                            <option value="fumigacion">Fumigación</option>
+                            <option value="inspeccion">Inspección de Seguridad</option>
+                        </select>
+                        <textarea placeholder="Observaciones" id="observaciones" rows="3"></textarea>
+                        <div class="fotos-container">
+                            <label>Fotos del Área:</label>
+                            <input type="file" id="fotos" accept="image/*" multiple onchange="previsualizarFotos()">
+                            <div class="fotos-preview" id="fotosPreview"></div>
+                        </div>
+                        <div class="firma-container">
+                            <label>Firma del Cliente:</label>
+                            <canvas class="firma-canvas" id="firmaCanvas"></canvas>
+                            <button type="button" onclick="limpiarFirma()">Limpiar Firma</button>
+                        </div>
+                        <button type="submit">Generar Certificado</button>
+                    </form>
+                    <div class="certificado-container" id="certificadoContainer" style="display: none;">
+                        <h3>Certificado Generado</h3>
+                        <div class="certificado-preview" id="certificadoPreview">
+                            <h4>Certificado de Inspección/Fumigación</h4>
+                            <p id="certificadoCliente">Nombre del Cliente: </p>
+                            <p id="certificadoDireccion">Dirección: </p>
+                            <p id="certificadoServicio">Servicio: </p>
+                            <p id="certificadoFecha">Fecha: </p>
+                        </div>
+                        <button onclick="enviarCertificado()">Enviar Certificado por Correo</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Historial -->
+            <div id="historial" class="section" style="display: none;">
+                <div class="inspeccion-container">
+                    <h2>Historial de Inspecciones</h2>
+                    <table class="extintores-table">
+                        <thead>
+                            <tr>
+                                <th>Cliente</th>
+                                <th>Servicio</th>
+                                <th>Fecha</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historialTableBody">
+                            <tr>
+                                <td>Condominio Los Álamos</td>
+                                <td>Fumigación</td>
+                                <td>10/04/2026</td>
+                                <td><button onclick="verDetalleInspeccion('1')">Ver Detalle</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Autenticación
+        function login() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            if (email && password) {
+                document.getElementById('loginPage').style.display = 'none';
+                document.getElementById('appPage').style.display = 'flex';
+                showSection('nueva-inspeccion');
+                initFirmaCanvas();
+            } else {
+                alert('Por favor, complete los campos.');
+            }
+        }
+
+        function logout() {
+            document.getElementById('appPage').style.display = 'none';
+            document.getElementById('loginPage').style.display = 'flex';
+        }
+
+        // Navegación
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(section => {
+                section.style.display = 'none';
+            });
+            document.getElementById(sectionId).style.display = 'block';
+        }
+
+        // Lógica de Firma
+        let isDrawing = false;
+        let canvas, ctx;
+
+        function initFirmaCanvas() {
+            canvas = document.getElementById('firmaCanvas');
+            ctx = canvas.getContext('2d');
+            ctx.strokeStyle = '#000';
+            ctx.lineWidth = 2;
+
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', stopDrawing);
+            canvas.addEventListener('mouseout', stopDrawing);
+
+            canvas.addEventListener('touchstart', handleTouchStart);
+            canvas.addEventListener('touchmove', handleTouchMove);
+            canvas.addEventListener('touchend', stopDrawing);
+        }
+
+        function startDrawing(e) {
+            isDrawing = true;
+            draw(e);
+        }
+
+        function draw(e) {
+            if (!isDrawing) return;
+
+            const rect = canvas.getBoundingClientRect();
+            const x = (e.clientX || e.touches[0].clientX) - rect.left;
+            const y = (e.clientY || e.touches[0].clientY) - rect.top;
+
+            ctx.lineTo(x, y);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+        }
+
+        function stopDrawing() {
+            isDrawing = false;
+            ctx.beginPath();
+        }
+
+        function handleTouchStart(e) {
+            e.preventDefault();
+            startDrawing(e);
+        }
+
+        function handleTouchMove(e) {
+            e.preventDefault();
+            draw(e);
+        }
+
+        function limpiarFirma() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        // Previsualizar Fotos
+        function previsualizarFotos() {
+            const files = document.getElementById('fotos').files;
+            const preview = document.getElementById('fotosPreview');
+            preview.innerHTML = '';
+
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.alt = `Foto ${i + 1}`;
+
+                    const fotoItem = document.createElement('div');
+                    fotoItem.className = 'foto-item';
+                    fotoItem.appendChild(img);
+
+                    const removeBtn = document.createElement('button');
+                    removeBtn.textContent = 'X';
+                    removeBtn.onclick = function() {
+                        fotoItem.remove();
+                    };
+
+                    fotoItem.appendChild(removeBtn);
+                    preview.appendChild(fotoItem);
+                };
+
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Registrar Inspección
+        function registrarInspeccion(event) {
+            event.preventDefault();
+
+            const nombreCliente = document.getElementById('nombreCliente').value;
+            const direccion = document.getElementById('direccion').value;
+            const tipoServicio = document.getElementById('tipoServicio').value;
+            const observaciones = document.getElementById('observaciones').value;
+
+            if (!nombreCliente || !direccion || !tipoServicio) {
+                alert('Por favor, complete los campos obligatorios.');
+                return;
+            }
+
+            // Mostrar certificado
+            document.getElementById('certificadoCliente').textContent = `Nombre del Cliente: ${nombreCliente}`;
+            document.getElementById('certificadoDireccion').textContent = `Dirección: ${direccion}`;
+            document.getElementById('certificadoServicio').textContent = `Servicio: ${tipoServicio === 'fumigacion' ? 'Fumigación' : 'Inspección de Seguridad'}`;
+            document.getElementById('certificadoFecha').textContent = `Fecha: ${new Date().toLocaleDateString()}`;
+
+            document.getElementById('certificadoContainer').style.display = 'block';
+        }
+
+        // Enviar Certificado
+        function enviarCertificado() {
+            alert('Certificado enviado por correo al cliente. (Simulación)');
+        }
+
+        // Ver Detalle de Inspección
+        function verDetalleInspeccion(id) {
+            alert(`Mostrando detalle de la inspección ${id}. (Simulación)`);
+        }
+    </script>
+</body>
+</html>

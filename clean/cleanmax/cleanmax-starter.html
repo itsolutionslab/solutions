@@ -1,0 +1,2842 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clean Max J.J.K. — Limpieza & Desinfección Industrial · Chile</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #0066CC;
+            --dark-blue: #003D7A;
+            --primary-orange: #FF9900;
+            --dark-orange: #FF6600;
+            --accent-green: #00A651;
+            --lime-green: #8DC63F;
+            --product-blue: #0047AB;
+            --light-blue: #7DD3E8;
+            --product-pink: #E91E8C;
+            --product-red: #C8102E;
+            --product-green: #006747;
+            --background-yellow: #FFD700;
+            --gradient-orange: #FF8C00;
+            --deep-blue: #002B5C;
+            --soft-green: #A8D5A3;
+            --white: #FFFFFF;
+            --light-gray: #F5F5F5;
+            --medium-gray: #CCCCCC;
+            --dark-gray: #333333;
+            --black: #000000;
+
+            --hero-gradient: linear-gradient(135deg, #0066CC 0%, #00A651 100%);
+            --cta-gradient: linear-gradient(135deg, #FF9900 0%, #FF6600 100%);
+            --section-gradient: linear-gradient(180deg, #0047AB 0%, #002B5C 100%);
+            --product-gradient: linear-gradient(135deg, #7DD3E8 0%, #0066CC 100%);
+
+            --radius-sm: 10px;
+            --radius: 20px;
+            --radius-lg: 30px;
+            --shadow: 0 8px 40px rgba(0, 102, 204, 0.15);
+            --shadow-orange: 0 8px 40px rgba(255, 153, 0, 0.3);
+            --transition: 0.35s cubic-bezier(.4, 0, .2, 1);
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--white);
+            color: var(--dark-gray);
+            overflow-x: hidden
+        }
+
+        ::-webkit-scrollbar {
+            width: 5px
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f0f4ff
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-blue);
+            border-radius: 3px
+        }
+
+        /* ========== NAVBAR ========== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 0 1.5rem;
+            background: rgba(0, 43, 92, 0.97);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 166, 81, 0.25);
+            transition: var(--transition);
+        }
+
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 68px
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none
+        }
+
+        .logo-mark {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: var(--cta-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 1.1rem;
+            color: white;
+            box-shadow: 0 4px 16px rgba(255, 153, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-mark::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, transparent 60%);
+        }
+
+        .logo-text-wrap {
+            display: flex;
+            flex-direction: column
+        }
+
+        .logo-clean {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 1.25rem;
+            color: var(--white);
+            letter-spacing: 1px;
+            line-height: 1
+        }
+
+        .logo-max {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 1.25rem;
+            color: var(--primary-orange);
+            letter-spacing: 1px;
+            line-height: 1
+        }
+
+        .logo-sub {
+            font-size: 0.58rem;
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-top: 2px
+        }
+
+        .nav-links {
+            display: none;
+            flex-direction: column;
+            position: absolute;
+            top: 68px;
+            left: 0;
+            right: 0;
+            background: rgba(0, 28, 70, 0.99);
+            padding: 1rem 0;
+            border-top: 1px solid rgba(0, 166, 81, 0.2)
+        }
+
+        .nav-links.open {
+            display: flex
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.88rem;
+            letter-spacing: 1.5px;
+            padding: 0.8rem 2rem;
+            transition: var(--transition);
+            text-transform: uppercase
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-orange);
+            background: rgba(255, 153, 0, 0.06);
+            padding-left: 2.5rem
+        }
+
+        .hamburger {
+            background: none;
+            border: 2px solid rgba(255, 255, 255, 0.25);
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            padding: 8px;
+            transition: var(--transition)
+        }
+
+        .hamburger span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--white);
+            border-radius: 2px;
+            transition: var(--transition)
+        }
+
+        .hamburger.open {
+            border-color: var(--primary-orange)
+        }
+
+        .hamburger.open span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px)
+        }
+
+        .hamburger.open span:nth-child(2) {
+            opacity: 0;
+            transform: translateX(-8px)
+        }
+
+        .hamburger.open span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px)
+        }
+
+        /* ========== HERO ========== */
+        #home {
+            min-height: 100vh;
+            background: linear-gradient(160deg, var(--deep-blue) 0%, #003D7A 45%, #004d99 100%);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 1.5rem 80px;
+        }
+
+        /* Animated wave background */
+        .hero-bg-waves {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden
+        }
+
+        .wave-svg {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            opacity: 0.12
+        }
+
+        .wave-svg2 {
+            position: absolute;
+            bottom: -20px;
+            left: 0;
+            width: 100%;
+            opacity: 0.08;
+            animation: waveDrift 8s ease-in-out infinite alternate
+        }
+
+        @keyframes waveDrift {
+            0% {
+                transform: translateX(-30px)
+            }
+
+            100% {
+                transform: translateX(30px)
+            }
+        }
+
+        /* Soap bubbles */
+        .bubbles-container {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden
+        }
+
+        .bubble-el {
+            position: absolute;
+            border-radius: 50%;
+            border: 1.5px solid rgba(125, 211, 232, 0.35);
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.18), rgba(125, 211, 232, 0.05) 60%, transparent);
+            animation: bubbleRise linear infinite;
+            box-shadow: inset 0 0 12px rgba(255, 255, 255, 0.1), 0 0 8px rgba(0, 166, 81, 0.15);
+        }
+
+        @keyframes bubbleRise {
+            0% {
+                transform: translateY(110vh) scale(0.7) rotate(0deg);
+                opacity: 0
+            }
+
+            5% {
+                opacity: 1
+            }
+
+            95% {
+                opacity: 0.7
+            }
+
+            100% {
+                transform: translateY(-15vh) scale(1.1) rotate(10deg);
+                opacity: 0
+            }
+        }
+
+        .bubble-el:nth-child(1) {
+            width: 55px;
+            height: 55px;
+            left: 8%;
+            animation-duration: 10s;
+            animation-delay: 0s
+        }
+
+        .bubble-el:nth-child(2) {
+            width: 35px;
+            height: 35px;
+            left: 18%;
+            animation-duration: 13s;
+            animation-delay: 2.5s
+        }
+
+        .bubble-el:nth-child(3) {
+            width: 80px;
+            height: 80px;
+            left: 33%;
+            animation-duration: 9s;
+            animation-delay: 1s
+        }
+
+        .bubble-el:nth-child(4) {
+            width: 25px;
+            height: 25px;
+            left: 48%;
+            animation-duration: 15s;
+            animation-delay: 3.5s
+        }
+
+        .bubble-el:nth-child(5) {
+            width: 60px;
+            height: 60px;
+            left: 62%;
+            animation-duration: 11s;
+            animation-delay: 0.8s
+        }
+
+        .bubble-el:nth-child(6) {
+            width: 42px;
+            height: 42px;
+            left: 75%;
+            animation-duration: 12s;
+            animation-delay: 4s
+        }
+
+        .bubble-el:nth-child(7) {
+            width: 20px;
+            height: 20px;
+            left: 87%;
+            animation-duration: 14s;
+            animation-delay: 1.5s
+        }
+
+        .bubble-el:nth-child(8) {
+            width: 70px;
+            height: 70px;
+            left: 55%;
+            animation-duration: 8.5s;
+            animation-delay: 6s
+        }
+
+        .bubble-el:nth-child(9) {
+            width: 30px;
+            height: 30px;
+            left: 25%;
+            animation-duration: 16s;
+            animation-delay: 7s
+        }
+
+        /* Floating particles (foam dots) */
+        .foam-particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(141, 198, 63, 0.4);
+            animation: foamFloat linear infinite;
+            filter: blur(1px);
+        }
+
+        @keyframes foamFloat {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0.6
+            }
+
+            33% {
+                transform: translateY(-30px) translateX(15px);
+                opacity: 1
+            }
+
+            66% {
+                transform: translateY(-15px) translateX(-10px);
+                opacity: 0.8
+            }
+
+            100% {
+                transform: translateY(-60px) translateX(5px);
+                opacity: 0
+            }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 700px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .hero-badge {
+            background: rgba(0, 166, 81, 0.15);
+            border: 1px solid rgba(0, 166, 81, 0.4);
+            color: var(--lime-green);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            padding: 6px 20px;
+            border-radius: 50px;
+            animation: fadeSlideDown 0.6s ease both;
+            backdrop-filter: blur(4px);
+        }
+
+        .hero-headline {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: clamp(3rem, 11vw, 6.5rem);
+            line-height: 0.95;
+            letter-spacing: -1px;
+            animation: fadeSlideDown 0.7s 0.1s ease both;
+        }
+
+        .headline-clean {
+            display: block;
+            background: linear-gradient(90deg, var(--white) 0%, var(--light-blue) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .headline-max {
+            display: block;
+            background: linear-gradient(90deg, var(--primary-orange) 0%, var(--background-yellow) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+        }
+
+        .headline-jjk {
+            display: block;
+            font-size: 0.38em;
+            color: rgba(255, 255, 255, 0.45);
+            letter-spacing: 8px;
+            -webkit-text-fill-color: rgba(255, 255, 255, 0.45);
+            margin-top: 0.2em;
+        }
+
+        .hero-tagline {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: clamp(0.85rem, 3vw, 1.1rem);
+            color: var(--accent-green);
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            animation: fadeSlideDown 0.7s 0.2s ease both;
+        }
+
+        .hero-desc {
+            color: rgba(255, 255, 255, 0.72);
+            font-size: 1rem;
+            line-height: 1.75;
+            max-width: 480px;
+            animation: fadeSlideDown 0.7s 0.3s ease both;
+            font-weight: 400;
+        }
+
+        .hero-btns {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            animation: fadeSlideDown 0.7s 0.4s ease both;
+        }
+
+        .btn-primary {
+            background: var(--cta-gradient);
+            color: var(--white);
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 0.9rem;
+            padding: 15px 34px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: var(--transition);
+            box-shadow: var(--shadow-orange);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), transparent);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 40px rgba(255, 153, 0, 0.5)
+        }
+
+        .btn-primary:hover::before {
+            opacity: 1
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            font-weight: 600;
+            padding: 13px 28px;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: var(--transition);
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--light-blue);
+            color: var(--light-blue);
+            transform: translateY(-2px)
+        }
+
+        .btn-green {
+            background: linear-gradient(135deg, var(--product-green), var(--accent-green));
+            color: var(--white);
+            font-weight: 800;
+            font-size: 0.9rem;
+            padding: 15px 34px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: var(--transition);
+            box-shadow: 0 6px 24px rgba(0, 166, 81, 0.35);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .btn-green:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 36px rgba(0, 166, 81, 0.5)
+        }
+
+        .hero-kpis {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            animation: fadeSlideDown 0.7s 0.5s ease both;
+        }
+
+        .kpi-card {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 16px;
+            padding: 1rem 1.5rem;
+            text-align: center;
+            backdrop-filter: blur(8px);
+            min-width: 90px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 166, 81, 0.08) 0%, transparent 60%);
+            animation: kpiPulse 4s ease-in-out infinite;
+        }
+
+        @keyframes kpiPulse {
+
+            0%,
+            100% {
+                opacity: 0
+            }
+
+            50% {
+                opacity: 1
+            }
+        }
+
+        .kpi-num {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 2rem;
+            background: var(--cta-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+        }
+
+        .kpi-label {
+            color: rgba(255, 255, 255, 0.55);
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 4px
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            color: rgba(255, 255, 255, 0.35);
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            animation: scrollBounce 2.5s infinite;
+            z-index: 2;
+        }
+
+        .scroll-arrow {
+            width: 24px;
+            height: 24px;
+            border-right: 2px solid rgba(0, 166, 81, 0.6);
+            border-bottom: 2px solid rgba(0, 166, 81, 0.6);
+            transform: rotate(45deg);
+            margin-top: -8px
+        }
+
+        @keyframes scrollBounce {
+
+            0%,
+            100% {
+                transform: translateX(-50%) translateY(0)
+            }
+
+            50% {
+                transform: translateX(-50%) translateY(10px)
+            }
+        }
+
+        /* ========== SECTIONS SHARED ========== */
+        section {
+            padding: 100px 1.5rem
+        }
+
+        .section-wrap {
+            max-width: 1140px;
+            margin: 0 auto
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3.5rem
+        }
+
+        .section-eyebrow {
+            display: inline-block;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--accent-green);
+            padding: 6px 16px;
+            background: rgba(0, 166, 81, 0.1);
+            border-radius: 50px;
+            border: 1px solid rgba(0, 166, 81, 0.25);
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: clamp(2rem, 6vw, 3.2rem);
+            color: var(--deep-blue);
+            line-height: 1.1;
+            letter-spacing: -0.5px;
+        }
+
+        .section-title span {
+            color: var(--primary-blue)
+        }
+
+        .section-desc {
+            color: #667;
+            font-size: 1rem;
+            line-height: 1.7;
+            max-width: 560px;
+            margin: 1rem auto 0;
+            font-weight: 400
+        }
+
+        .divider-line {
+            width: 56px;
+            height: 4px;
+            background: var(--cta-gradient);
+            border-radius: 2px;
+            margin: 1.2rem auto 0;
+            border-radius: 2px
+        }
+
+        /* ========== WHY US ========== */
+        #features {
+            background: var(--light-gray);
+            padding: 100px 1.5rem
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem
+        }
+
+        .feat-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: 0 4px 24px rgba(0, 71, 171, 0.07);
+            border-top: 4px solid transparent;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            cursor: default;
+        }
+
+        .feat-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 80% 20%, rgba(0, 102, 204, 0.04) 0%, transparent 60%);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .feat-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 48px rgba(0, 102, 204, 0.14)
+        }
+
+        .feat-card:hover::before {
+            opacity: 1
+        }
+
+        .feat-card.blue {
+            border-top-color: var(--primary-blue)
+        }
+
+        .feat-card.orange {
+            border-top-color: var(--primary-orange)
+        }
+
+        .feat-card.green {
+            border-top-color: var(--accent-green)
+        }
+
+        .feat-card.yellow {
+            border-top-color: var(--background-yellow)
+        }
+
+        .feat-icon-wrap {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            font-size: 1.6rem;
+            position: relative;
+        }
+
+        .feat-card.blue .feat-icon-wrap {
+            background: rgba(0, 102, 204, 0.1)
+        }
+
+        .feat-card.orange .feat-icon-wrap {
+            background: rgba(255, 153, 0, 0.12)
+        }
+
+        .feat-card.green .feat-icon-wrap {
+            background: rgba(0, 166, 81, 0.1)
+        }
+
+        .feat-card.yellow .feat-icon-wrap {
+            background: rgba(255, 215, 0, 0.18)
+        }
+
+        .feat-title {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 1rem;
+            color: var(--deep-blue);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px
+        }
+
+        .feat-desc {
+            color: #668;
+            font-size: 0.88rem;
+            line-height: 1.6;
+            font-weight: 400
+        }
+
+        /* ========== PRODUCTS ========== */
+        #productos {
+            background: var(--white);
+            padding: 100px 1.5rem
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem
+        }
+
+        .product-card {
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: 0 6px 32px rgba(0, 43, 92, 0.1);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(0, 102, 204, 0.08);
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 24px 60px rgba(0, 43, 92, 0.2)
+        }
+
+        .product-card-top {
+            padding: 2.5rem 2rem 2rem;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-bg-decoration {
+            position: absolute;
+            right: -20px;
+            top: -20px;
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .product-bg-decoration2 {
+            position: absolute;
+            right: 40px;
+            top: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .product-card-top.c-blue {
+            background: linear-gradient(145deg, var(--product-blue) 0%, var(--deep-blue) 100%)
+        }
+
+        .product-card-top.c-orange {
+            background: linear-gradient(145deg, var(--dark-orange) 0%, #7a2000 100%)
+        }
+
+        .product-card-top.c-green {
+            background: linear-gradient(145deg, var(--product-green) 0%, #003d22 100%)
+        }
+
+        .product-card-top.c-pink {
+            background: linear-gradient(145deg, var(--product-pink) 0%, #7a0050 100%)
+        }
+
+        .product-emoji {
+            font-size: 3.5rem;
+            margin-bottom: 0.8rem;
+            position: relative;
+            z-index: 1;
+            filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3))
+        }
+
+        .product-name {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 1.9rem;
+            color: var(--white);
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .product-sub {
+            color: rgba(255, 255, 255, 0.75);
+            font-size: 0.85rem;
+            font-weight: 500;
+            position: relative;
+            z-index: 1;
+            margin-top: 4px
+        }
+
+        .product-card-body {
+            padding: 1.5rem;
+            background: var(--white);
+            flex: 1
+        }
+
+        .sizes-row {
+            display: flex;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem
+        }
+
+        .size-tag {
+            background: var(--light-gray);
+            color: var(--primary-blue);
+            font-weight: 700;
+            font-size: 0.78rem;
+            padding: 5px 14px;
+            border-radius: 50px;
+            border: 2px solid rgba(0, 102, 204, 0.15);
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .uses-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem
+        }
+
+        .use-tag {
+            background: rgba(0, 166, 81, 0.08);
+            color: var(--product-green);
+            font-size: 0.77rem;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 8px;
+            border: 1px solid rgba(0, 166, 81, 0.2);
+        }
+
+        .product-short-desc {
+            font-size: 0.87rem;
+            color: #667;
+            line-height: 1.55;
+            font-weight: 400;
+            margin-bottom: 0
+        }
+
+        .product-card-footer {
+            padding: 0 1.5rem 1.5rem;
+            background: var(--white)
+        }
+
+        .btn-details {
+            width: 100%;
+            padding: 12px;
+            border-radius: 12px;
+            background: var(--light-gray);
+            border: 2px solid rgba(0, 102, 204, 0.12);
+            color: var(--primary-blue);
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: var(--transition);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .btn-details:hover {
+            background: var(--primary-blue);
+            color: var(--white);
+            border-color: var(--primary-blue)
+        }
+
+        /* ========== MODAL ========== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            background: rgba(0, 28, 70, 0.85);
+            backdrop-filter: blur(10px);
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+            animation: fadeIn 0.2s ease
+        }
+
+        .modal-box {
+            background: var(--white);
+            border-radius: 28px 28px 0 0;
+            width: 100%;
+            max-width: 620px;
+            max-height: 94vh;
+            overflow-y: auto;
+            animation: slideUp 0.38s cubic-bezier(.4, 0, .2, 1);
+            padding-bottom: 2rem;
+        }
+
+        .modal-top {
+            padding: 2rem 1.5rem 1.5rem;
+            border-radius: 28px 28px 0 0;
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+
+        .modal-close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            cursor: pointer;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            font-size: 1rem;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .modal-close-btn:hover {
+            background: rgba(255, 255, 255, 0.35);
+            transform: rotate(90deg)
+        }
+
+        .modal-body {
+            padding: 1.5rem
+        }
+
+        .modal-feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.8rem;
+            margin: 1rem 0 1.5rem
+        }
+
+        .modal-feat {
+            background: var(--light-gray);
+            border-radius: 14px;
+            padding: 1rem
+        }
+
+        .modal-feat h4 {
+            color: var(--primary-blue);
+            font-size: 0.82rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px
+        }
+
+        .modal-feat p {
+            color: #668;
+            font-size: 0.82rem;
+            line-height: 1.45;
+            font-weight: 400
+        }
+
+        .modal-slogan {
+            background: linear-gradient(135deg, rgba(0, 102, 204, 0.06) 0%, rgba(0, 166, 81, 0.06) 100%);
+            border: 1px solid rgba(0, 102, 204, 0.15);
+            border-radius: 16px;
+            padding: 1.2rem;
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+
+        .modal-slogan p {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 1rem;
+            color: var(--dark-blue);
+            letter-spacing: 1.5px
+        }
+
+        .modal-ideal-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem
+        }
+
+        .ideal-chip {
+            background: linear-gradient(135deg, var(--deep-blue), var(--primary-blue));
+            color: var(--white);
+            font-size: 0.82rem;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .modal-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin-top: 1.5rem
+        }
+
+        /* ========== ABOUT ========== */
+        #nosotros {
+            background: var(--section-gradient);
+            padding: 100px 1.5rem;
+            position: relative;
+            overflow: hidden
+        }
+
+        .about-decoration {
+            position: absolute;
+            right: -80px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 166, 81, 0.12) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .about-inner {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+            position: relative;
+            z-index: 1
+        }
+
+        .about-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 166, 81, 0.15);
+            border: 1px solid rgba(0, 166, 81, 0.3);
+            color: var(--lime-green);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            padding: 6px 16px;
+            border-radius: 50px;
+            margin-bottom: 1rem;
+        }
+
+        .about-title {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: clamp(2.2rem, 7vw, 4rem);
+            line-height: 1.05;
+            margin-bottom: 1.2rem;
+        }
+
+        .about-title .t-white {
+            color: var(--white)
+        }
+
+        .about-title .t-orange {
+            color: var(--primary-orange)
+        }
+
+        .about-body p {
+            color: rgba(255, 255, 255, 0.75);
+            line-height: 1.8;
+            font-size: 0.97rem;
+            margin-bottom: 1rem;
+            font-weight: 400
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1.5rem
+        }
+
+        .value-item {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 18px;
+            padding: 1.4rem;
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .value-item::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255, 153, 0, 0.06) 0%, transparent 50%);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .value-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px)
+        }
+
+        .value-item:hover::before {
+            opacity: 1
+        }
+
+        .value-ico {
+            font-size: 2.2rem;
+            margin-bottom: 0.6rem
+        }
+
+        .value-name {
+            color: var(--primary-orange);
+            font-weight: 800;
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px
+        }
+
+        .value-text {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.78rem;
+            margin-top: 4px;
+            line-height: 1.4;
+            font-weight: 400
+        }
+
+        /* ========== CATALOG ========== */
+        #catalogo {
+            background: var(--light-gray);
+            padding: 100px 1.5rem
+        }
+
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem
+        }
+
+        .cat-item {
+            border-radius: var(--radius);
+            overflow: hidden;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 20px rgba(0, 43, 92, 0.08);
+            position: relative;
+            aspect-ratio: 3/4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+        }
+
+        .cat-item:hover {
+            transform: scale(1.04);
+            box-shadow: 0 14px 40px rgba(0, 43, 92, 0.18)
+        }
+
+        .cat-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(0deg, rgba(0, 43, 92, 0.95) 0%, transparent 100%);
+            padding: 1.2rem;
+        }
+
+        .cat-line {
+            font-size: 0.7rem;
+            color: var(--primary-orange);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px
+        }
+
+        .cat-name {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 1.2rem;
+            color: var(--white);
+            letter-spacing: 1.5px
+        }
+
+        .cat-item.ci-blue {
+            background: linear-gradient(145deg, var(--product-blue), var(--deep-blue))
+        }
+
+        .cat-item.ci-orange {
+            background: linear-gradient(145deg, #7a2000, var(--dark-orange))
+        }
+
+        .cat-item.ci-green {
+            background: linear-gradient(145deg, var(--product-green), var(--lime-green))
+        }
+
+        .cat-item.ci-pink {
+            background: linear-gradient(145deg, #7a0050, var(--product-pink))
+        }
+
+        .catalog-download {
+            text-align: center;
+            margin-top: 2.5rem
+        }
+
+        /* ========== GALLERY ========== */
+        #galeria {
+            background: var(--white);
+            padding: 100px 1.5rem
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.7rem
+        }
+
+        .gal-item {
+            aspect-ratio: 1;
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative
+        }
+
+        .gal-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .gal-item:hover .gal-placeholder {
+            transform: scale(1.08) rotate(2deg)
+        }
+
+        .gal-item:nth-child(1) .gal-placeholder {
+            background: linear-gradient(135deg, var(--product-blue), var(--light-blue))
+        }
+
+        .gal-item:nth-child(2) .gal-placeholder {
+            background: linear-gradient(135deg, var(--dark-orange), var(--primary-orange))
+        }
+
+        .gal-item:nth-child(3) .gal-placeholder {
+            background: linear-gradient(135deg, var(--product-green), var(--lime-green))
+        }
+
+        .gal-item:nth-child(4) .gal-placeholder {
+            background: linear-gradient(135deg, var(--product-red), #ff4060)
+        }
+
+        .gal-item:nth-child(5) .gal-placeholder {
+            background: linear-gradient(135deg, var(--product-pink), #ff80c0)
+        }
+
+        .gal-item:nth-child(6) .gal-placeholder {
+            background: linear-gradient(135deg, var(--primary-orange), var(--background-yellow))
+        }
+
+        .gal-item:nth-child(7) .gal-placeholder {
+            background: linear-gradient(135deg, var(--deep-blue), var(--primary-blue))
+        }
+
+        .gal-item:nth-child(8) .gal-placeholder {
+            background: linear-gradient(135deg, var(--product-green), var(--soft-green))
+        }
+
+        .gal-item:nth-child(9) .gal-placeholder {
+            background: linear-gradient(135deg, var(--light-blue), var(--primary-blue))
+        }
+
+        /* ========== BRANDS ========== */
+        #marcas {
+            background: var(--light-gray);
+            padding: 100px 1.5rem
+        }
+
+        .brands-flex {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            max-width: 960px;
+            margin: 0 auto
+        }
+
+        .brand-card {
+            border-radius: var(--radius);
+            padding: 1.4rem 2rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            min-width: 170px;
+            box-shadow: 0 3px 16px rgba(0, 43, 92, 0.07);
+            background: var(--white);
+            border: 2px solid transparent;
+        }
+
+        .brand-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 32px rgba(0, 43, 92, 0.14)
+        }
+
+        .brand-card.bc-main {
+            background: linear-gradient(145deg, var(--deep-blue), var(--dark-blue));
+            border-color: var(--accent-green)
+        }
+
+        .brand-card.bc-blue {
+            border-color: var(--primary-blue)
+        }
+
+        .brand-card.bc-orange {
+            border-color: var(--primary-orange)
+        }
+
+        .brand-card.bc-green {
+            border-color: var(--accent-green)
+        }
+
+        .brand-card.bc-pink {
+            border-color: var(--product-pink)
+        }
+
+        .brand-name {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 1.1rem;
+            letter-spacing: 1px
+        }
+
+        .bc-main .brand-name {
+            color: var(--primary-orange)
+        }
+
+        .bc-blue .brand-name {
+            color: var(--primary-blue)
+        }
+
+        .bc-orange .brand-name {
+            color: var(--dark-orange)
+        }
+
+        .bc-green .brand-name {
+            color: var(--product-green)
+        }
+
+        .bc-pink .brand-name {
+            color: var(--product-pink)
+        }
+
+        .brand-type {
+            font-size: 0.68rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2.5px
+        }
+
+        .bc-main .brand-type {
+            color: rgba(255, 255, 255, 0.5)
+        }
+
+        .brand-type {
+            color: #999
+        }
+
+        /* ========== CLIENTS ========== */
+        #clientes {
+            background: var(--white);
+            padding: 100px 1.5rem;
+            overflow: hidden
+        }
+
+        .ticker-wrap {
+            overflow: hidden;
+            margin: 0 -1.5rem;
+            padding: 1rem 0
+        }
+
+        .ticker {
+            display: flex;
+            gap: 1.2rem;
+            animation: tickerScroll 28s linear infinite;
+            width: max-content
+        }
+
+        .ticker:hover {
+            animation-play-state: paused
+        }
+
+        @keyframes tickerScroll {
+            from {
+                transform: translateX(0)
+            }
+
+            to {
+                transform: translateX(-50%)
+            }
+        }
+
+        .client-chip {
+            background: var(--light-gray);
+            border: 2px solid rgba(0, 102, 204, 0.1);
+            border-radius: 14px;
+            width: 160px;
+            height: 82px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.82rem;
+            color: #667;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            transition: var(--transition);
+        }
+
+        .client-chip:hover {
+            border-color: var(--primary-blue);
+            color: var(--primary-blue);
+            background: rgba(0, 102, 204, 0.05)
+        }
+
+        .client-types-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            max-width: 960px;
+            margin: 2.5rem auto 0;
+        }
+
+        .client-type {
+            background: var(--light-gray);
+            border-radius: 16px;
+            padding: 1.1rem 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            border: 2px solid transparent;
+            transition: var(--transition);
+        }
+
+        .client-type:hover {
+            border-color: var(--primary-blue);
+            background: rgba(0, 102, 204, 0.04);
+            transform: translateY(-2px)
+        }
+
+        .ct-icon {
+            font-size: 1.9rem
+        }
+
+        .ct-name {
+            font-weight: 800;
+            color: var(--deep-blue);
+            font-size: 0.88rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px
+        }
+
+        .ct-desc {
+            font-size: 0.78rem;
+            color: #889;
+            margin-top: 2px;
+            font-weight: 400
+        }
+
+        /* ========== CONTACT ========== */
+        #contacto {
+            background: linear-gradient(160deg, var(--deep-blue) 0%, #003D7A 60%, #004d99 100%);
+            padding: 100px 1.5rem;
+            position: relative;
+            overflow: hidden
+        }
+
+        .contact-bg-circle {
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 153, 0, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .contact-wrapper {
+            max-width: 620px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1
+        }
+
+        .contact-h2 {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: clamp(2rem, 8vw, 3rem);
+            color: var(--white);
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-sub {
+            color: rgba(255, 255, 255, 0.6);
+            text-align: center;
+            font-size: 0.95rem;
+            margin-bottom: 2.5rem;
+            font-weight: 400
+        }
+
+        .form-wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem
+        }
+
+        .form-row-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem
+        }
+
+        .fgrp {
+            display: flex;
+            flex-direction: column;
+            gap: 6px
+        }
+
+        .flabel {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px
+        }
+
+        .finput,
+        .fselect,
+        .ftextarea {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1.5px solid rgba(255, 255, 255, 0.15);
+            border-radius: 14px;
+            padding: 13px 16px;
+            color: var(--white);
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            outline: none;
+            width: 100%;
+        }
+
+        .finput::placeholder,
+        .ftextarea::placeholder {
+            color: rgba(255, 255, 255, 0.35)
+        }
+
+        .finput:focus,
+        .fselect:focus,
+        .ftextarea:focus {
+            border-color: var(--primary-orange);
+            background: rgba(255, 255, 255, 0.12)
+        }
+
+        .fselect option {
+            background: var(--deep-blue);
+            color: var(--white)
+        }
+
+        .ftextarea {
+            resize: vertical;
+            min-height: 110px
+        }
+
+        .contact-info-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin-top: 2.5rem
+        }
+
+        .ci-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 1rem 1.2rem;
+            transition: var(--transition);
+        }
+
+        .ci-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 153, 0, 0.3)
+        }
+
+        .ci-ico {
+            font-size: 1.4rem
+        }
+
+        .ci-label {
+            color: var(--primary-orange);
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px
+        }
+
+        .ci-val {
+            color: var(--white);
+            font-weight: 500;
+            font-size: 0.9rem
+        }
+
+        /* ========== FOOTER ========== */
+        footer {
+            background: #001433;
+            padding: 3rem 1.5rem 1.5rem;
+            color: rgba(255, 255, 255, 0.5)
+        }
+
+        .footer-inner {
+            max-width: 1140px;
+            margin: 0 auto
+        }
+
+        .footer-top {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            margin-bottom: 1.5rem
+        }
+
+        .footer-brand-name {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 1.8rem;
+            letter-spacing: 2px
+        }
+
+        .fn-clean {
+            color: var(--light-blue)
+        }
+
+        .fn-max {
+            color: var(--primary-orange)
+        }
+
+        .fn-jjk {
+            color: rgba(255, 255, 255, 0.35)
+        }
+
+        .footer-tagline {
+            font-size: 0.78rem;
+            color: rgba(255, 255, 255, 0.4);
+            margin-top: 5px
+        }
+
+        .footer-col-title {
+            color: var(--white);
+            font-weight: 800;
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0.9rem
+        }
+
+        .footer-col-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem
+        }
+
+        .footer-col-links a {
+            color: rgba(255, 255, 255, 0.45);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: var(--transition)
+        }
+
+        .footer-col-links a:hover {
+            color: var(--primary-orange)
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem
+        }
+
+        .footer-copy {
+            font-size: 0.75rem
+        }
+
+        .social-links {
+            display: flex;
+            gap: 0.7rem
+        }
+
+        .soc-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .soc-btn:hover {
+            background: var(--primary-blue);
+            border-color: var(--primary-blue);
+            transform: translateY(-3px)
+        }
+
+        /* ========== FLOATING WA ========== */
+        .wa-float {
+            position: fixed;
+            bottom: 24px;
+            right: 20px;
+            z-index: 900;
+            background: #25d366;
+            color: var(--white);
+            border-radius: 50px;
+            padding: 13px 20px;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 0.83rem;
+            box-shadow: 0 6px 24px rgba(37, 211, 102, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+            letter-spacing: 1px;
+            animation: waPulse 2.5s infinite;
+        }
+
+        .wa-float:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 36px rgba(37, 211, 102, 0.7)
+        }
+
+        @keyframes waPulse {
+
+            0%,
+            100% {
+                box-shadow: 0 6px 24px rgba(37, 211, 102, 0.5)
+            }
+
+            50% {
+                box-shadow: 0 6px 40px rgba(37, 211, 102, 0.8)
+            }
+        }
+
+        /* ========== TOAST ========== */
+        .toast {
+            position: fixed;
+            bottom: 90px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: var(--product-green);
+            color: var(--white);
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.88rem;
+            z-index: 3000;
+            opacity: 0;
+            transition: var(--transition);
+            white-space: nowrap;
+            box-shadow: 0 4px 20px rgba(0, 103, 71, 0.4);
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0)
+        }
+
+        /* ========== ANIMATIONS ========== */
+        @keyframes fadeSlideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-24px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        @keyframes fadeSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(100%)
+            }
+
+            to {
+                transform: translateY(0)
+            }
+        }
+
+        .anim {
+            opacity: 0;
+            transform: translateY(32px);
+            transition: opacity 0.65s ease, transform 0.65s ease
+        }
+
+        .anim.visible {
+            opacity: 1;
+            transform: translateY(0)
+        }
+
+        .anim-delay-1 {
+            transition-delay: 0.1s
+        }
+
+        .anim-delay-2 {
+            transition-delay: 0.18s
+        }
+
+        .anim-delay-3 {
+            transition-delay: 0.26s
+        }
+
+        .anim-delay-4 {
+            transition-delay: 0.34s
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media(min-width:640px) {
+            .products-grid {
+                grid-template-columns: 1fr 1fr
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(4, 1fr)
+            }
+
+            .client-types-grid {
+                grid-template-columns: repeat(4, 1fr)
+            }
+
+            .catalog-grid {
+                grid-template-columns: repeat(3, 1fr)
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(4, 1fr)
+            }
+
+            .form-row-2 {
+                grid-template-columns: 1fr 1fr
+            }
+        }
+
+        @media(min-width:900px) {
+            .hamburger {
+                display: none
+            }
+
+            .nav-links {
+                display: flex !important;
+                flex-direction: row;
+                position: static;
+                background: transparent;
+                padding: 0;
+                border-top: none;
+                gap: 0.3rem;
+            }
+
+            .nav-links a {
+                padding: 0.4rem 0.9rem;
+                font-size: 0.78rem;
+                border-radius: 8px
+            }
+
+            .about-inner {
+                flex-direction: row;
+                align-items: flex-start
+            }
+
+            .about-text {
+                flex: 1
+            }
+
+            .modal-box {
+                border-radius: 28px;
+                max-height: 88vh;
+                align-self: center
+            }
+
+            .modal-overlay {
+                align-items: center;
+                padding: 2rem
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(3, 1fr)
+            }
+
+            .footer-top {
+                flex-direction: row;
+                justify-content: space-between
+            }
+        }
+
+        @media(min-width:1100px) {
+            .products-grid {
+                grid-template-columns: repeat(4, 1fr)
+            }
+
+            .catalog-grid {
+                grid-template-columns: repeat(4, 1fr)
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-inner">
+            <a href="#home" class="nav-logo">
+                <div class="logo-mark">CM</div>
+                <div class="logo-text-wrap">
+                    <span class="logo-clean">CLEAN <span class="logo-max">MAX</span></span>
+                    <span class="logo-sub">J.J.K. · Chile · Industrial</span>
+                </div>
+            </a>
+            <button class="hamburger" id="hamburger" onclick="toggleMenu()">
+                <span></span><span></span><span></span>
+            </button>
+            <div class="nav-links" id="nav-links">
+                <a href="#home" onclick="closeMenu()">Inicio</a>
+                <a href="#productos" onclick="closeMenu()">Productos</a>
+                <a href="#nosotros" onclick="closeMenu()">Nosotros</a>
+                <a href="#catalogo" onclick="closeMenu()">Catálogo</a>
+                <a href="#galeria" onclick="closeMenu()">Galería</a>
+                <a href="#marcas" onclick="closeMenu()">Marcas</a>
+                <a href="#clientes" onclick="closeMenu()">Clientes</a>
+                <a href="#contacto" onclick="closeMenu()">Contacto</a>
+            </div>
+        </div>
+    </nav>
+
+    <a href="https://wa.me/56900000000?text=Hola,%20me%20interesa%20información%20sobre%20Clean%20Max%20J.J.K."
+        class="wa-float" target="_blank">💬 WhatsApp</a>
+    <div class="toast" id="toast"></div>
+
+    <!-- HERO -->
+    <section id="home">
+        <div class="hero-bg-waves">
+            <svg class="wave-svg" viewBox="0 0 1440 180" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0,80 C240,160 480,0 720,80 C960,160 1200,0 1440,80 L1440,180 L0,180 Z" fill="#00A651" />
+            </svg>
+            <svg class="wave-svg2" viewBox="0 0 1440 160" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0,60 C360,140 720,-20 1080,60 C1260,100 1350,40 1440,60 L1440,160 L0,160 Z" fill="#0066CC" />
+            </svg>
+        </div>
+        <div class="bubbles-container" id="bubblesContainer"></div>
+        <div class="hero-content">
+            <div class="hero-badge">🇨🇱 Fabricado en Chile · Calidad Industrial Certificada</div>
+            <h1 class="hero-headline">
+                <span class="headline-clean">CLEAN</span>
+                <span class="headline-max">MAX</span>
+                <span class="headline-jjk">J . J . K .</span>
+            </h1>
+            <p class="hero-tagline">Limpieza & Desinfección</p>
+            <p class="hero-desc">Tu aliado industrial para espacios limpios, seguros y libres de gérmenes. Fórmulas
+                profesionales de alta concentración para hogares, empresas e industrias en todo Chile.</p>
+            <div class="hero-btns">
+                <a href="#productos" class="btn-primary">🧴 Ver Productos</a>
+                <a href="#contacto" class="btn-outline">📋 Cotizar</a>
+            </div>
+            <div class="hero-kpis">
+                <div class="kpi-card">
+                    <div class="kpi-num">5+</div>
+                    <div class="kpi-label">Líneas</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-num">99%</div>
+                    <div class="kpi-label">Eficacia</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-num">2</div>
+                    <div class="kpi-label">Tamaños</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-num">100%</div>
+                    <div class="kpi-label">Chile</div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-hint"><span>Scroll</span>
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section id="features">
+        <div class="section-wrap">
+            <div class="section-header">
+                <span class="section-eyebrow anim">Por qué elegirnos</span>
+                <h2 class="section-title anim anim-delay-1">¿Por qué <span>Clean Max</span>?</h2>
+                <div class="divider-line anim anim-delay-2"></div>
+            </div>
+            <div class="features-grid">
+                <div class="feat-card blue anim anim-delay-1">
+                    <div class="feat-icon-wrap">🛡️</div>
+                    <div class="feat-title">Máxima Desinfección</div>
+                    <div class="feat-desc">Elimina el 99% de gérmenes, bacterias y virus con fórmulas de alto
+                        rendimiento certificadas.</div>
+                </div>
+                <div class="feat-card orange anim anim-delay-2">
+                    <div class="feat-icon-wrap">⚡</div>
+                    <div class="feat-title">Fórmula Efectiva</div>
+                    <div class="feat-desc">Blanquea, desinfecta y elimina malos olores en un solo paso. Acción rápida y
+                        duradera.</div>
+                </div>
+                <div class="feat-card green anim anim-delay-3">
+                    <div class="feat-icon-wrap">🏠</div>
+                    <div class="feat-title">Uso Multipropósito</div>
+                    <div class="feat-desc">Ideal para baños, cocinas, pisos, ropa blanca y superficies industriales de
+                        todo tipo.</div>
+                </div>
+                <div class="feat-card yellow anim anim-delay-4">
+                    <div class="feat-icon-wrap">💧</div>
+                    <div class="feat-title">Fácil de Usar</div>
+                    <div class="feat-desc">Dilución sencilla y eficiente. Más rendimiento, menor costo por litro
+                        aplicado.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCTS -->
+    <section id="productos">
+        <div class="section-wrap">
+            <div class="section-header">
+                <span class="section-eyebrow anim">Línea Completa</span>
+                <h2 class="section-title anim anim-delay-1">Nuestros <span>Productos</span></h2>
+                <p class="section-desc anim anim-delay-2">Soluciones profesionales de limpieza y desinfección en
+                    presentaciones de 1L y 5L</p>
+                <div class="divider-line anim anim-delay-3"></div>
+            </div>
+            <div class="products-grid" id="products-grid"></div>
+        </div>
+    </section>
+
+    <!-- MODAL -->
+    <div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+        <div class="modal-box" id="modal-box">
+            <div class="modal-top" id="modal-top">
+                <button class="modal-close-btn" onclick="closeModalDirect()">✕</button>
+                <div id="modal-emoji" style="font-size:3rem;margin-bottom:0.6rem"></div>
+                <div id="modal-title"
+                    style="font-family:'Archivo Black',sans-serif;font-size:1.9rem;color:white;letter-spacing:1px">
+                </div>
+                <div id="modal-sub"
+                    style="color:rgba(255,255,255,0.75);font-size:0.88rem;font-weight:500;margin-top:4px"></div>
+            </div>
+            <div class="modal-body" id="modal-body"></div>
+        </div>
+    </div>
+
+    <!-- ABOUT -->
+    <section id="nosotros">
+        <div class="about-decoration"></div>
+        <div class="section-wrap">
+            <div class="about-inner">
+                <div class="about-text anim">
+                    <div class="about-badge">🇨🇱 Empresa Chilena</div>
+                    <h2 class="about-title">
+                        <span class="t-white">Sobre</span><br>
+                        <span class="t-orange">Nosotros</span>
+                    </h2>
+                    <div class="about-body">
+                        <p>Clean Max J.J.K. es una empresa chilena fabricante de productos de limpieza y desinfección de
+                            alta calidad. Nacimos con la misión de ofrecer soluciones efectivas, accesibles y confiables
+                            para hogares, empresas e industrias en todo Chile.</p>
+                        <p>Nuestras fórmulas están desarrolladas para garantizar máxima eficacia en la eliminación de
+                            gérmenes, bacterias, virus, grasa y malos olores, cumpliendo con los más altos estándares de
+                            calidad industrial.</p>
+                        <p>Disponemos de presentaciones en 1 y 5 litros para adaptarse a cada necesidad, desde el hogar
+                            hasta la industria más exigente.</p>
+                    </div>
+                    <div class="values-grid">
+                        <div class="value-item">
+                            <div class="value-ico">🏆</div>
+                            <div class="value-name">Calidad</div>
+                            <div class="value-text">Fórmulas testadas y verificadas</div>
+                        </div>
+                        <div class="value-item">
+                            <div class="value-ico">🤝</div>
+                            <div class="value-name">Confianza</div>
+                            <div class="value-text">Aliado en tu limpieza diaria</div>
+                        </div>
+                        <div class="value-item">
+                            <div class="value-ico">🌿</div>
+                            <div class="value-name">Responsabilidad</div>
+                            <div class="value-text">Comprometidos con el medioambiente</div>
+                        </div>
+                        <div class="value-item">
+                            <div class="value-ico">🇨🇱</div>
+                            <div class="value-name">Nacional</div>
+                            <div class="value-text">Orgullo chileno, cobertura total</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CATALOG -->
+    <section id="catalogo">
+        <div class="section-wrap">
+            <div class="section-header">
+                <span class="section-eyebrow anim">Descargas</span>
+                <h2 class="section-title anim anim-delay-1">Nuestro <span>Catálogo</span></h2>
+                <div class="divider-line anim anim-delay-2"></div>
+            </div>
+            <div class="catalog-grid">
+                <div class="cat-item ci-blue anim" onclick="showToast('📋 Catálogo Cloro — descargando...')">
+                    <span>🧴</span>
+                    <div class="cat-overlay">
+                        <div class="cat-line">Línea Desinfección</div>
+                        <div class="cat-name">Cloro Clean Max</div>
+                    </div>
+                </div>
+                <div class="cat-item ci-orange anim anim-delay-1"
+                    onclick="showToast('📋 Catálogo Desengrasante — descargando...')">
+                    <span>🔥</span>
+                    <div class="cat-overlay">
+                        <div class="cat-line">Línea Cocina</div>
+                        <div class="cat-name">Desengrasante</div>
+                    </div>
+                </div>
+                <div class="cat-item ci-green anim anim-delay-2"
+                    onclick="showToast('📋 Catálogo Limpiapisos — descargando...')">
+                    <span>✨</span>
+                    <div class="cat-overlay">
+                        <div class="cat-line">Línea Pisos</div>
+                        <div class="cat-name">Limpiapisos</div>
+                    </div>
+                </div>
+                <div class="cat-item ci-pink anim anim-delay-3"
+                    onclick="showToast('📋 Catálogo Detergente — descargando...')">
+                    <span>🫧</span>
+                    <div class="cat-overlay">
+                        <div class="cat-line">Línea Lavado</div>
+                        <div class="cat-name">Detergentes</div>
+                    </div>
+                </div>
+            </div>
+            <div class="catalog-download anim">
+                <button class="btn-primary" style="margin-top:0"
+                    onclick="showToast('📥 Catálogo completo descargándose...')">📥 Descargar Catálogo Completo</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section id="galeria">
+        <div class="section-wrap">
+            <div class="section-header">
+                <span class="section-eyebrow anim">Galería</span>
+                <h2 class="section-title anim anim-delay-1">Productos <span>en Acción</span></h2>
+                <div class="divider-line anim anim-delay-2"></div>
+            </div>
+            <div class="gallery-grid">
+                <div class="gal-item anim">
+                    <div class="gal-placeholder">🧴</div>
+                </div>
+                <div class="gal-item anim anim-delay-1">
+                    <div class="gal-placeholder">🔥</div>
+                </div>
+                <div class="gal-item anim anim-delay-2">
+                    <div class="gal-placeholder">✨</div>
+                </div>
+                <div class="gal-item anim">
+                    <div class="gal-placeholder">🚿</div>
+                </div>
+                <div class="gal-item anim anim-delay-1">
+                    <div class="gal-placeholder">🫧</div>
+                </div>
+                <div class="gal-item anim anim-delay-2">
+                    <div class="gal-placeholder">🧽</div>
+                </div>
+                <div class="gal-item anim">
+                    <div class="gal-placeholder">🏭</div>
+                </div>
+                <div class="gal-item anim anim-delay-1">
+                    <div class="gal-placeholder">🧹</div>
+                </div>
+                <div class="gal-item anim anim-delay-2">
+                    <div class="gal-placeholder">🌿</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BRANDS -->
+    <section id="marcas">
+        <div class="section-wrap">
+            <div class="section-header">
+                <span class="section-eyebrow anim">Líneas especializadas</span>
+                <h2 class="section-title anim anim-delay-1">Nuestras <span>Marcas</span></h2>
+                <div class="divider-line anim anim-delay-2"></div>
+            </div>
+            <div class="brands-flex">
+                <a class="brand-card bc-main anim" href="#productos"><span class="brand-name">Clean Max
+                        J.J.K.</span><span class="brand-type">Marca Principal</span></a>
+                <div class="brand-card bc-blue anim anim-delay-1"><span class="brand-name">Clean Max Cloro</span><span
+                        class="brand-type">Línea Desinfección</span></div>
+                <div class="brand-card bc-orange anim anim-delay-2"><span class="brand-name">Clean Max
+                        Desgrasa.</span><span class="brand-type">Línea Cocina</span></div>
+                <div class="brand-card bc-green anim anim-delay-3"><span class="brand-name">Clean Max Piso</span><span
+                        class="brand-type">Línea Pisos</span></div>
+                <div class="brand-card bc-pink anim"><span class="brand-name">Clean Max Pro</span><span
+                        class="brand-type">Línea Industrial</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CLIENTS -->
+    <section id="clientes">
+        <div class="section-wrap">
+            <div class="section-header">
+                <span class="section-eyebrow anim">Confianza comprobada</span>
+                <h2 class="section-title anim anim-delay-1">Nuestros <span>Clientes</span></h2>
+                <div class="divider-line anim anim-delay-2"></div>
+            </div>
+        </div>
+        <div class="ticker-wrap anim">
+            <div class="ticker" id="ticker"></div>
+        </div>
+        <div class="section-wrap">
+            <div class="client-types-grid">
+                <div class="client-type anim">
+                    <div class="ct-icon">🏨</div>
+                    <div>
+                        <div class="ct-name">Hoteles</div>
+                        <div class="ct-desc">Hostelería y turismo</div>
+                    </div>
+                </div>
+                <div class="client-type anim anim-delay-1">
+                    <div class="ct-icon">🏥</div>
+                    <div>
+                        <div class="ct-name">Salud</div>
+                        <div class="ct-desc">Clínicas y hospitales</div>
+                    </div>
+                </div>
+                <div class="client-type anim anim-delay-2">
+                    <div class="ct-icon">🍽️</div>
+                    <div>
+                        <div class="ct-name">Gastronomía</div>
+                        <div class="ct-desc">Restaurants y casinos</div>
+                    </div>
+                </div>
+                <div class="client-type anim anim-delay-3">
+                    <div class="ct-icon">🏫</div>
+                    <div>
+                        <div class="ct-name">Educación</div>
+                        <div class="ct-desc">Colegios y universidades</div>
+                    </div>
+                </div>
+                <div class="client-type anim">
+                    <div class="ct-icon">🏭</div>
+                    <div>
+                        <div class="ct-name">Industria</div>
+                        <div class="ct-desc">Plantas y manufactura</div>
+                    </div>
+                </div>
+                <div class="client-type anim anim-delay-1">
+                    <div class="ct-icon">🏪</div>
+                    <div>
+                        <div class="ct-name">Comercio</div>
+                        <div class="ct-desc">Supermercados y retail</div>
+                    </div>
+                </div>
+                <div class="client-type anim anim-delay-2">
+                    <div class="ct-icon">🏢</div>
+                    <div>
+                        <div class="ct-name">Oficinas</div>
+                        <div class="ct-desc">Empresas y corporaciones</div>
+                    </div>
+                </div>
+                <div class="client-type anim anim-delay-3">
+                    <div class="ct-icon">🏠</div>
+                    <div>
+                        <div class="ct-name">Hogar</div>
+                        <div class="ct-desc">Familias chilenas</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contacto">
+        <div class="contact-bg-circle"></div>
+        <div class="contact-wrapper">
+            <h2 class="contact-h2 anim">Contáctenos</h2>
+            <p class="contact-sub anim anim-delay-1">Solicite cotización o información — respondemos en menos de 24
+                horas</p>
+            <form class="form-wrap anim anim-delay-2" onsubmit="handleForm(event)">
+                <div class="form-row-2">
+                    <div class="fgrp"><label class="flabel">Nombre</label><input class="finput" type="text"
+                            placeholder="Tu nombre" required></div>
+                    <div class="fgrp"><label class="flabel">Empresa</label><input class="finput" type="text"
+                            placeholder="Tu empresa"></div>
+                </div>
+                <div class="form-row-2">
+                    <div class="fgrp"><label class="flabel">Email</label><input class="finput" type="email"
+                            placeholder="correo@empresa.cl" required></div>
+                    <div class="fgrp"><label class="flabel">Teléfono</label><input class="finput" type="tel"
+                            placeholder="+56 9 XXXX XXXX"></div>
+                </div>
+                <div class="fgrp">
+                    <label class="flabel">Producto de interés</label>
+                    <select class="fselect">
+                        <option value="">Seleccione un producto</option>
+                        <option>Cloro Clean Max — 5 Litros</option>
+                        <option>Cloro Clean Max — 1 Litro</option>
+                        <option>Desengrasante — 5 Litros</option>
+                        <option>Desengrasante — 1 Litro</option>
+                        <option>Limpiapisos</option>
+                        <option>Detergente</option>
+                        <option>Pack Completo Industrial</option>
+                        <option>Otro</option>
+                    </select>
+                </div>
+                <div class="fgrp"><label class="flabel">Mensaje</label><textarea class="ftextarea"
+                        placeholder="Cuéntenos en qué podemos ayudarle..."></textarea></div>
+                <button type="submit" class="btn-primary" style="width:100%;justify-content:center">✉️ Enviar
+                    Mensaje</button>
+            </form>
+            <div class="contact-info-grid anim">
+                <div class="ci-item">
+                    <div class="ci-ico">📍</div>
+                    <div>
+                        <div class="ci-label">Ubicación</div>
+                        <div class="ci-val">Chile · Distribución Nacional</div>
+                    </div>
+                </div>
+                <div class="ci-item">
+                    <div class="ci-ico">📞</div>
+                    <div>
+                        <div class="ci-label">Teléfono</div>
+                        <div class="ci-val">+56 9 0000 0000</div>
+                    </div>
+                </div>
+                <div class="ci-item">
+                    <div class="ci-ico">✉️</div>
+                    <div>
+                        <div class="ci-label">Email</div>
+                        <div class="ci-val">ventas@cleanmaxjjk.cl</div>
+                    </div>
+                </div>
+                <div class="ci-item">
+                    <div class="ci-ico">🕐</div>
+                    <div>
+                        <div class="ci-label">Horario</div>
+                        <div class="ci-val">Lun–Vie 8:00–18:00 · Sáb 9:00–13:00</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-top">
+                <div>
+                    <div class="footer-brand-name"><span class="fn-clean">CLEAN </span><span class="fn-max">MAX
+                        </span><span class="fn-jjk">J.J.K.</span></div>
+                    <div class="footer-tagline">Limpieza y Desinfección en la que Puedes Confiar · Chile</div>
+                </div>
+                <div>
+                    <div class="footer-col-title">Productos</div>
+                    <div class="footer-col-links"><a href="#productos">Cloro Clean Max</a><a
+                            href="#productos">Desengrasante</a><a href="#productos">Limpiapisos</a><a
+                            href="#productos">Detergente</a></div>
+                </div>
+                <div>
+                    <div class="footer-col-title">Empresa</div>
+                    <div class="footer-col-links"><a href="#nosotros">Sobre Nosotros</a><a href="#marcas">Nuestras
+                            Marcas</a><a href="#clientes">Clientes</a><a href="#galeria">Galería</a></div>
+                </div>
+                <div>
+                    <div class="footer-col-title">Contacto</div>
+                    <div class="footer-col-links"><a href="#contacto">Formulario</a><a href="https://wa.me/56900000000"
+                            target="_blank">WhatsApp</a><a href="mailto:ventas@cleanmaxjjk.cl">Email</a><a
+                            href="#catalogo">Catálogo PDF</a></div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-copy">© 2025 Clean Max J.J.K. · Todos los derechos reservados · Chile</div>
+                <div class="social-links">
+                    <a class="soc-btn" href="#" title="Facebook">f</a>
+                    <a class="soc-btn" href="#" title="Instagram">📷</a>
+                    <a class="soc-btn" href="https://wa.me/56900000000" title="WhatsApp">💬</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ====== PRODUCTS DATA ======
+        const products = [
+            {
+                emoji: '🧴', name: 'Cloro Clean Max', sub: 'Limpieza y Desinfección de Confianza',
+                color: 'c-blue',
+                headerGrad: 'linear-gradient(145deg,#0047AB,#002B5C)',
+                sizes: ['5 Litros', '1 Litro'],
+                uses: ['Baños', 'Cocinas', 'Ropa Blanca', 'Pisos', 'Elimina Olores'],
+                features: [
+                    { t: 'Máxima Limpieza', d: 'Elimina gérmenes, bacterias y virus eficazmente.' },
+                    { t: 'Fórmula Efectiva', d: 'Blanquea, desinfecta y elimina malos olores.' },
+                    { t: 'Uso Multipropósito', d: 'Baños, cocinas, pisos, ropa blanca y más.' },
+                    { t: 'Fácil de Usar', d: 'Dilución sencilla para mejores resultados.' },
+                ],
+                desc: 'Clean Max J.J.K. Cloro es tu aliado ideal para mantener tus espacios limpios, seguros y libres de gérmenes. Su fórmula concentrada garantiza máxima eficacia.',
+                slogan: 'Limpia, Blanquea y Desinfecta con el Poder del Cloro',
+                ideal: ['🚽 Baños', '🍳 Cocinas', '👕 Ropa Blanca', '🔲 Pisos', '🗑️ Sin Olores'],
+            },
+            {
+                emoji: '🔥', name: 'Desengrasante', sub: 'Elimina la grasa, deja tu cocina brillante',
+                color: 'c-orange',
+                headerGrad: 'linear-gradient(145deg,#FF6600,#7a2000)',
+                sizes: ['5 Litros', '1 Litro (Gatillo)'],
+                uses: ['Estufas', 'Campanas', 'Hornos', 'Ollas', 'Fregaderos'],
+                features: [
+                    { t: 'Poder Desengrasante', d: 'Elimina grasa, aceite y suciedad adherida.' },
+                    { t: 'Ideal para Cocina', d: 'Estufas, campanas, hornos, ollas y sartenes.' },
+                    { t: 'Fácil Aplicación', d: 'Aplique, deje actuar y limpie. Así de fácil.' },
+                    { t: 'Seguro en Superficies', d: 'Metales, acero inoxidable, cerámica y más.' },
+                ],
+                desc: 'Clean Max J.J.K. Desengrasante, fórmula poderosa que elimina la grasa más difícil en segundos, dejando tus superficies limpias y brillantes.',
+                slogan: 'Desengrasa, Limpia y Brilla con Clean Max J.J.K.',
+                ideal: ['🍳 Estufas', '💨 Campanas', '🫕 Hornos', '🥘 Ollas', '🚿 Fregaderos'],
+            },
+            {
+                emoji: '✨', name: 'Limpiapisos', sub: 'Pisos brillantes, hogar reluciente',
+                color: 'c-green',
+                headerGrad: 'linear-gradient(145deg,#006747,#003d22)',
+                sizes: ['5 Litros', '1 Litro'],
+                uses: ['Cerámicas', 'Maderas', 'Mármol', 'Porcelanato', 'Vinílico'],
+                features: [
+                    { t: 'Brillo Intenso', d: 'Deja pisos brillantes y sin residuos visibles.' },
+                    { t: 'Aroma Duradero', d: 'Fragancia fresca de larga duración.' },
+                    { t: 'Multi-piso', d: 'Apto para todo tipo de pisos y superficies.' },
+                    { t: 'Antibacterial', d: 'Elimina bacterias del suelo en cada aplicación.' },
+                ],
+                desc: 'Limpiapisos Clean Max J.J.K., fórmula especial que limpia, desinfecta y deja un brillo duradero en todo tipo de pisos. Ideal para uso doméstico e industrial.',
+                slogan: 'Pisos más Limpios, Espacios más Seguros',
+                ideal: ['🔲 Cerámica', '🪵 Madera', '⬜ Mármol', '🏢 Porcelanato', '🏭 Industrial'],
+            },
+            {
+                emoji: '🫧', name: 'Detergente Líquido', sub: 'Ropa más blanca, colores más vivos',
+                color: 'c-pink',
+                headerGrad: 'linear-gradient(145deg,#E91E8C,#7a0050)',
+                sizes: ['5 Litros', '1 Litro'],
+                uses: ['Ropa Blanca', 'Ropa Color', 'A Mano', 'Lavadora', 'Delicadas'],
+                features: [
+                    { t: 'Alta Concentración', d: 'Un poco rinde mucho para máximo ahorro.' },
+                    { t: 'Blanca y Color', d: 'Fórmulas para todo tipo de prendas.' },
+                    { t: 'Anti-manchas', d: 'Elimina manchas difíciles eficazmente.' },
+                    { t: 'Suave con la Piel', d: 'Fórmula hipoalergénica para toda la familia.' },
+                ],
+                desc: 'Detergente Líquido Clean Max J.J.K., la solución completa para el lavado de ropa. Alta concentración, eficiencia máxima y suave con tus prendas.',
+                slogan: 'La Limpieza que tu Ropa Merece',
+                ideal: ['👕 Ropa Blanca', '🌈 Ropa Color', '✋ A Mano', '🌀 Lavadora', '🧣 Delicadas'],
+            },
+        ];
+
+        function renderProducts() {
+            const grid = document.getElementById('products-grid');
+            grid.innerHTML = products.map((p, i) => `
+    <div class="product-card anim" style="transition-delay:${i * 0.08}s" onclick="openModal(${i})">
+      <div class="product-card-top ${p.color}" style="background:${p.headerGrad}">
+        <div class="product-bg-decoration"></div>
+        <div class="product-bg-decoration2"></div>
+        <div class="product-emoji">${p.emoji}</div>
+        <div class="product-name">${p.name}</div>
+        <div class="product-sub">${p.sub}</div>
+      </div>
+      <div class="product-card-body">
+        <div class="sizes-row">${p.sizes.map(s => `<span class="size-tag">📦 ${s}</span>`).join('')}</div>
+        <div class="uses-row">${p.uses.slice(0, 4).map(u => `<span class="use-tag">${u}</span>`).join('')}</div>
+        <p class="product-short-desc">${p.desc.slice(0, 100)}…</p>
+      </div>
+      <div class="product-card-footer">
+        <button class="btn-details">Ver Detalles →</button>
+      </div>
+    </div>
+  `).join('');
+            observeAnims();
+        }
+
+        function openModal(i) {
+            const p = products[i];
+            document.getElementById('modal-top').style.background = p.headerGrad;
+            document.getElementById('modal-emoji').textContent = p.emoji;
+            document.getElementById('modal-title').textContent = p.name;
+            document.getElementById('modal-sub').textContent = p.sub;
+            document.getElementById('modal-body').innerHTML = `
+    <p style="color:#557;line-height:1.75;margin-bottom:1.5rem;font-size:0.95rem;font-weight:400">${p.desc}</p>
+    <h3 style="font-weight:800;color:var(--deep-blue);margin-bottom:0.8rem;text-transform:uppercase;letter-spacing:1px;font-size:0.85rem">Características Clave</h3>
+    <div class="modal-feature-grid">
+      ${p.features.map(f => `<div class="modal-feat"><h4>${f.t}</h4><p>${f.d}</p></div>`).join('')}
+    </div>
+    <h3 style="font-weight:800;color:var(--deep-blue);margin-bottom:0.8rem;text-transform:uppercase;letter-spacing:1px;font-size:0.85rem">Ideal Para:</h3>
+    <div class="modal-ideal-chips">${p.ideal.map(c => `<span class="ideal-chip">${c}</span>`).join('')}</div>
+    <div class="modal-slogan"><p>"${p.slogan}"</p></div>
+    <h3 style="font-weight:800;color:var(--deep-blue);margin-bottom:0.8rem;text-transform:uppercase;letter-spacing:1px;font-size:0.85rem">Presentaciones</h3>
+    <div class="sizes-row" style="margin-bottom:0">${p.sizes.map(s => `<span class="size-tag" style="font-size:0.9rem;padding:7px 18px">📦 ${s}</span>`).join('')}</div>
+    <div class="modal-actions">
+      <button class="btn-primary" style="width:100%;justify-content:center" onclick="showToast('✅ Solicitud enviada para ${p.name}');closeModalDirect()">💬 Solicitar Cotización</button>
+      <a href="https://wa.me/56900000000?text=Hola,%20me%20interesa%20${encodeURIComponent(p.name)}" target="_blank" class="btn-green">📱 Pedir por WhatsApp</a>
+    </div>
+  `;
+            document.getElementById('modal-overlay').classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeModal(e) { if (e.target === document.getElementById('modal-overlay')) closeModalDirect() }
+        function closeModalDirect() {
+            document.getElementById('modal-overlay').classList.remove('show');
+            document.body.style.overflow = '';
+        }
+
+        // ====== TICKER ======
+        function renderTicker() {
+            const clients = ['Supermercados Norte', 'Hotels & Spa', 'Clínica Bicentenario', 'Restaurante Plaza', 'Colegio San Andrés', 'Empresa Logística', 'Industrias Cobre', 'Hotel Costanera', 'Casino Central', 'Oficinas Corp Pro', 'Limpieza Express', 'Servicios Plus', 'Supermercados Sur', 'Hotel Palace', 'Clínica Regional', 'Restaurante Gourmet'];
+            const ticker = document.getElementById('ticker');
+            const doubled = [...clients, ...clients];
+            ticker.innerHTML = doubled.map(c => `<div class="client-chip">${c}</div>`).join('');
+        }
+
+        // ====== BUBBLES ======
+        function createBubbles() {
+            const container = document.getElementById('bubblesContainer');
+            for (let i = 0; i < 12; i++) {
+                const b = document.createElement('div');
+                b.className = 'bubble-el';
+                const size = 18 + Math.random() * 80;
+                b.style.cssText = `
+      width:${size}px;height:${size}px;
+      left:${Math.random() * 100}%;
+      animation-duration:${8 + Math.random() * 10}s;
+      animation-delay:${Math.random() * 12}s;
+    `;
+                container.appendChild(b);
+            }
+        }
+
+        // ====== FOAM PARTICLES ======
+        function createFoam() {
+            const hero = document.getElementById('home');
+            for (let i = 0; i < 20; i++) {
+                const f = document.createElement('div');
+                f.className = 'foam-particle';
+                const size = 4 + Math.random() * 10;
+                f.style.cssText = `
+      width:${size}px;height:${size}px;
+      left:${Math.random() * 100}%;
+      top:${20 + Math.random() * 70}%;
+      animation-duration:${3 + Math.random() * 5}s;
+      animation-delay:${Math.random() * 8}s;
+      background:${['rgba(0,166,81,0.35)', 'rgba(125,211,232,0.4)', 'rgba(255,153,0,0.25)', 'rgba(255,255,255,0.2)'][Math.floor(Math.random() * 4)]};
+    `;
+                hero.appendChild(f);
+            }
+        }
+
+        // ====== FORM ======
+        function handleForm(e) {
+            e.preventDefault();
+            showToast('✅ Mensaje enviado. Te contactaremos pronto.');
+            e.target.reset();
+        }
+
+        // ====== MENU ======
+        function toggleMenu() {
+            document.getElementById('nav-links').classList.toggle('open');
+            document.getElementById('hamburger').classList.toggle('open');
+        }
+        function closeMenu() {
+            document.getElementById('nav-links').classList.remove('open');
+            document.getElementById('hamburger').classList.remove('open');
+        }
+
+        // ====== TOAST ======
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.textContent = msg; t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 3200);
+        }
+
+        // ====== SCROLL ANIMATIONS ======
+        function observeAnims() {
+            const els = document.querySelectorAll('.anim:not(.visible)');
+            const obs = new IntersectionObserver((entries) => {
+                entries.forEach((entry, idx) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => entry.target.classList.add('visible'), idx * 55);
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+            els.forEach(el => obs.observe(el));
+        }
+
+        // ====== NAV SCROLL ======
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            nav.style.background = window.scrollY > 60
+                ? 'rgba(0,20,51,0.99)'
+                : 'rgba(0,43,92,0.97)';
+        });
+
+        // ====== SMOOTH SCROLL ======
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', e => {
+                const target = document.querySelector(a.getAttribute('href'));
+                if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }) }
+            });
+        });
+
+        // ====== INIT ======
+        renderProducts();
+        renderTicker();
+        createBubbles();
+        createFoam();
+        observeAnims();
+    </script>
+</body>
+
+</html>

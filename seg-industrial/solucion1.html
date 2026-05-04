@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Fire Center Enterprise | Trazabilidad Total</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, system-ui; }
+        body { background: #f0f2f5; }
+        .app-container { max-width: 1400px; margin: 0 auto; background: white; min-height: 100vh; box-shadow: 0 0 20px rgba(0,0,0,0.05); }
+        .main-header { background: linear-gradient(135deg, #0b2b3b, #1a4a6f); color: white; padding: 1rem 1.2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.8rem; }
+        .logo-area { display: flex; align-items: center; gap: 0.75rem; }
+        .logo-area i { font-size: 2rem; }
+        .logo-area h1 { font-size: 1.4rem; }
+        .logo-area span { font-size: 0.7rem; opacity: 0.9; display: block; }
+        .header-stats { display: flex; gap: 0.8rem; align-items: center; }
+        .alert-badge { background: #e67e22; padding: 0.3rem 0.8rem; border-radius: 40px; font-size: 0.8rem; font-weight: bold; }
+        .assistant-btn, .reset-btn { background: #f39c12; border: none; padding: 0.4rem 1rem; border-radius: 2rem; color: #1e2a3a; font-weight: bold; cursor: pointer; transition: 0.2s; margin-left: 0.5rem; }
+        .reset-btn { background: #e74c3c; color: white; }
+        .assistant-btn:hover { background: #e67e22; transform: scale(1.02); }
+        .reset-btn:hover { background: #c0392b; }
+        .tabs-nav { display: flex; background: white; border-bottom: 1px solid #e2e8f0; overflow-x: auto; }
+        .tab-btn { flex: 1; background: none; border: none; padding: 1rem 0.8rem; font-weight: 600; color: #4a627a; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.5rem; white-space: nowrap; border-bottom: 3px solid transparent; }
+        .tab-btn.active { color: #1e6f9f; border-bottom-color: #1e6f9f; background: #f0f9ff; }
+        .tab-pane { display: none; padding: 1.2rem; animation: fade 0.2s; }
+        .tab-pane.active { display: block; }
+        @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+        .card { background: white; border-radius: 1.2rem; padding: 1.2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 1.5rem; border: 1px solid #eef2f6; }
+        .dashboard-grid { display: flex; flex-direction: column; gap: 1.2rem; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 1rem; margin-top: 1rem; }
+        .stat-item { background: #f8fafc; padding: 0.8rem; border-radius: 1rem; text-align: center; }
+        .stat-item span { display: block; font-size: 0.75rem; color: #5a6e84; }
+        .stat-item strong { font-size: 1.5rem; color: #0f3b5c; }
+        .ai-card { background: linear-gradient(135deg, #fef9e6, #fff); border-left: 5px solid #f39c12; }
+        .action-bar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; margin-bottom: 1.2rem; gap: 0.8rem; }
+        .search-box { background: #f1f5f9; display: flex; align-items: center; border-radius: 2rem; padding: 0.3rem 0.8rem; gap: 0.5rem; flex: 1; min-width: 180px; }
+        .search-box input { border: none; background: transparent; padding: 0.5rem; width: 100%; outline: none; }
+        .table-responsive { overflow-x: auto; }
+        .data-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+        .data-table th, .data-table td { padding: 0.8rem 0.5rem; text-align: left; border-bottom: 1px solid #e2e8f0; }
+        .data-table th { background: #f1f5f9; font-weight: 600; }
+        .badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 20px; font-size: 0.7rem; font-weight: bold; }
+        .badge-vigente { background: #d1fae5; color: #0e6245; }
+        .badge-alerta { background: #fed7aa; color: #b45309; }
+        .badge-vencido { background: #ffe4e2; color: #b91c1c; }
+        .badge-info { background: #dbeafe; color: #1e40af; }
+        button { background: none; border: none; cursor: pointer; font-size: 1rem; padding: 0.3rem 0.5rem; border-radius: 0.5rem; transition: 0.1s; }
+        .btn-primary { background: #1e6f9f; color: white; padding: 0.6rem 1rem; font-weight: 600; border-radius: 2rem; }
+        .btn-secondary { background: #e9ecef; color: #2c3e66; padding: 0.5rem 1rem; border-radius: 2rem; }
+        .btn-danger-outline { border: 1px solid #e74c3c; color: #e74c3c; padding: 0.4rem 1rem; background: white; }
+        .modal-overlay { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.5); align-items: center; justify-content: center; z-index: 1000; }
+        .modal-container { background: white; width: 90%; max-width: 500px; border-radius: 1.5rem; overflow: hidden; animation: slideUp 0.2s; }
+        .modal-large { max-width: 900px; width: 95%; }
+        .modal-header { display: flex; justify-content: space-between; padding: 1rem; border-bottom: 1px solid #ddd; background: #f8fafc; }
+        .modal-body { padding: 1.2rem; max-height: 70vh; overflow-y: auto; }
+        .modal-footer { display: flex; justify-content: flex-end; gap: 0.8rem; padding: 1rem; border-top: 1px solid #eee; }
+        .form-group { margin-bottom: 1rem; }
+        .form-group label { display: block; font-weight: 500; margin-bottom: 0.3rem; font-size: 0.8rem; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.7rem; border: 1px solid #ccc; border-radius: 0.8rem; }
+        .catalog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem; }
+        .product-card { background: #f9f9f9; padding: 1rem; border-radius: 1rem; text-align: center; box-shadow: 0 2px 6px rgba(0,0,0,0.05); transition: transform 0.2s; }
+        .product-card:hover { transform: translateY(-3px); }
+        .product-card i { font-size: 2rem; color: #1e6f9f; margin-bottom: 0.5rem; }
+        .alert-list, .alert-history { max-height: 300px; overflow-y: auto; }
+        .alert-item { display: flex; justify-content: space-between; align-items: center; background: #fff6e5; padding: 0.7rem; border-radius: 1rem; margin-bottom: 0.6rem; border-left: 4px solid #f39c12; flex-wrap: wrap; gap: 0.5rem; }
+        .toast-container { position: fixed; bottom: 20px; right: 20px; z-index: 1100; display: flex; flex-direction: column; gap: 0.5rem; }
+        .toast { background: #1e293b; color: white; padding: 0.8rem 1.2rem; border-radius: 2rem; font-size: 0.85rem; box-shadow: 0 4px 12px rgba(0,0,0,0.2); display: flex; align-items: center; gap: 0.6rem; animation: slideIn 0.2s; }
+        .toast.success { background: #0e6245; }
+        .toast.warning { background: #b45309; }
+        .toast.info { background: #1e6f9f; }
+        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        .chat-messages { height: 250px; overflow-y: auto; background: #f8fafc; padding: 0.5rem; border-radius: 1rem; margin-bottom: 0.5rem; display: flex; flex-direction: column; }
+        .bot-msg, .user-msg { margin-bottom: 0.5rem; padding: 0.5rem; border-radius: 1rem; max-width: 85%; }
+        .bot-msg { background: #e6f0fa; align-self: flex-start; }
+        .user-msg { background: #1e6f9f; color: white; align-self: flex-end; text-align: right; }
+        .chat-input-area { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
+        .chat-input-area input { flex: 1; padding: 0.6rem; border-radius: 2rem; border: 1px solid #ccc; }
+        .chat-input-area button { background: #1e6f9f; border: none; color: white; border-radius: 2rem; padding: 0.6rem 1rem; cursor: pointer; }
+        @media (min-width: 768px) {
+            .dashboard-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+            .alert-card { grid-column: span 2; }
+            .tab-pane { padding: 2rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="app-container">
+    <header class="main-header">
+        <div class="logo-area"><i class="fas fa-fire-extinguisher"></i><h1>Fire Center<span>Enterprise Trazabilidad</span></h1></div>
+        <div class="header-stats">
+            <div class="stat-badge alert-badge" id="alertCountBadge">0 alertas</div>
+            <button id="resetDemoBtn" class="reset-btn"><i class="fas fa-database"></i> Reiniciar datos</button>
+            <button id="openAssistantBtn" class="assistant-btn"><i class="fas fa-robot"></i> Asistente IA</button>
+        </div>
+    </header>
+    <nav class="tabs-nav">
+        <button class="tab-btn active" data-tab="dashboard"><i class="fas fa-chart-line"></i><span>Dashboard</span></button>
+        <button class="tab-btn" data-tab="clientes"><i class="fas fa-building"></i><span>Clientes</span></button>
+        <button class="tab-btn" data-tab="extintores"><i class="fas fa-fire-extinguisher"></i><span>Extintores</span></button>
+        <button class="tab-btn" data-tab="empleados"><i class="fas fa-users"></i><span>Empleados</span></button>
+        <button class="tab-btn" data-tab="productos"><i class="fas fa-boxes"></i><span>Productos</span></button>
+        <button class="tab-btn" data-tab="alertas"><i class="fas fa-bell"></i><span>Alertas</span></button>
+    </nav>
+    <main class="main-content">
+        <div id="dashboard" class="tab-pane active">
+            <div class="dashboard-grid">
+                <div class="card stats-card"><h3><i class="fas fa-chart-simple"></i> Resumen general</h3><div class="stats-grid"><div class="stat-item"><span>Clientes</span><strong id="totalClientes">0</strong></div><div class="stat-item"><span>Extintores</span><strong id="totalExtintores">0</strong></div><div class="stat-item"><span>Vencidos</span><strong id="vencidosCount">0</strong></div><div class="stat-item"><span>Próximos 15d</span><strong id="proximosCount">0</strong></div><div class="stat-item"><span>Empleados</span><strong id="totalEmpleados">0</strong></div><div class="stat-item"><span>Recargas (mes)</span><strong id="recargasMes">0</strong></div></div></div>
+                <div class="card chart-card"><h3><i class="fas fa-chart-pie"></i> Estado de extintores</h3><canvas id="statusChart" width="300" height="200"></canvas></div>
+                <div class="card ai-card"><h3><i class="fas fa-brain"></i> Recomendación IA</h3><div id="aiRecommendation" class="ai-message">Analizando datos...</div><button id="refreshAI" class="btn-secondary"><i class="fas fa-sync-alt"></i> Actualizar</button></div>
+                <div class="card alert-card"><h3><i class="fas fa-clock"></i> Próximos vencimientos (15 días)</h3><div id="proximasAlertasList" class="alert-list"></div></div>
+            </div>
+        </div>
+        <div id="clientes" class="tab-pane"><div class="action-bar"><button id="agregarClienteBtn" class="btn-primary"><i class="fas fa-user-plus"></i> Nuevo cliente</button><div class="search-box"><i class="fas fa-search"></i><input type="text" id="searchCliente" placeholder="Buscar cliente..."></div></div><div class="table-responsive"><table class="data-table"><thead><tr><th>RUC/DNI</th><th>Razón social</th><th>Teléfono</th><th>Email</th><th>Tipos de extintores</th><th>Extintores</th><th>Acciones</th></tr></thead><tbody id="clientesTableBody"></tbody></table></div></div>
+        <div id="extintores" class="tab-pane"><div class="action-bar"><button id="agregarExtintorBtn" class="btn-primary"><i class="fas fa-plus"></i> Nuevo extintor</button><div class="search-box"><i class="fas fa-search"></i><input type="text" id="searchExtintor" placeholder="Buscar por serie o cliente..."></div></div><div class="table-responsive"><table class="data-table"><thead><tr><th>N° Serie</th><th>Cliente</th><th>Ubicación</th><th>Próx. Recarga</th><th>Estado</th><th>Últ. Recarga por</th><th>QR</th><th>Acciones</th></tr></thead><tbody id="extintoresTableBody"></tbody></table></div></div>
+        <div id="empleados" class="tab-pane"><div class="action-bar"><button id="agregarEmpleadoBtn" class="btn-primary"><i class="fas fa-user-plus"></i> Nuevo empleado</button><div class="search-box"><i class="fas fa-search"></i><input type="text" id="searchEmpleado" placeholder="Buscar por código o nombre..."></div></div><div class="table-responsive"><table class="data-table"><thead><tr><th>Código</th><th>Nombre</th><th>Especialidad</th><th>Teléfono</th><th>Recargas</th><th>Acciones</th></tr></thead><tbody id="empleadosTableBody"></tbody></table></div></div>
+        <div id="productos" class="tab-pane"><div class="catalog-grid"><div class="product-card"><i class="fas fa-fire-extinguisher"></i><h4>Extintores portátiles</h4><p>Nacionales e importados, UL</p></div><div class="product-card"><i class="fas fa-truck-moving"></i><h4>Rodantes</h4><p>Grandes áreas</p></div><div class="product-card"><i class="fas fa-cabinet-filing"></i><h4>Gabinetes</h4><p>Para extintores</p></div><div class="product-card"><i class="fas fa-sign"></i><h4>Señalización</h4><p>Evacuación</p></div><div class="product-card"><i class="fas fa-lightbulb"></i><h4>Luces emergencia</h4><p>LED autónomas</p></div><div class="product-card"><i class="fas fa-shield-alt"></i><h4>EPP</h4><p>Cascos, guantes</p></div><div class="product-card"><i class="fas fa-bug"></i><h4>Fumigación</h4><p>Colegios, empresas</p></div><div class="product-card"><i class="fas fa-chalkboard-user"></i><h4>Capacitación</h4><p>Cursos certificados</p></div></div></div>
+        <div id="alertas" class="tab-pane"><div class="card"><h3><i class="fas fa-history"></i> Historial de notificaciones</h3><div id="historialAlertasList" class="alert-history"></div><button id="limpiarHistorialBtn" class="btn-danger-outline"><i class="fas fa-trash-alt"></i> Limpiar historial</button></div></div>
+    </main>
+</div>
+
+<!-- MODALES -->
+<div id="modalClienteExtintores" class="modal-overlay"><div class="modal-container modal-large"><div class="modal-header"><h3 id="modalClienteTitle">Extintores del cliente</h3><button class="close-modal" data-modal="modalClienteExtintores">&times;</button></div><div class="modal-body" id="modalClienteBody"></div><div class="modal-footer"><button class="btn-secondary close-modal" data-modal="modalClienteExtintores">Cerrar</button></div></div></div>
+<div id="modalOverlay" class="modal-overlay"><div class="modal-container"><div class="modal-header"><h3 id="modalTitle">Título</h3><button class="close-modal" data-modal="modalOverlay">&times;</button></div><div class="modal-body" id="modalBody"></div><div class="modal-footer"><button id="modalCancelBtn" class="btn-secondary">Cancelar</button><button id="modalConfirmBtn" class="btn-primary">Confirmar</button></div></div></div>
+<div id="modalAssistant" class="modal-overlay"><div class="modal-container"><div class="modal-header"><h3><i class="fas fa-robot"></i> Asistente IA</h3><button class="close-modal" data-modal="modalAssistant">&times;</button></div><div class="modal-body" id="assistantBody"><div class="chat-messages" id="chatMessages"></div><div class="chat-input-area"><input type="text" id="chatInput" placeholder="Escribe tu pregunta..."><button id="sendChatBtn"><i class="fas fa-paper-plane"></i></button></div></div></div></div>
+<div id="toastContainer" class="toast-container"></div>
+
+<script>
+    // ======================== MODELOS DE DATOS ========================
+    let clientes = [];
+    let extintores = [];
+    let empleados = [];
+    let historialAlertas = [];
+    let recargasHistoricas = [];
+
+    // Helper mostrar toast
+    function mostrarToast(mensaje, tipo) {
+        const toast = document.createElement('div');
+        toast.className = `toast ${tipo}`;
+        toast.innerHTML = `<i class="fas ${tipo === 'success' ? 'fa-check-circle' : tipo === 'warning' ? 'fa-exclamation-triangle' : 'fa-info-circle'}"></i> ${mensaje}`;
+        document.getElementById('toastContainer').appendChild(toast);
+        setTimeout(() => toast.remove(), 4000);
+    }
+
+    // Persistencia
+    function saveClientes() { localStorage.setItem('fc_clientes', JSON.stringify(clientes)); }
+    function saveExtintores() { localStorage.setItem('fc_extintores', JSON.stringify(extintores)); }
+    function saveEmpleados() { localStorage.setItem('fc_empleados', JSON.stringify(empleados)); }
+    function saveHistorial() { localStorage.setItem('fc_alertas', JSON.stringify(historialAlertas)); }
+    function saveRecargas() { localStorage.setItem('fc_recargas', JSON.stringify(recargasHistoricas)); }
+
+    function getClienteById(id) { return clientes.find(c => c.id === id) || { id: null, razon: 'Sin cliente', telefono: '', email: '' }; }
+    function getEmpleadoById(id) { return empleados.find(e => e.id === id) || { nombre: 'No asignado', codigo: '' }; }
+    function calcularEstadoExtintor(fechaStr) {
+        const hoy = new Date(); hoy.setHours(0,0,0,0);
+        const fecha = new Date(fechaStr);
+        const diff = Math.ceil((fecha - hoy) / (1000*3600*24));
+        if (diff < 0) return 'vencido';
+        if (diff <= 15) return 'por_vencer';
+        return 'vigente';
+    }
+    function actualizarEstadosExtintores() {
+        extintores.forEach(e => e.estado = calcularEstadoExtintor(e.fechaRecarga));
+        saveExtintores();
+    }
+    function getExtintoresProximos() { return extintores.filter(e => e.estado === 'por_vencer'); }
+    function getExtintoresByCliente(clienteId) { return extintores.filter(e => e.clienteId === clienteId); }
+    function actualizarContadorRecargasEmpleados() {
+        empleados.forEach(emp => {
+            emp.recargasCount = recargasHistoricas.filter(r => r.empleadoId === emp.id).length;
+        });
+        saveEmpleados();
+    }
+
+    // Recargar extintor con empleado responsable
+    function recargarExtintor(extintorId, nuevaFecha, empleadoId) {
+        const ext = extintores.find(e => e.id === extintorId);
+        if (!ext) return false;
+        if (!nuevaFecha || !/^\d{4}-\d{2}-\d{2}$/.test(nuevaFecha)) {
+            mostrarToast('Fecha inválida (YYYY-MM-DD)', 'warning');
+            return false;
+        }
+        const empleado = getEmpleadoById(empleadoId);
+        if (!empleado.id) {
+            mostrarToast('Seleccione un empleado válido', 'warning');
+            return false;
+        }
+        ext.fechaRecarga = nuevaFecha;
+        ext.ultimaRecarga = nuevaFecha;
+        ext.ultimoEmpleadoId = empleadoId;
+        if (!ext.historialRecargas) ext.historialRecargas = [];
+        ext.historialRecargas.push(nuevaFecha);
+        ext.estado = calcularEstadoExtintor(nuevaFecha);
+        saveExtintores();
+        recargasHistoricas.push({
+            id: 'rh' + Date.now(),
+            extintorId: ext.id,
+            empleadoId: empleadoId,
+            fechaRecarga: nuevaFecha,
+            fechaOperacion: new Date().toISOString()
+        });
+        saveRecargas();
+        actualizarContadorRecargasEmpleados();
+        mostrarToast(`✅ Extintor ${ext.numeroSerie} recargado por ${empleado.nombre} (${empleado.codigo})`, 'success');
+        renderAll();
+        return true;
+    }
+
+    // Enviar alerta WhatsApp simulada
+    function enviarAlerta(extintor, cliente, tipo = 'auto') {
+        const mensaje = `🔔 *FIRE CENTER - ALERTA MANTENIMIENTO*\nCliente: ${cliente.razon}\nExtintor: ${extintor.numeroSerie} (${extintor.modelo})\nUbicación: ${extintor.ubicacion}\nVence: ${extintor.fechaRecarga}\nSegún NTP 350.043-1 requiere recarga. Contáctenos al 981254472.`;
+        console.log(`[WHATSAPP SIM] a ${cliente.telefono}: ${mensaje}`);
+        historialAlertas.unshift({
+            id: Date.now(),
+            fecha: new Date().toISOString(),
+            extintorId: extintor.id,
+            clienteNombre: cliente.razon,
+            mensaje: mensaje,
+            tipo: tipo
+        });
+        saveHistorial();
+        mostrarToast(`📲 Alerta enviada a ${cliente.razon} (simulación realista)`, 'success');
+        renderAlertasTab();
+        actualizarBadgeAlertas();
+    }
+
+    // IA: recomendación basada en tipos de extintor y empleado destacado
+    function generarRecomendacionIA() {
+        let recomendaciones = [];
+        const clientesTipos = {};
+        extintores.forEach(ext => {
+            const cliente = getClienteById(ext.clienteId);
+            if (!clientesTipos[ext.clienteId]) clientesTipos[ext.clienteId] = { razon: cliente.razon, tipos: new Set() };
+            clientesTipos[ext.clienteId].tipos.add(ext.tipo || ext.modelo.split(' ')[0]);
+        });
+        for (let cliId in clientesTipos) {
+            const data = clientesTipos[cliId];
+            const tiposStr = Array.from(data.tipos).join(', ');
+            recomendaciones.push(`📌 ${data.razon}: necesita personal con experiencia en [${tiposStr}].`);
+        }
+        const topEmpleado = [...empleados].sort((a,b)=>b.recargasCount - a.recargasCount)[0];
+        if (topEmpleado) recomendaciones.push(`🏆 Técnico destacado: ${topEmpleado.nombre} (${topEmpleado.codigo}) - ${topEmpleado.recargasCount} recargas.`);
+        const container = document.getElementById('aiRecommendation');
+        if (recomendaciones.length === 0) container.innerHTML = '<i class="fas fa-check-circle"></i> Todo en orden.';
+        else container.innerHTML = recomendaciones.map(r => `<div class="ai-line">${r}</div>`).join('');
+    }
+
+    // ======================== RENDERIZADO ========================
+    function renderAll() {
+        actualizarEstadosExtintores();
+        renderDashboard();
+        renderClientesTabla();
+        renderExtintoresTabla();
+        renderEmpleadosTabla();
+        renderAlertasTab();
+        actualizarBadgeAlertas();
+    }
+
+    function renderDashboard() {
+        document.getElementById('totalClientes').innerText = clientes.length;
+        document.getElementById('totalExtintores').innerText = extintores.length;
+        document.getElementById('totalEmpleados').innerText = empleados.length;
+        const vencidos = extintores.filter(e => e.estado === 'vencido').length;
+        const proximos = getExtintoresProximos().length;
+        document.getElementById('vencidosCount').innerText = vencidos;
+        document.getElementById('proximosCount').innerText = proximos;
+        const recargasMes = recargasHistoricas.filter(r => new Date(r.fechaOperacion).getMonth() === new Date().getMonth()).length;
+        document.getElementById('recargasMes').innerText = recargasMes;
+        const ctx = document.getElementById('statusChart').getContext('2d');
+        if (window.statusChart) window.statusChart.destroy();
+        window.statusChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: { labels: ['Vigentes', 'Por vencer', 'Vencidos'], datasets: [{ data: [extintores.length - vencidos - proximos, proximos, vencidos], backgroundColor: ['#2ecc71', '#f39c12', '#e74c3c'] }] },
+            options: { responsive: true, maintainAspectRatio: true }
+        });
+        const alertDiv = document.getElementById('proximasAlertasList');
+        const prox = getExtintoresProximos();
+        if (prox.length === 0) alertDiv.innerHTML = '<p class="empty-message">✅ No hay extintores próximos a vencer.</p>';
+        else {
+            alertDiv.innerHTML = prox.map(ext => {
+                const cli = getClienteById(ext.clienteId);
+                return `<div class="alert-item">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <div><strong>${ext.numeroSerie}</strong> - ${cli.razon}<br><small>Vence: ${ext.fechaRecarga} | ${ext.ubicacion}</small></div>
+                            <div>
+                                <button class="btn-alerta-individual" data-id="${ext.id}"><i class="fab fa-whatsapp"></i> Alertar</button>
+                                <button class="btn-recarga-rapida" data-id="${ext.id}"><i class="fas fa-sync"></i> Recargar</button>
+                            </div>
+                        </div>`;
+            }).join('');
+            document.querySelectorAll('#proximasAlertasList .btn-alerta-individual').forEach(btn => btn.addEventListener('click', () => {
+                const ext = extintores.find(e => e.id === btn.dataset.id);
+                if (ext) enviarAlerta(ext, getClienteById(ext.clienteId), 'manual');
+            }));
+            document.querySelectorAll('#proximasAlertasList .btn-recarga-rapida').forEach(btn => btn.addEventListener('click', () => abrirModalRecarga(btn.dataset.id)));
+        }
+    }
+
+    function renderClientesTabla() {
+        const search = document.getElementById('searchCliente')?.value.toLowerCase() || '';
+        let filtered = clientes.filter(c => c.razon.toLowerCase().includes(search) || c.ruc.includes(search));
+        const tbody = document.getElementById('clientesTableBody');
+        if (filtered.length === 0) { tbody.innerHTML = '<tr><td colspan="7">No hay clientes</td></tr>'; return; }
+        tbody.innerHTML = filtered.map(cli => {
+            const extDelCliente = getExtintoresByCliente(cli.id);
+            const tipos = [...new Set(extDelCliente.map(e => e.tipo || e.modelo.split(' ')[0]))].join(', ');
+            const cant = extDelCliente.length;
+            return `<tr>
+                        <td>${cli.ruc}</td>
+                        <td>${cli.razon}</td>
+                        <td>${cli.telefono}</td>
+                        <td>${cli.email}</td>
+                        <td><span class="badge badge-info">${tipos || 'Ninguno'}</span></td>
+                        <td>${cant} ext.</td>
+                        <td>
+                            <button class="btn-ver-extintores" data-id="${cli.id}"><i class="fas fa-eye"></i> Ver</button>
+                            <button class="btn-edit-cliente" data-id="${cli.id}"><i class="fas fa-edit"></i></button>
+                            <button class="btn-delete-cliente" data-id="${cli.id}"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>`;
+        }).join('');
+        document.querySelectorAll('.btn-ver-extintores').forEach(btn => btn.addEventListener('click', () => mostrarExtintoresPorCliente(btn.dataset.id)));
+        document.querySelectorAll('.btn-edit-cliente').forEach(btn => btn.addEventListener('click', () => editarCliente(btn.dataset.id)));
+        document.querySelectorAll('.btn-delete-cliente').forEach(btn => btn.addEventListener('click', () => eliminarCliente(btn.dataset.id)));
+    }
+
+    function mostrarExtintoresPorCliente(clienteId) {
+        const cliente = getClienteById(clienteId);
+        const extList = getExtintoresByCliente(clienteId);
+        const recargasCliente = recargasHistoricas.filter(r => extList.some(e => e.id === r.extintorId)).sort((a,b) => new Date(b.fechaOperacion) - new Date(a.fechaOperacion));
+        let html = `<h4>📋 Extintores (${extList.length})</h4><div class="table-responsive"><table class="data-table"><thead><tr><th>Serie</th><th>Ubicación</th><th>Vencimiento</th><th>Estado</th><th>Últ. recarga por</th><th>Acciones</th></tr></thead><tbody>`;
+        extList.forEach(ext => {
+            const emp = getEmpleadoById(ext.ultimoEmpleadoId);
+            html += `<tr>
+                        <td>${ext.numeroSerie}</td>
+                        <td>${ext.ubicacion}</td>
+                        <td>${ext.fechaRecarga}</td>
+                        <td><span class="badge ${ext.estado === 'vigente' ? 'badge-vigente' : (ext.estado === 'por_vencer' ? 'badge-alerta' : 'badge-vencido')}">${ext.estado}</span></td>
+                        <td>${emp.nombre} (${emp.codigo})</td>
+                        <td><button class="btn-qr-cliente" data-id="${ext.id}"><i class="fas fa-qrcode"></i></button> <button class="btn-recarga-cliente" data-id="${ext.id}"><i class="fas fa-sync"></i></button></td>
+                    </tr>`;
+        });
+        html += `</tbody></table></div><h4 style="margin-top:1rem">🔄 Historial de recargas (últimas 10)</h4><div class="table-responsive"><table class="data-table"><thead><tr><th>Fecha operación</th><th>Extintor</th><th>Empleado</th><th>Nueva fecha recarga</th></tr></thead><tbody>`;
+        recargasCliente.slice(0,10).forEach(r => {
+            const ext = extintores.find(e => e.id === r.extintorId);
+            const emp = getEmpleadoById(r.empleadoId);
+            html += `<tr><td>${new Date(r.fechaOperacion).toLocaleString()}</td><td>${ext?.numeroSerie || '?'}</td><td>${emp.nombre} (${emp.codigo})</td><td>${r.fechaRecarga}</td></tr>`;
+        });
+        html += `</tbody></table></div>`;
+        document.getElementById('modalClienteBody').innerHTML = html;
+        document.getElementById('modalClienteTitle').innerHTML = `Extintores y recargas de ${cliente.razon}`;
+        document.getElementById('modalClienteExtintores').style.display = 'flex';
+        document.querySelectorAll('.btn-qr-cliente').forEach(btn => btn.addEventListener('click', () => mostrarQR(btn.dataset.id)));
+        document.querySelectorAll('.btn-recarga-cliente').forEach(btn => btn.addEventListener('click', () => abrirModalRecarga(btn.dataset.id, true)));
+    }
+
+    function abrirModalRecarga(extintorId, cerrarModalCliente = false) {
+        const ext = extintores.find(e => e.id === extintorId);
+        if (!ext) return;
+        document.getElementById('modalTitle').innerText = `Recargar extintor ${ext.numeroSerie}`;
+        const empleadosOptions = empleados.map(emp => `<option value="${emp.id}">${emp.nombre} (${emp.codigo}) - ${emp.especialidad}</option>`).join('');
+        document.getElementById('modalBody').innerHTML = `
+            <div class="form-group"><label>Nueva fecha de recarga *</label><input type="date" id="recargaFecha" value="${new Date().toISOString().slice(0,10)}"></div>
+            <div class="form-group"><label>Empleado responsable *</label><select id="recargaEmpleado">${empleadosOptions}</select></div>
+            <div class="form-group"><label>Observaciones</label><textarea id="recargaObs" rows="2" placeholder="Ej: se reemplazó válvula"></textarea></div>
+        `;
+        document.getElementById('modalOverlay').style.display = 'flex';
+        const confirmBtn = document.getElementById('modalConfirmBtn');
+        const oldHandler = confirmBtn.onclick;
+        confirmBtn.onclick = () => {
+            const nuevaFecha = document.getElementById('recargaFecha').value;
+            const empId = document.getElementById('recargaEmpleado').value;
+            if (!nuevaFecha || !empId) { mostrarToast('Complete todos los campos', 'warning'); return; }
+            recargarExtintor(extintorId, nuevaFecha, empId);
+            cerrarModal();
+            if (cerrarModalCliente) document.getElementById('modalClienteExtintores').style.display = 'none';
+            renderAll();
+            confirmBtn.onclick = oldHandler;
+        };
+    }
+
+    function renderExtintoresTabla() {
+        const search = document.getElementById('searchExtintor')?.value.toLowerCase() || '';
+        let filtered = extintores.filter(e => e.numeroSerie.toLowerCase().includes(search) || getClienteById(e.clienteId).razon.toLowerCase().includes(search));
+        const tbody = document.getElementById('extintoresTableBody');
+        if (filtered.length === 0) { tbody.innerHTML = '<tr><td colspan="8">No hay extintores</td></tr>'; return; }
+        tbody.innerHTML = filtered.map(ext => {
+            const cli = getClienteById(ext.clienteId);
+            const emp = getEmpleadoById(ext.ultimoEmpleadoId);
+            let estadoClass = ext.estado === 'vigente' ? 'badge-vigente' : (ext.estado === 'por_vencer' ? 'badge-alerta' : 'badge-vencido');
+            return `<tr>
+                        <td>${ext.numeroSerie}</td>
+                        <td>${cli.razon}</td>
+                        <td>${ext.ubicacion}</td>
+                        <td>${ext.fechaRecarga}</td>
+                        <td><span class="badge ${estadoClass}">${ext.estado}</span></td>
+                        <td>${emp.nombre} (${emp.codigo})</td>
+                        <td><button class="btn-qr" data-id="${ext.id}"><i class="fas fa-qrcode"></i> QR</button></td>
+                        <td><button class="btn-recarga-rapida" data-id="${ext.id}"><i class="fas fa-sync"></i> Recargar</button> <button class="btn-delete-extintor" data-id="${ext.id}"><i class="fas fa-trash"></i></button></td>
+                    </tr>`;
+        }).join('');
+        document.querySelectorAll('#extintoresTableBody .btn-qr').forEach(btn => btn.addEventListener('click', () => mostrarQR(btn.dataset.id)));
+        document.querySelectorAll('#extintoresTableBody .btn-recarga-rapida').forEach(btn => btn.addEventListener('click', () => abrirModalRecarga(btn.dataset.id)));
+        document.querySelectorAll('#extintoresTableBody .btn-delete-extintor').forEach(btn => btn.addEventListener('click', () => {
+            if (confirm('¿Eliminar extintor?')) {
+                extintores = extintores.filter(e => e.id !== btn.dataset.id);
+                saveExtintores();
+                renderAll();
+                mostrarToast('Extintor eliminado', 'warning');
+            }
+        }));
+    }
+
+    function renderEmpleadosTabla() {
+        const search = document.getElementById('searchEmpleado')?.value.toLowerCase() || '';
+        let filtered = empleados.filter(e => e.codigo.toLowerCase().includes(search) || e.nombre.toLowerCase().includes(search));
+        const tbody = document.getElementById('empleadosTableBody');
+        if (filtered.length === 0) { tbody.innerHTML = '<tr><td colspan="6">No hay empleados</td></tr>'; return; }
+        tbody.innerHTML = filtered.map(emp => `<tr>
+                    <td>${emp.codigo}</td>
+                    <td>${emp.nombre}</td>
+                    <td>${emp.especialidad}</td>
+                    <td>${emp.telefono}</td>
+                    <td>${emp.recargasCount}</td>
+                    <td><button class="btn-edit-empleado" data-id="${emp.id}"><i class="fas fa-edit"></i></button> <button class="btn-delete-empleado" data-id="${emp.id}"><i class="fas fa-trash"></i></button></td>
+                </tr>`).join('');
+        document.querySelectorAll('.btn-edit-empleado').forEach(btn => btn.addEventListener('click', () => editarEmpleado(btn.dataset.id)));
+        document.querySelectorAll('.btn-delete-empleado').forEach(btn => btn.addEventListener('click', () => {
+            if (confirm('¿Eliminar empleado?')) {
+                empleados = empleados.filter(e => e.id !== btn.dataset.id);
+                saveEmpleados();
+                renderAll();
+                mostrarToast('Empleado eliminado', 'warning');
+            }
+        }));
+    }
+
+    function renderAlertasTab() {
+        const container = document.getElementById('historialAlertasList');
+        if (historialAlertas.length === 0) container.innerHTML = '<p class="empty-message">No hay alertas enviadas.</p>';
+        else {
+            container.innerHTML = historialAlertas.map(a => `<div class="alert-history-item"><i class="fas fa-paper-plane"></i><div><strong>${new Date(a.fecha).toLocaleString()}</strong> - ${a.clienteNombre}<br><small>${a.mensaje.substring(0,100)}...</small><span class="tipo-alerta">${a.tipo === 'auto' ? 'Automática' : 'Manual'}</span></div></div>`).join('');
+        }
+    }
+    function actualizarBadgeAlertas() { document.getElementById('alertCountBadge').innerHTML = `${getExtintoresProximos().length} alertas`; }
+    function cerrarModal() { document.querySelectorAll('.modal-overlay').forEach(m => m.style.display = 'none'); }
+
+    // ======================== CRUD COMPLETO ========================
+    function nuevoCliente() {
+        document.getElementById('modalTitle').innerText = 'Nuevo Cliente';
+        document.getElementById('modalBody').innerHTML = `<div class="form-group"><label>RUC/DNI</label><input id="newRuc" placeholder="20510123456"></div><div class="form-group"><label>Razón Social *</label><input id="newRazon" placeholder="Empresa SAC"></div><div class="form-group"><label>Teléfono</label><input id="newTelefono" placeholder="+51987654321"></div><div class="form-group"><label>Email</label><input id="newEmail" placeholder="contacto@empresa.com"></div>`;
+        document.getElementById('modalOverlay').style.display = 'flex';
+        const confirmBtn = document.getElementById('modalConfirmBtn');
+        confirmBtn.onclick = () => {
+            const razon = document.getElementById('newRazon').value.trim();
+            if (!razon) { mostrarToast('La razón social es obligatoria', 'warning'); return; }
+            clientes.push({ id: 'c' + Date.now(), ruc: document.getElementById('newRuc').value, razon: razon, telefono: document.getElementById('newTelefono').value, email: document.getElementById('newEmail').value });
+            saveClientes();
+            cerrarModal();
+            renderAll();
+            mostrarToast('Cliente agregado', 'success');
+            confirmBtn.onclick = null;
+        };
+    }
+    function editarCliente(id) {
+        const cli = clientes.find(c => c.id === id);
+        if (!cli) return;
+        document.getElementById('modalTitle').innerText = 'Editar Cliente';
+        document.getElementById('modalBody').innerHTML = `<div class="form-group"><label>RUC</label><input id="editRuc" value="${cli.ruc}"></div><div class="form-group"><label>Razón Social</label><input id="editRazon" value="${cli.razon}"></div><div class="form-group"><label>Teléfono</label><input id="editTelefono" value="${cli.telefono}"></div><div class="form-group"><label>Email</label><input id="editEmail" value="${cli.email}"></div>`;
+        document.getElementById('modalOverlay').style.display = 'flex';
+        const confirmBtn = document.getElementById('modalConfirmBtn');
+        confirmBtn.onclick = () => {
+            cli.ruc = document.getElementById('editRuc').value;
+            cli.razon = document.getElementById('editRazon').value;
+            cli.telefono = document.getElementById('editTelefono').value;
+            cli.email = document.getElementById('editEmail').value;
+            saveClientes();
+            cerrarModal();
+            renderAll();
+            mostrarToast('Cliente actualizado', 'success');
+            confirmBtn.onclick = null;
+        };
+    }
+    function eliminarCliente(id) {
+        if (confirm('¿Eliminar cliente y todos sus extintores asociados?')) {
+            extintores = extintores.filter(e => e.clienteId !== id);
+            clientes = clientes.filter(c => c.id !== id);
+            saveExtintores(); saveClientes();
+            renderAll();
+            mostrarToast('Cliente eliminado', 'warning');
+        }
+    }
+    function nuevoExtintor() {
+        if (clientes.length === 0) { mostrarToast('Primero registre un cliente', 'warning'); return; }
+        document.getElementById('modalTitle').innerText = 'Registrar Extintor';
+        const clientesOptions = clientes.map(c => `<option value="${c.id}">${c.razon}</option>`).join('');
+        document.getElementById('modalBody').innerHTML = `<div class="form-group"><label>Número Serie *</label><input id="newSerie" placeholder="EXT-001-2025"></div><div class="form-group"><label>Cliente</label><select id="newClienteId">${clientesOptions}</select></div><div class="form-group"><label>Ubicación</label><input id="newUbicacion" placeholder="Planta baja"></div><div class="form-group"><label>Fecha próx. recarga</label><input type="date" id="newFechaRecarga"></div><div class="form-group"><label>Modelo</label><input id="newModelo" placeholder="ABC 6kg"></div><div class="form-group"><label>Tipo</label><input id="newTipo" placeholder="ABC, CO2, PQS"></div>`;
+        document.getElementById('modalOverlay').style.display = 'flex';
+        const confirmBtn = document.getElementById('modalConfirmBtn');
+        confirmBtn.onclick = () => {
+            const serie = document.getElementById('newSerie').value.trim();
+            const fecha = document.getElementById('newFechaRecarga').value;
+            if (!serie || !fecha) { mostrarToast('Serie y fecha son obligatorios', 'warning'); return; }
+            const nuevoId = 'e' + Date.now();
+            extintores.push({
+                id: nuevoId, numeroSerie: serie, clienteId: document.getElementById('newClienteId').value,
+                ubicacion: document.getElementById('newUbicacion').value, fechaRecarga: fecha,
+                modelo: document.getElementById('newModelo').value, tipo: document.getElementById('newTipo').value,
+                estado: calcularEstadoExtintor(fecha), ultimaRecarga: fecha, ultimoEmpleadoId: empleados[0]?.id || null,
+                historialRecargas: [fecha]
+            });
+            saveExtintores();
+            cerrarModal();
+            renderAll();
+            mostrarToast('Extintor agregado', 'success');
+            confirmBtn.onclick = null;
+        };
+    }
+    function nuevoEmpleado() {
+        document.getElementById('modalTitle').innerText = 'Nuevo Empleado';
+        document.getElementById('modalBody').innerHTML = `<div class="form-group"><label>Código único *</label><input id="newCodigo" placeholder="TEC-XXX"></div><div class="form-group"><label>Nombre completo</label><input id="newNombre"></div><div class="form-group"><label>Especialidad</label><input id="newEspecialidad" placeholder="ABC, CO2, PQS"></div><div class="form-group"><label>Teléfono</label><input id="newTelefonoEmp"></div>`;
+        document.getElementById('modalOverlay').style.display = 'flex';
+        const confirmBtn = document.getElementById('modalConfirmBtn');
+        confirmBtn.onclick = () => {
+            const codigo = document.getElementById('newCodigo').value.trim();
+            if (!codigo) { mostrarToast('Código obligatorio', 'warning'); return; }
+            empleados.push({ id: 'emp' + Date.now(), codigo, nombre: document.getElementById('newNombre').value, especialidad: document.getElementById('newEspecialidad').value, telefono: document.getElementById('newTelefonoEmp').value, recargasCount: 0 });
+            saveEmpleados();
+            cerrarModal();
+            renderAll();
+            mostrarToast('Empleado agregado', 'success');
+            confirmBtn.onclick = null;
+        };
+    }
+    function editarEmpleado(id) {
+        const emp = empleados.find(e => e.id === id);
+        if (!emp) return;
+        document.getElementById('modalTitle').innerText = 'Editar Empleado';
+        document.getElementById('modalBody').innerHTML = `<div class="form-group"><label>Código</label><input id="editCodigo" value="${emp.codigo}"></div><div class="form-group"><label>Nombre</label><input id="editNombre" value="${emp.nombre}"></div><div class="form-group"><label>Especialidad</label><input id="editEspecialidad" value="${emp.especialidad}"></div><div class="form-group"><label>Teléfono</label><input id="editTelefono" value="${emp.telefono}"></div>`;
+        document.getElementById('modalOverlay').style.display = 'flex';
+        const confirmBtn = document.getElementById('modalConfirmBtn');
+        confirmBtn.onclick = () => {
+            emp.codigo = document.getElementById('editCodigo').value;
+            emp.nombre = document.getElementById('editNombre').value;
+            emp.especialidad = document.getElementById('editEspecialidad').value;
+            emp.telefono = document.getElementById('editTelefono').value;
+            saveEmpleados();
+            cerrarModal();
+            renderAll();
+            mostrarToast('Empleado actualizado', 'success');
+            confirmBtn.onclick = null;
+        };
+    }
+    function mostrarQR(extId) {
+        const ext = extintores.find(e => e.id === extId);
+        if (!ext) return;
+        const cliente = getClienteById(ext.clienteId);
+        const empleado = getEmpleadoById(ext.ultimoEmpleadoId);
+        const qrData = `https://firecenter.app/extintor/${ext.id}?serie=${ext.numeroSerie}&cliente=${encodeURIComponent(cliente.razon)}&vencimiento=${ext.fechaRecarga}&ultimaRecargaPor=${empleado.codigo}`;
+        document.getElementById('modalBody').innerHTML = `<div style="text-align:center"><p><strong>${ext.numeroSerie}</strong><br>Cliente: ${cliente.razon}<br>Vence: ${ext.fechaRecarga}<br>Últ. recarga: ${empleado.nombre} (${empleado.codigo})</p><div id="qrCodeContainer"></div><p class="qr-note">Escanee para mantenimiento</p></div>`;
+        document.getElementById('modalTitle').innerText = 'Código QR con trazabilidad';
+        document.getElementById('modalOverlay').style.display = 'flex';
+        new QRCode(document.getElementById("qrCodeContainer"), { text: qrData, width: 180, height: 180 });
+    }
+    function ejecutarAlertasAutomaticas() {
+        const proximos = getExtintoresProximos();
+        proximos.forEach(ext => {
+            const cli = getClienteById(ext.clienteId);
+            if (cli.telefono && !historialAlertas.some(h => h.extintorId === ext.id && new Date(h.fecha).toDateString() === new Date().toDateString())) {
+                enviarAlerta(ext, cli, 'auto');
+            }
+        });
+    }
+    function initAssistant() {
+        const chatDiv = document.getElementById('chatMessages');
+        chatDiv.innerHTML = '<div class="bot-msg"><i class="fas fa-robot"></i> Hola, soy el asistente con IA. Pregúntame sobre normativa, recargas, empleados o trazabilidad.</div>';
+        const send = () => {
+            const input = document.getElementById('chatInput');
+            const text = input.value.trim();
+            if (!text) return;
+            chatDiv.innerHTML += `<div class="user-msg"><i class="fas fa-user"></i> ${text}</div>`;
+            input.value = '';
+            let reply = '';
+            const lower = text.toLowerCase();
+            if (lower.includes('norma') || lower.includes('ntp')) reply = 'Según NTP 350.043-1, los extintores deben recargarse anualmente. Fire Center cumple esta norma.';
+            else if (lower.includes('recarga')) reply = 'Ofrecemos servicio de recarga con trazabilidad: cada recarga queda registrada con el técnico responsable.';
+            else if (lower.includes('empleado') || lower.includes('técnico')) reply = `Tenemos ${empleados.length} técnicos activos. El más experimentado es ${empleados.sort((a,b)=>b.recargasCount - a.recargasCount)[0]?.nombre || 'Ninguno'}.`;
+            else if (lower.includes('trazabilidad')) reply = 'Cada extintor tiene un QR que muestra su historial completo y el último técnico que lo recargó.';
+            else reply = 'Puedo ayudarte con normativa, recargas, empleados, trazabilidad o productos. ¿Qué necesitas?';
+            setTimeout(() => { chatDiv.innerHTML += `<div class="bot-msg"><i class="fas fa-robot"></i> ${reply}</div>`; chatDiv.scrollTop = chatDiv.scrollHeight; }, 300);
+            chatDiv.scrollTop = chatDiv.scrollHeight;
+        };
+        document.getElementById('sendChatBtn').onclick = send;
+        document.getElementById('chatInput').addEventListener('keypress', e => { if (e.key === 'Enter') send(); });
+    }
+
+    // ======================== CARGA INICIAL DE DATOS (CON PRECARGA ASEGURADA) ========================
+    function resetToDemoData() {
+        // Datos de ejemplo completos
+        clientes = [
+            { id: 'c1', ruc: '20510123456', razon: 'Industrias Lima S.A.', telefono: '+51987654321', email: 'contacto@industriaslima.com' },
+            { id: 'c2', ruc: '20601234567', razon: 'Colegio San Marcos', telefono: '+51912345678', email: 'adm@sanmarcos.edu' },
+            { id: 'c3', ruc: '20456789012', razon: 'Condominio Las Torres', telefono: '+5199998877', email: 'admin@lastorres.com' }
+        ];
+        empleados = [
+            { id: 'emp1', codigo: 'TEC-001', nombre: 'Carlos Mendoza', especialidad: 'ABC, CO2', telefono: '+5191112233', recargasCount: 0 },
+            { id: 'emp2', codigo: 'TEC-002', nombre: 'Lucía Fernández', especialidad: 'ABC, PQS', telefono: '+5192223344', recargasCount: 0 },
+            { id: 'emp3', codigo: 'TEC-003', nombre: 'Jorge Ramírez', especialidad: 'Todos los tipos', telefono: '+5193334455', recargasCount: 0 }
+        ];
+        extintores = [
+            { id: 'e1', numeroSerie: 'EXT-001-2024', clienteId: 'c1', ubicacion: 'Planta 1 - Nave A', fechaRecarga: '2025-04-15', modelo: 'ABC 6kg', tipo: 'ABC', estado: 'vigente', ultimaRecarga: '2024-04-15', ultimoEmpleadoId: 'emp1', historialRecargas: ['2024-04-15'] },
+            { id: 'e2', numeroSerie: 'EXT-002-2024', clienteId: 'c1', ubicacion: 'Planta 2 - Oficinas', fechaRecarga: '2025-05-20', modelo: 'CO2 5kg', tipo: 'CO2', estado: 'vigente', ultimaRecarga: '2024-05-20', ultimoEmpleadoId: 'emp2', historialRecargas: ['2024-05-20'] },
+            { id: 'e3', numeroSerie: 'EXT-003-2023', clienteId: 'c2', ubicacion: 'Pabellón A', fechaRecarga: '2025-02-10', modelo: 'ABC 4kg', tipo: 'ABC', estado: 'vencido', ultimaRecarga: '2024-02-10', ultimoEmpleadoId: 'emp1', historialRecargas: ['2024-02-10'] },
+            { id: 'e4', numeroSerie: 'EXT-004-2025', clienteId: 'c2', ubicacion: 'Gimnasio', fechaRecarga: '2025-06-01', modelo: 'ABC 6kg', tipo: 'ABC', estado: 'vigente', ultimaRecarga: '2024-06-01', ultimoEmpleadoId: 'emp3', historialRecargas: ['2024-06-01'] },
+            { id: 'e5', numeroSerie: 'EXT-005-2024', clienteId: 'c3', ubicacion: 'Sótano', fechaRecarga: '2025-04-01', modelo: 'ABC 6kg', tipo: 'ABC', estado: 'por_vencer', ultimaRecarga: '2024-04-01', ultimoEmpleadoId: 'emp2', historialRecargas: ['2024-04-01'] },
+            { id: 'e6', numeroSerie: 'EXT-006-2025', clienteId: 'c1', ubicacion: 'Muelle de carga', fechaRecarga: '2025-03-30', modelo: 'PQS 9kg', tipo: 'PQS', estado: 'por_vencer', ultimaRecarga: '2024-03-30', ultimoEmpleadoId: 'emp3', historialRecargas: ['2024-03-30'] },
+            { id: 'e7', numeroSerie: 'EXT-007-2025', clienteId: 'c3', ubicacion: 'Salón comunal', fechaRecarga: '2025-04-10', modelo: 'CO2 5kg', tipo: 'CO2', estado: 'por_vencer', ultimaRecarga: '2024-04-10', ultimoEmpleadoId: 'emp1', historialRecargas: ['2024-04-10'] }
+        ];
+        recargasHistoricas = [];
+        extintores.forEach(ext => {
+            recargasHistoricas.push({ id: 'rh' + Date.now() + ext.id, extintorId: ext.id, empleadoId: ext.ultimoEmpleadoId, fechaRecarga: ext.ultimaRecarga, fechaOperacion: ext.ultimaRecarga + 'T10:00:00Z' });
+        });
+        historialAlertas = [];
+        saveClientes(); saveEmpleados(); saveExtintores(); saveRecargas(); saveHistorial();
+        actualizarContadorRecargasEmpleados();
+        actualizarEstadosExtintores();
+        renderAll();
+        mostrarToast('Datos restablecidos a valores de demostración', 'success');
+    }
+
+    function loadData() {
+        // Si no hay datos en localStorage, inicializar con demo
+        if (localStorage.getItem('fc_clientes') === null) {
+            resetToDemoData();
+        } else {
+            clientes = JSON.parse(localStorage.getItem('fc_clientes'));
+            empleados = JSON.parse(localStorage.getItem('fc_empleados'));
+            extintores = JSON.parse(localStorage.getItem('fc_extintores'));
+            recargasHistoricas = JSON.parse(localStorage.getItem('fc_recargas') || '[]');
+            historialAlertas = JSON.parse(localStorage.getItem('fc_alertas') || '[]');
+            actualizarContadorRecargasEmpleados();
+            actualizarEstadosExtintores();
+        }
+    }
+
+    // ======================== EVENT LISTENERS ========================
+    document.getElementById('agregarClienteBtn').addEventListener('click', nuevoCliente);
+    document.getElementById('agregarExtintorBtn').addEventListener('click', nuevoExtintor);
+    document.getElementById('agregarEmpleadoBtn').addEventListener('click', nuevoEmpleado);
+    document.getElementById('refreshAI').addEventListener('click', generarRecomendacionIA);
+    document.getElementById('limpiarHistorialBtn').addEventListener('click', () => { historialAlertas = []; saveHistorial(); renderAlertasTab(); mostrarToast('Historial limpiado', 'info'); });
+    document.getElementById('openAssistantBtn').addEventListener('click', () => { document.getElementById('modalAssistant').style.display = 'flex'; initAssistant(); });
+    document.getElementById('resetDemoBtn').addEventListener('click', resetToDemoData);
+    document.querySelectorAll('.close-modal').forEach(btn => btn.addEventListener('click', () => { const modalId = btn.getAttribute('data-modal'); if (modalId) document.getElementById(modalId).style.display = 'none'; else cerrarModal(); }));
+    document.getElementById('modalCancelBtn')?.addEventListener('click', cerrarModal);
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+        document.getElementById(btn.dataset.tab).classList.add('active');
+    }));
+    document.getElementById('searchCliente')?.addEventListener('input', renderClientesTabla);
+    document.getElementById('searchExtintor')?.addEventListener('input', renderExtintoresTabla);
+    document.getElementById('searchEmpleado')?.addEventListener('input', renderEmpleadosTabla);
+
+    // Inicialización
+    loadData();
+    renderAll();
+    ejecutarAlertasAutomaticas();
+    setInterval(() => { actualizarEstadosExtintores(); renderDashboard(); renderExtintoresTabla(); actualizarBadgeAlertas(); }, 60000);
+</script>
+</body>
+</html>
