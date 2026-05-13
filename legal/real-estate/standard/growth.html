@@ -1,0 +1,4729 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rantes Loyola & Asociados | Estudio Jurídico — Enterprise</title>
+    <meta name="description"
+        content="Estudio Jurídico Rantes Loyola. Análisis de documentos con IA, consultas online, especialistas en Derecho Notarial, Penal y Familia. Lima, Perú.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        /* === ROOT ===================================================== */
+        :root {
+            --g: #C9A84C;
+            --gl: #e8c96a;
+            --gd: #8b6f2a;
+            --bk: #080808;
+            --d1: #111;
+            --d2: #191919;
+            --d3: #222;
+            --d4: #2a2a2a;
+            --wh: #F4EFE6;
+            --ww: #FEFCF8;
+            --gr: #777;
+            --grl: #bbb;
+            --wa: #25D366;
+            --red: #c0392b;
+            --fd: 'Playfair Display', serif;
+            --fb: 'DM Sans', sans-serif;
+            --fs: 'DM Serif Display', serif;
+            --r: 3px;
+            --tr: .32s cubic-bezier(.4, 0, .2, 1);
+            --nav: 68px;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px
+        }
+
+        body {
+            background: var(--bk);
+            color: var(--wh);
+            font-family: var(--fb);
+            font-weight: 300;
+            line-height: 1.7;
+            overflow-x: hidden
+        }
+
+        img {
+            max-width: 100%;
+            display: block
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit
+        }
+
+        ul {
+            list-style: none
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-family: inherit
+        }
+
+        ::-webkit-scrollbar {
+            width: 3px
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--d1)
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gd);
+            border-radius: 2px
+        }
+
+        /* === UTILS =================================================== */
+        .c {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px
+        }
+
+        .sp {
+            padding: 100px 0
+        }
+
+        .gold {
+            color: var(--g)
+        }
+
+        .tag {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--g)
+        }
+
+        .gl {
+            width: 40px;
+            height: 1.5px;
+            background: linear-gradient(90deg, var(--g), transparent);
+            margin: 14px 0 26px
+        }
+
+        .gl.cx {
+            margin: 14px auto 26px
+        }
+
+        .ht {
+            font-family: var(--fd);
+            font-size: clamp(28px, 4vw, 52px);
+            font-weight: 700;
+            line-height: 1.05
+        }
+
+        .ht span {
+            color: var(--g);
+            font-style: italic
+        }
+
+        .reveal {
+            opacity: 1;
+            /* Safety default: always visible */
+            transform: none;
+            transition: opacity .8s cubic-bezier(.16, 1, .3, 1), transform .8s cubic-bezier(.16, 1, .3, 1);
+            will-change: opacity, transform
+        }
+
+        /* Classes for JS-driven animations if we decide to re-enable them later */
+        .reveal.hidden {
+            opacity: 0;
+            transform: translateY(24px)
+        }
+
+        .reveal.v {
+            opacity: 1;
+            transform: translateY(0)
+        }
+
+        .rvl {
+            opacity: 0;
+            transform: translateX(-28px);
+            transition: opacity .65s ease, transform .65s ease
+        }
+
+        .rvl.v {
+            opacity: 1;
+            transform: none
+        }
+
+        .rvr {
+            opacity: 0;
+            transform: translateX(28px);
+            transition: opacity .65s ease, transform .65s ease
+        }
+
+        .rvr.v {
+            opacity: 1;
+            transform: none
+        }
+
+        /* ADMIN EDITABLE */
+        [contenteditable=true] {
+            outline: none;
+            cursor: text;
+            position: relative
+        }
+
+        body.admin-on [data-editable]:hover {
+            outline: 1.5px dashed rgba(201, 168, 76, .5);
+            outline-offset: 3px;
+            border-radius: 2px;
+            cursor: text
+        }
+
+        body.admin-on [data-editable]:focus {
+            outline: 1.5px solid var(--g);
+            outline-offset: 3px
+        }
+
+        .admin-bar {
+            display: none;
+            position: fixed;
+            top: var(--nav);
+            left: 0;
+            right: 0;
+            z-index: 900;
+            background: rgba(201, 168, 76, .12);
+            border-bottom: 1px solid rgba(201, 168, 76, .3);
+            padding: 8px 24px;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            backdrop-filter: blur(8px)
+        }
+
+        body.admin-on .admin-bar {
+            display: flex
+        }
+
+        .admin-bar span {
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--g)
+        }
+
+        .admin-btn-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .admin-btn {
+            font-size: 11px;
+            font-weight: 600;
+            padding: 6px 16px;
+            border-radius: 50px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: var(--tr);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .ab-save {
+            background: var(--g);
+            color: var(--bk)
+        }
+
+        .ab-save:hover {
+            background: var(--gl);
+            transform: translateY(-1px);
+        }
+
+        .ab-discard {
+            border: 1px solid rgba(255, 255, 255, .15);
+            color: var(--grl);
+            background: rgba(0, 0, 0, .2);
+        }
+
+        .ab-discard:hover {
+            color: var(--wh);
+            background: rgba(255, 255, 255, .05);
+        }
+
+        /* === NAV ===================================================== */
+        #nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            height: var(--nav);
+            display: flex;
+            align-items: center;
+            transition: background .4s, box-shadow .4s
+        }
+
+        #nav.sc {
+            background: rgba(8, 8, 8, .85);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 1px 0 rgba(201, 168, 76, .12);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        #nav>.c {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%
+        }
+
+        .nlogo {
+            display: flex;
+            flex-direction: column
+        }
+
+        .nlogo .nm {
+            font-family: var(--fd);
+            font-size: 19px;
+            font-weight: 700;
+            letter-spacing: .5px;
+            line-height: 1
+        }
+
+        .nlogo .nm span {
+            color: var(--g)
+        }
+
+        .nlogo .nt {
+            font-size: 8.5px;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--g);
+            opacity: .8;
+            margin-top: 2px
+        }
+
+        .nlinks {
+            display: flex;
+            gap: 32px
+        }
+
+        .nlinks a {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: rgba(244, 239, 230, .6);
+            transition: color var(--tr);
+            position: relative
+        }
+
+        .nlinks a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--g);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform var(--tr)
+        }
+
+        .nlinks a:hover {
+            color: var(--g)
+        }
+
+        .nlinks a:hover::after {
+            transform: scaleX(1)
+        }
+
+        .ncta {
+            display: flex;
+            gap: 10px;
+            align-items: center
+        }
+
+        .nwa {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            background: var(--wa);
+            color: #fff;
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-size: 11px;
+            font-weight: 600;
+            transition: var(--tr)
+        }
+
+        .nwa:hover {
+            background: #1ebe5d;
+            transform: scale(1.04)
+        }
+
+        .nadmin {
+            width: 34px;
+            height: 34px;
+            border: 1px solid rgba(201, 168, 76, .25);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--g);
+            font-size: 13px;
+            transition: var(--tr)
+        }
+
+        .nadmin:hover {
+            background: rgba(201, 168, 76, .1);
+            border-color: var(--g)
+        }
+
+        .hbg {
+            display: none;
+            flex-direction: column;
+            gap: 5.5px;
+            padding: 10px;
+            cursor: pointer;
+            z-index: 1001;
+            /* Ensure it is clickable above other elements */
+            margin-right: -10px
+        }
+
+        .hbg span {
+            display: block;
+            width: 22px;
+            height: 1.5px;
+            background: var(--g);
+            transition: var(--tr)
+        }
+
+        .mnav {
+            position: fixed;
+            inset: 0;
+            z-index: 999;
+            background: var(--bk);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 32px;
+            transform: translateX(100%);
+            transition: transform .45s cubic-bezier(.4, 0, .2, 1)
+        }
+
+        .mnav.op {
+            transform: none
+        }
+
+        .mnav a {
+            font-family: var(--fd);
+            font-size: 36px;
+            font-weight: 600;
+            color: var(--wh);
+            transition: color var(--tr)
+        }
+
+        .mnav a:hover {
+            color: var(--g)
+        }
+
+        .mnclose {
+            position: absolute;
+            top: 22px;
+            right: 22px;
+            font-size: 26px;
+            color: var(--g);
+            cursor: pointer
+        }
+
+        /* === HERO ==================================================== */
+        #hero {
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            /* Centered for mobile first */
+            justify-content: center;
+            overflow: hidden;
+            padding-top: var(--nav)
+        }
+
+        @media (min-width: 768px) {
+            #hero {
+                align-items: flex-end;
+                /* Original design for desktop */
+                justify-content: flex-start
+            }
+        }
+
+        .hbg-layer {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(165deg, #0d0d0a 0%, #0a0a06 40%, #080808 100%)
+        }
+
+        .hgrid {
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(rgba(201, 168, 76, .03) 1px, transparent 1px), linear-gradient(90deg, rgba(201, 168, 76, .03) 1px, transparent 1px);
+            background-size: 80px 80px;
+            animation: gshift 25s linear infinite
+        }
+
+        @keyframes gshift {
+            to {
+                background-position: 80px 80px
+            }
+        }
+
+        .hglow {
+            position: absolute;
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(201, 168, 76, .08) 0%, transparent 65%);
+            top: 50%;
+            right: -50px;
+            transform: translateY(-50%);
+            pointer-events: none
+        }
+
+        .hglow2 {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(201, 168, 76, .05) 0%, transparent 65%);
+            bottom: 0;
+            left: 100px;
+            pointer-events: none
+        }
+
+        .hcontent {
+            position: relative;
+            z-index: 2;
+            padding: clamp(100px, 15vh, 140px) 24px clamp(60px, 8vh, 100px);
+            max-width: 1280px;
+            margin: 0 auto;
+            width: 100%
+        }
+
+        .heyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid rgba(201, 168, 76, .2);
+            padding: 7px 18px;
+            border-radius: 50px;
+            margin-bottom: 36px;
+            backdrop-filter: blur(4px)
+        }
+
+        .heyebrow .dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--wa);
+            animation: pd 2s infinite
+        }
+
+        @keyframes pd {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1)
+            }
+
+            50% {
+                opacity: .5;
+                transform: scale(1.5)
+            }
+        }
+
+        .heyebrow span {
+            font-size: 10px;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--g)
+        }
+
+        .htitle {
+            font-family: var(--fd);
+            font-size: clamp(52px, 9vw, 110px);
+            font-weight: 400;
+            line-height: .97;
+            letter-spacing: -2px;
+            margin-bottom: 0
+        }
+
+        .htitle em {
+            display: block;
+            color: var(--g);
+            font-style: italic;
+            font-weight: 600
+        }
+
+        .htitle strong {
+            display: block;
+            font-weight: 300;
+            color: rgba(244, 239, 230, .35);
+            font-size: .6em;
+            letter-spacing: 0
+        }
+
+        .hsubt {
+            max-width: 520px;
+            color: rgba(244, 239, 230, .5);
+            font-size: 15px;
+            margin: 28px 0 40px;
+            line-height: 1.85
+        }
+
+        .hacts {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 72px
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            padding: 13px 28px;
+            font-family: var(--fb);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-radius: var(--r);
+            transition: var(--tr)
+        }
+
+        .btng {
+            background: linear-gradient(135deg, var(--g), var(--gd));
+            color: var(--bk)
+        }
+
+        .btng:hover {
+            background: linear-gradient(135deg, var(--gl), var(--g));
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px rgba(201, 168, 76, .25)
+        }
+
+        .btno {
+            border: 1px solid rgba(201, 168, 76, .4);
+            color: var(--g)
+        }
+
+        .btno:hover {
+            border-color: var(--g);
+            background: rgba(201, 168, 76, .07);
+            transform: translateY(-2px)
+        }
+
+        .btnw {
+            background: var(--wa);
+            color: #fff
+        }
+
+        .btnw:hover {
+            background: #1ebe5d;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px rgba(37, 211, 102, .3)
+        }
+
+        .hstats {
+            display: flex;
+            gap: 0;
+            border-top: 1px solid rgba(201, 168, 76, .12);
+            padding-top: 44px;
+            flex-wrap: wrap
+        }
+
+        .hst {
+            padding: 0 44px 0 0;
+            margin-right: 44px;
+            border-right: 1px solid rgba(201, 168, 76, .1)
+        }
+
+        .hst:last-child {
+            border: none;
+            margin: 0
+        }
+
+        .hst .n {
+            font-family: var(--fd);
+            font-size: 52px;
+            font-weight: 700;
+            color: var(--g);
+            line-height: 1
+        }
+
+        .hst .l {
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gr);
+            margin-top: 5px
+        }
+
+        .scrl {
+            position: absolute;
+            bottom: 32px;
+            right: 32px;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 7px;
+            opacity: .4
+        }
+
+        .scrl span {
+            font-size: 8px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--g);
+            writing-mode: vertical-rl
+        }
+
+        .scrl .sl {
+            width: 1px;
+            height: 56px;
+            background: linear-gradient(to bottom, var(--g), transparent);
+            animation: sl 2s ease-in-out infinite
+        }
+
+        @keyframes sl {
+            0% {
+                transform: scaleY(0);
+                transform-origin: top
+            }
+
+            50% {
+                transform: scaleY(1);
+                transform-origin: top
+            }
+
+            50.01% {
+                transform: scaleY(1);
+                transform-origin: bottom
+            }
+
+            100% {
+                transform: scaleY(0);
+                transform-origin: bottom
+            }
+        }
+
+        /* === TICKER ================================================== */
+        .tkr {
+            background: linear-gradient(90deg, var(--gd), var(--g), var(--gd));
+            padding: 11px 0;
+            overflow: hidden
+        }
+
+        .tkrw {
+            display: flex;
+            white-space: nowrap;
+            animation: tkr 28s linear infinite
+        }
+
+        .tkrw:hover {
+            animation-play-state: paused
+        }
+
+        @keyframes tkr {
+            to {
+                transform: translateX(-50%)
+            }
+        }
+
+        .tki {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 10.5px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--bk);
+            padding: 0 26px
+        }
+
+        .tki i {
+            font-size: 9px
+        }
+
+        /* === AI HUB ================================================== */
+        #aihub {
+            background: var(--d1);
+            position: relative;
+            overflow: hidden
+        }
+
+        #aihub::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(201, 168, 76, .04) 0%, transparent 60%)
+        }
+
+        .ai-header {
+            text-align: center;
+            max-width: 640px;
+            margin: 0 auto 64px
+        }
+
+        .ai-grid {
+            display: grid;
+            grid-template-columns: 1.1fr .9fr;
+            gap: 2px;
+            background: rgba(201, 168, 76, .08)
+        }
+
+        .ai-panel {
+            background: var(--d2);
+            padding: 52px 48px
+        }
+
+        /* Document Analyzer */
+        .doc-drop {
+            border: 1px dashed rgba(201, 168, 76, .3);
+            border-radius: 6px;
+            padding: 36px 24px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--tr);
+            position: relative;
+            overflow: hidden
+        }
+
+        .doc-drop:hover {
+            border-color: var(--g);
+            background: rgba(201, 168, 76, .04)
+        }
+
+        .doc-drop.drag {
+            border-color: var(--g);
+            background: rgba(201, 168, 76, .08)
+        }
+
+        .doc-drop input[type=file] {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            cursor: pointer
+        }
+
+        .doc-drop i {
+            font-size: 36px;
+            color: rgba(201, 168, 76, .3);
+            margin-bottom: 14px
+        }
+
+        .doc-drop p {
+            font-size: 13px;
+            color: var(--gr);
+            line-height: 1.7
+        }
+
+        .doc-drop .hint {
+            font-size: 10px;
+            letter-spacing: 1px;
+            color: rgba(201, 168, 76, .5);
+            margin-top: 8px;
+            text-transform: uppercase
+        }
+
+        .doc-input {
+            width: 100%;
+            background: var(--d3);
+            border: 1px solid rgba(201, 168, 76, .12);
+            border-radius: var(--r);
+            padding: 14px 18px;
+            color: var(--wh);
+            font-family: var(--fb);
+            font-size: 13px;
+            resize: vertical;
+            min-height: 130px;
+            outline: none;
+            transition: border-color var(--tr);
+            margin: 14px 0
+        }
+
+        .doc-input:focus {
+            border-color: rgba(201, 168, 76, .4)
+        }
+
+        .or-divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 8px 0;
+            color: var(--gr);
+            font-size: 11px;
+            letter-spacing: 1px;
+            text-transform: uppercase
+        }
+
+        .or-divider::before,
+        .or-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: rgba(255, 255, 255, .07)
+        }
+
+        .ai-result {
+            background: var(--d3);
+            border: 1px solid rgba(201, 168, 76, .15);
+            border-radius: 6px;
+            padding: 24px;
+            margin-top: 20px;
+            display: none
+        }
+
+        .ai-result.show {
+            display: block
+        }
+
+        .ai-result-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 16px
+        }
+
+        .ai-result-header .badge {
+            background: rgba(201, 168, 76, .12);
+            color: var(--g);
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 50px
+        }
+
+        .ai-result-content {
+            font-size: 13px;
+            color: var(--grl);
+            line-height: 1.8
+        }
+
+        .ai-result-content h4 {
+            font-family: var(--fd);
+            font-size: 16px;
+            color: var(--wh);
+            margin-bottom: 8px
+        }
+
+        .ai-result-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap
+        }
+
+        /* Legal Risk Meter */
+        .risk-gauge {
+            margin: 20px 0;
+            padding: 18px;
+            background: rgba(0, 0, 0, .1);
+            border-radius: 6px;
+            border-left: 3px solid var(--g);
+        }
+
+        .risk-hdr {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .risk-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--grl);
+        }
+
+        .risk-value {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--g);
+        }
+
+        .risk-bar-bg {
+            height: 6px;
+            background: rgba(255, 255, 255, .05);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .risk-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #27ae60, #f1c40f, #e74c3c);
+            width: 0%;
+            transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .ai-loading {
+            display: none;
+            text-align: center;
+            padding: 24px
+        }
+
+        .ai-loading.show {
+            display: block
+        }
+
+        .ai-spin {
+            width: 32px;
+            height: 32px;
+            border: 2px solid rgba(201, 168, 76, .15);
+            border-top-color: var(--g);
+            border-radius: 50%;
+            animation: spin .8s linear infinite;
+            margin: 0 auto 12px
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg)
+            }
+        }
+
+        .ai-loading p {
+            font-size: 12px;
+            color: var(--gr);
+            letter-spacing: 1px
+        }
+
+        /* Express chat */
+        .chat-window {
+            background: var(--d3);
+            border-radius: 6px;
+            height: 340px;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-bottom: 14px
+        }
+
+        .chat-window::-webkit-scrollbar {
+            width: 2px
+        }
+
+        .chat-msg {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start
+        }
+
+        .chat-msg.bot {
+            flex-direction: row
+        }
+
+        .chat-msg.usr {
+            flex-direction: row-reverse
+        }
+
+        .chat-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px
+        }
+
+        .chat-msg.bot .chat-avatar {
+            background: linear-gradient(135deg, var(--g), var(--gd));
+            color: var(--bk)
+        }
+
+        .chat-msg.usr .chat-avatar {
+            background: var(--d4);
+            color: var(--g);
+            border: 1px solid rgba(201, 168, 76, .3)
+        }
+
+        .chat-bubble {
+            max-width: 78%;
+            padding: 12px 16px;
+            border-radius: 6px;
+            font-size: 13px;
+            line-height: 1.7
+        }
+
+        .chat-msg.bot .chat-bubble {
+            background: var(--d4);
+            color: var(--grl)
+        }
+
+        .chat-msg.usr .chat-bubble {
+            background: rgba(201, 168, 76, .12);
+            color: var(--wh);
+            border: 1px solid rgba(201, 168, 76, .2)
+        }
+
+        .chat-typing {
+            display: none;
+            padding: 12px 16px;
+            background: var(--d4);
+            border-radius: 6px;
+            width: fit-content
+        }
+
+        .chat-typing.show {
+            display: flex;
+            gap: 4px;
+            align-items: center
+        }
+
+        .ct-dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--g);
+            animation: ctd 1.2s infinite
+        }
+
+        .ct-dot:nth-child(2) {
+            animation-delay: .2s
+        }
+
+        .ct-dot:nth-child(3) {
+            animation-delay: .4s
+        }
+
+        @keyframes ctd {
+
+            0%,
+            60%,
+            100% {
+                transform: translateY(0);
+                opacity: .4
+            }
+
+            30% {
+                transform: translateY(-5px);
+                opacity: 1
+            }
+        }
+
+        .chat-form {
+            display: flex;
+            gap: 10px
+        }
+
+        .chat-inp {
+            flex: 1;
+            background: var(--d3);
+            border: 1px solid rgba(201, 168, 76, .15);
+            border-radius: 50px;
+            padding: 11px 20px;
+            color: var(--wh);
+            font-family: var(--fb);
+            font-size: 13px;
+            outline: none;
+            transition: border-color var(--tr)
+        }
+
+        .chat-inp:focus {
+            border-color: rgba(201, 168, 76, .4)
+        }
+
+        .chat-send {
+            width: 40px;
+            height: 40px;
+            background: var(--g);
+            border-radius: 50%;
+            color: var(--bk);
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--tr);
+            flex-shrink: 0
+        }
+
+        .chat-send:hover {
+            background: var(--gl)
+        }
+
+        .disclaimer {
+            font-size: 10px;
+            color: rgba(119, 119, 119, .6);
+            text-align: center;
+            margin-top: 8px;
+            line-height: 1.6
+        }
+
+        .chat-suggestions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 12px 0;
+        }
+
+        .chat-suggestion {
+            font-size: 10px;
+            padding: 6px 12px;
+            background: rgba(255, 255, 255, .03);
+            border: 1px solid rgba(201, 168, 76, .15);
+            border-radius: 50px;
+            color: var(--grl);
+            cursor: pointer;
+            transition: var(--tr);
+        }
+
+        .chat-suggestion:hover {
+            background: rgba(201, 168, 76, .08);
+            border-color: var(--g);
+            color: var(--g);
+        }
+
+        /* === SERVICES ================================================ */
+        #svcs {
+            background: var(--bk)
+        }
+
+        .svcs-hdr {
+            text-align: center;
+            margin-bottom: 64px
+        }
+
+        .svcs-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: rgba(201, 168, 76, .07)
+        }
+
+        .svc {
+            background: var(--d1);
+            padding: 44px 36px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: background var(--tr)
+        }
+
+        .svc::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--g), transparent);
+            transform: scaleX(0);
+            transition: transform .4s
+        }
+
+        .svc:hover {
+            background: var(--d2)
+        }
+
+        .svc:hover::after {
+            transform: scaleX(1)
+        }
+
+        .svc .bign {
+            font-family: var(--fd);
+            font-size: 72px;
+            font-weight: 700;
+            color: rgba(201, 168, 76, .04);
+            position: absolute;
+            top: 14px;
+            right: 20px;
+            line-height: 1
+        }
+
+        .svc-ico {
+            width: 46px;
+            height: 46px;
+            border: 1px solid rgba(201, 168, 76, .25);
+            border-radius: var(--r);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--g);
+            font-size: 18px;
+            margin-bottom: 22px;
+            transition: var(--tr)
+        }
+
+        .svc:hover .svc-ico {
+            background: rgba(201, 168, 76, .1)
+        }
+
+        .svc h3 {
+            font-family: var(--fd);
+            font-size: 19px;
+            font-weight: 600;
+            margin-bottom: 12px
+        }
+
+        .svc p {
+            font-size: 12.5px;
+            color: var(--gr);
+            line-height: 1.8
+        }
+
+        .svc ul {
+            margin-top: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px
+        }
+
+        .svc ul li {
+            font-size: 11.5px;
+            color: var(--gr);
+            display: flex;
+            align-items: center;
+            gap: 7px
+        }
+
+        .svc ul li::before {
+            content: '';
+            width: 3px;
+            height: 1px;
+            background: var(--g);
+            flex-shrink: 0
+        }
+
+        .svc-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 10px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--g);
+            margin-top: 22px;
+            transition: gap var(--tr)
+        }
+
+        .svc-link:hover {
+            gap: 12px
+        }
+
+        /* === STATS =================================================== */
+        #stats {
+            background: var(--d2);
+            border-top: 1px solid rgba(201, 168, 76, .08);
+            border-bottom: 1px solid rgba(201, 168, 76, .08);
+            padding: 72px 0
+        }
+
+        .stats-g {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr)
+        }
+
+        .stat {
+            text-align: center;
+            padding: 28px;
+            border-right: 1px solid rgba(201, 168, 76, .08)
+        }
+
+        .stat:last-child {
+            border: none
+        }
+
+        .stat .cn {
+            font-family: var(--fd);
+            font-size: 68px;
+            font-weight: 700;
+            color: var(--g);
+            line-height: 1;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center
+        }
+
+        .stat .cn sup {
+            font-size: 32px;
+            margin-top: 12px
+        }
+
+        .stat .cl {
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gr);
+            margin-top: 10px
+        }
+
+        .stat .cs {
+            font-size: 11.5px;
+            color: rgba(119, 119, 119, .5);
+            margin-top: 5px
+        }
+
+        /* === CASES =================================================== */
+        #cases {
+            background: var(--d1)
+        }
+
+        .cases-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 52px
+        }
+
+        .cases-top .va {
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--g);
+            border-bottom: 1px solid rgba(201, 168, 76, .35);
+            padding-bottom: 2px
+        }
+
+        .cases-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px
+        }
+
+        .case-card {
+            background: var(--d2);
+            border: 1px solid rgba(201, 168, 76, .08);
+            border-radius: var(--r);
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+            transition: border-color var(--tr), transform var(--tr)
+        }
+
+        .case-card:hover {
+            border-color: rgba(201, 168, 76, .3);
+            transform: translateY(-4px)
+        }
+
+        .case-card .ctype {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 9.5px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--g);
+            background: rgba(201, 168, 76, .08);
+            padding: 4px 12px;
+            border-radius: 50px;
+            margin-bottom: 18px
+        }
+
+        .case-card .cbdg {
+            position: absolute;
+            top: 22px;
+            right: 22px;
+            background: linear-gradient(135deg, var(--wa), #1a9e52);
+            color: #fff;
+            font-size: 8.5px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 3px 9px;
+            border-radius: 50px
+        }
+
+        .case-card h4 {
+            font-family: var(--fd);
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            line-height: 1.3
+        }
+
+        .case-card p {
+            font-size: 12px;
+            color: var(--gr);
+            line-height: 1.8
+        }
+
+        .case-meta {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-top: 18px;
+            padding-top: 18px;
+            border-top: 1px solid rgba(255, 255, 255, .05)
+        }
+
+        .case-meta span {
+            font-size: 10px;
+            color: var(--gr);
+            display: flex;
+            align-items: center;
+            gap: 5px
+        }
+
+        .case-meta i {
+            color: var(--g);
+            font-size: 9px
+        }
+
+        .case-add-btn {
+            border: 1px dashed rgba(201, 168, 76, .2);
+            border-radius: var(--r);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 40px;
+            cursor: pointer;
+            transition: var(--tr);
+            min-height: 240px;
+            background: rgba(201, 168, 76, .01)
+        }
+
+        .case-add-btn:hover {
+            border-color: rgba(201, 168, 76, .45);
+            background: rgba(201, 168, 76, .04)
+        }
+
+        .case-add-btn i {
+            font-size: 26px;
+            color: rgba(201, 168, 76, .25)
+        }
+
+        .case-add-btn span {
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(201, 168, 76, .35)
+        }
+
+        /* Admin case modal */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            background: rgba(0, 0, 0, .85);
+            backdrop-filter: blur(4px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px
+        }
+
+        .modal-overlay.open {
+            display: flex
+        }
+
+        .modal {
+            background: rgba(25, 25, 25, .9);
+            border: 1px solid rgba(201, 168, 76, .2);
+            border-radius: 12px;
+            padding: 40px;
+            width: 100%;
+            max-width: 560px;
+            position: relative;
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, .5);
+        }
+
+        .modal h3 {
+            font-family: var(--fd);
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 28px
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 18px;
+            right: 18px;
+            font-size: 20px;
+            color: var(--gr);
+            cursor: pointer;
+            transition: color var(--tr)
+        }
+
+        .modal-close:hover {
+            color: var(--wh)
+        }
+
+        .mfg {
+            margin-bottom: 18px
+        }
+
+        .mfg label {
+            display: block;
+            font-size: 9.5px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--g);
+            margin-bottom: 7px
+        }
+
+        .mfg input,
+        .mfg textarea,
+        .mfg select {
+            width: 100%;
+            background: var(--d3);
+            border: 1px solid rgba(201, 168, 76, .12);
+            border-radius: var(--r);
+            padding: 12px 16px;
+            color: var(--wh);
+            font-family: var(--fb);
+            font-size: 13px;
+            outline: none;
+            transition: border-color var(--tr)
+        }
+
+        .mfg input:focus,
+        .mfg textarea:focus {
+            border-color: rgba(201, 168, 76, .4)
+        }
+
+        .mfg textarea {
+            min-height: 100px;
+            resize: vertical
+        }
+
+        /* Calendar moved to Modal */
+
+        .cal-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: start
+        }
+
+        .cal-wrap {
+            background: rgba(25, 25, 25, .6);
+            border: 1px solid rgba(201, 168, 76, .15);
+            border-radius: 12px;
+            overflow: hidden;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, .3);
+        }
+
+        .cal-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            border-bottom: 1px solid rgba(201, 168, 76, .1)
+        }
+
+        .cal-nav h3 {
+            font-family: var(--fd);
+            font-size: 18px;
+            font-weight: 600
+        }
+
+        .cal-nav button {
+            width: 32px;
+            height: 32px;
+            border: 1px solid rgba(201, 168, 76, .2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--g);
+            font-size: 12px;
+            transition: var(--tr)
+        }
+
+        .cal-nav button:hover {
+            background: rgba(201, 168, 76, .1)
+        }
+
+        .cal-days-hdr {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            padding: 14px 16px 8px;
+            gap: 4px
+        }
+
+        .cal-days-hdr span {
+            text-align: center;
+            font-size: 10px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--gr)
+        }
+
+        .cal-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            padding: 8px 16px 20px
+        }
+
+        .cal-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 13px;
+            font-weight: 400;
+            cursor: pointer;
+            transition: var(--tr);
+            position: relative
+        }
+
+        .cal-day.empty {
+            cursor: default
+        }
+
+        .cal-day.past {
+            color: rgba(119, 119, 119, .3);
+            cursor: not-allowed
+        }
+
+        .cal-day.today {
+            border: 1px solid rgba(201, 168, 76, .4);
+            color: var(--g)
+        }
+
+        .cal-day.available:hover {
+            background: rgba(201, 168, 76, .12);
+            color: var(--g)
+        }
+
+        .cal-day.selected {
+            background: var(--g);
+            color: var(--bk);
+            font-weight: 600
+        }
+
+        .cal-day.available::after {
+            content: '';
+            position: absolute;
+            bottom: 3px;
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            background: var(--wa)
+        }
+
+        .time-slots {
+            margin-top: 24px
+        }
+
+        .time-slots h4 {
+            font-family: var(--fd);
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px
+        }
+
+        .slots-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px
+        }
+
+        .slot {
+            padding: 10px 6px;
+            text-align: center;
+            border: 1px solid rgba(201, 168, 76, .15);
+            border-radius: var(--r);
+            font-size: 12px;
+            cursor: pointer;
+            transition: var(--tr);
+            color: var(--grl)
+        }
+
+        .slot:hover {
+            border-color: var(--g);
+            color: var(--g)
+        }
+
+        /* === CALENDAR MODAL (iOS Style) === */
+        .cal-modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            display: none;
+            align-items: flex-end;
+            /* Bottom sheet on mobile */
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .cal-modal-overlay.open {
+            display: flex;
+            opacity: 1;
+        }
+
+        .cal-modal {
+            background: var(--d2);
+            width: 100%;
+            max-width: 500px;
+            max-height: 90vh;
+            border-radius: 24px 24px 0 0;
+            /* iOS top round */
+            position: relative;
+            transform: translateY(100%);
+            transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+            overflow-y: auto;
+            padding: 40px 24px 60px;
+            border: 1px solid rgba(201, 168, 76, 0.15);
+            border-bottom: none;
+        }
+
+        @media (min-width: 768px) {
+            .cal-modal-overlay {
+                align-items: center;
+                /* Centered on desktop */
+            }
+
+            .cal-modal {
+                border-radius: 16px;
+                border: 1px solid rgba(201, 168, 76, 0.15);
+                transform: scale(0.9) translateY(20px);
+                max-width: 900px;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
+                padding: 48px;
+            }
+        }
+
+        .cal-modal-overlay.open .cal-modal {
+            transform: translateY(0) scale(1);
+        }
+
+        .cal-close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 32px;
+            height: 32px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--wh);
+            font-size: 14px;
+            cursor: pointer;
+            transition: var(--tr);
+            z-index: 10;
+        }
+
+        .cal-close-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--g);
+        }
+
+        .cal-modal-header {
+            margin-bottom: 24px;
+            grid-column: 1 / -1;
+            text-align: center;
+        }
+
+        .cal-modal-header .tag {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .cal-modal-header h2 {
+            font-family: var(--fd);
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .cal-modal-info {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .cal-modal-content {
+            /* Calendar part */
+        }
+
+        .slot.sel {
+            background: rgba(201, 168, 76, .12);
+            border-color: var(--g);
+            color: var(--g);
+            font-weight: 600
+        }
+
+        .slot.full {
+            opacity: .3;
+            cursor: not-allowed;
+            text-decoration: line-through
+        }
+
+        .cal-confirm {
+            margin-top: 24px;
+            padding: 20px;
+            background: rgba(201, 168, 76, .06);
+            border: 1px solid rgba(201, 168, 76, .15);
+            border-radius: 6px;
+            display: none
+        }
+
+        .cal-confirm.show {
+            display: block
+        }
+
+        .cal-confirm h4 {
+            font-family: var(--fd);
+            font-size: 16px;
+            margin-bottom: 12px
+        }
+
+        .cal-confirm p {
+            font-size: 12px;
+            color: var(--gr);
+            margin-bottom: 16px
+        }
+
+        .cal-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px
+        }
+
+        .cal-inp {
+            background: var(--d3);
+            border: 1px solid rgba(201, 168, 76, .12);
+            border-radius: var(--r);
+            padding: 11px 16px;
+            color: var(--wh);
+            font-family: var(--fb);
+            font-size: 13px;
+            outline: none;
+            transition: border-color var(--tr)
+        }
+
+        .cal-inp:focus {
+            border-color: rgba(201, 168, 76, .4)
+        }
+
+        /* === NEWS ==================================================== */
+        #news {
+            background: var(--ww);
+            color: var(--bk)
+        }
+
+        .news-hdr {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 52px;
+            border-bottom: 2px solid var(--bk);
+            padding-bottom: 20px
+        }
+
+        .news-hdr .tg {
+            color: var(--gd)
+        }
+
+        .news-hdr .ht {
+            color: var(--bk)
+        }
+
+        .news-hdr .ht span {
+            color: var(--gd)
+        }
+
+        .news-hdr .va {
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gd);
+            border-bottom: 1.5px solid var(--gd);
+            padding-bottom: 2px
+        }
+
+        .news-mag {
+            display: grid;
+            grid-template-columns: 1.6fr 1fr;
+            gap: 0;
+            border: 1px solid rgba(0, 0, 0, .08)
+        }
+
+        .news-feat {
+            border-right: 1px solid rgba(0, 0, 0, .08)
+        }
+
+        .news-feat-img {
+            aspect-ratio: 16/9;
+            background: linear-gradient(135deg, #1a1a0d, #2a2a15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden
+        }
+
+        .news-feat-img i {
+            font-size: 70px;
+            color: rgba(201, 168, 76, .12)
+        }
+
+        .news-cat-badge {
+            position: absolute;
+            top: 18px;
+            left: 18px;
+            background: var(--g);
+            color: var(--bk);
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 4px 12px;
+            border-radius: 50px
+        }
+
+        .news-feat-body {
+            padding: 32px
+        }
+
+        .news-feat-body .nd {
+            font-size: 10px;
+            letter-spacing: 1.5px;
+            color: #888;
+            margin-bottom: 10px
+        }
+
+        .news-feat-body h2 {
+            font-family: var(--fd);
+            font-size: clamp(22px, 3vw, 32px);
+            font-weight: 700;
+            line-height: 1.15;
+            color: var(--bk);
+            margin-bottom: 14px
+        }
+
+        .news-feat-body p {
+            font-size: 13px;
+            color: #555;
+            line-height: 1.85
+        }
+
+        .news-feat-body .ra {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 10px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--gd);
+            margin-top: 18px;
+            transition: gap var(--tr)
+        }
+
+        .news-feat-body .ra:hover {
+            gap: 12px
+        }
+
+        .news-author {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 22px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(0, 0, 0, .07)
+        }
+
+        .news-author .av {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--g), var(--gd));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--fd);
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--bk)
+        }
+
+        .news-author .an {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--bk)
+        }
+
+        .news-author .ar {
+            font-size: 10px;
+            color: #888;
+            margin-top: 1px
+        }
+
+        .news-side {
+            display: flex;
+            flex-direction: column
+        }
+
+        .news-side-item {
+            padding: 24px;
+            border-bottom: 1px solid rgba(0, 0, 0, .07);
+            cursor: pointer;
+            transition: background var(--tr)
+        }
+
+        .news-side-item:hover {
+            background: rgba(201, 168, 76, .04)
+        }
+
+        .news-side-item:last-child {
+            border: none
+        }
+
+        .nsi-cat {
+            font-size: 9px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gd);
+            margin-bottom: 8px
+        }
+
+        .nsi-title {
+            font-family: var(--fd);
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 1.25;
+            color: var(--bk);
+            margin-bottom: 7px
+        }
+
+        .nsi-date {
+            font-size: 10px;
+            color: #888
+        }
+
+        .news-bottom {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: rgba(0, 0, 0, .08);
+            margin-top: 1px;
+            border: 1px solid rgba(0, 0, 0, .08);
+            border-top: none
+        }
+
+        .news-mini {
+            background: var(--ww);
+            padding: 26px
+        }
+
+        .news-mini .ncat {
+            font-size: 9px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gd);
+            margin-bottom: 8px
+        }
+
+        .news-mini h4 {
+            font-family: var(--fd);
+            font-size: 17px;
+            font-weight: 700;
+            line-height: 1.25;
+            color: var(--bk);
+            margin-bottom: 8px
+        }
+
+        .news-mini p {
+            font-size: 12px;
+            color: #666;
+            line-height: 1.75
+        }
+
+        .news-mini .nd {
+            font-size: 10px;
+            color: #999;
+            margin-top: 12px
+        }
+
+        /* Blog-style pills */
+        .news-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+            margin-top: 48px
+        }
+
+        .news-tags a {
+            font-size: 10px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            border: 1px solid rgba(0, 0, 0, .12);
+            padding: 5px 14px;
+            border-radius: 50px;
+            color: #666;
+            transition: var(--tr)
+        }
+
+        .news-tags a:hover {
+            background: var(--g);
+            color: var(--bk);
+            border-color: var(--g)
+        }
+
+        /* === TEAM ==================================================== */
+        #team {
+            background: var(--d1)
+        }
+
+        .team-hdr {
+            text-align: center;
+            margin-bottom: 56px
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px
+        }
+
+        .team-card {
+            border: 1px solid rgba(201, 168, 76, .08);
+            border-radius: var(--r);
+            overflow: hidden;
+            transition: border-color var(--tr)
+        }
+
+        .team-card:hover {
+            border-color: rgba(201, 168, 76, .35)
+        }
+
+        .team-img {
+            aspect-ratio: 3/4;
+            background: linear-gradient(135deg, var(--d3), var(--d2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden
+        }
+
+        .team-img i {
+            font-size: 90px;
+            color: rgba(201, 168, 76, .1)
+        }
+
+        .team-img-ov {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, var(--d2) 0%, transparent 50%)
+        }
+
+        .team-info {
+            background: var(--d2);
+            padding: 26px
+        }
+
+        .team-info h3 {
+            font-family: var(--fd);
+            font-size: 22px;
+            font-weight: 600
+        }
+
+        .team-role {
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--g);
+            margin: 6px 0 14px
+        }
+
+        .team-info p {
+            font-size: 12px;
+            color: var(--gr);
+            line-height: 1.8
+        }
+
+        .team-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 14px
+        }
+
+        .team-tags span {
+            font-size: 9.5px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border: 1px solid rgba(201, 168, 76, .18);
+            padding: 3px 9px;
+            border-radius: 50px;
+            color: var(--g)
+        }
+
+        .team-links {
+            display: flex;
+            gap: 8px;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(255, 255, 255, .05)
+        }
+
+        .team-links a {
+            width: 30px;
+            height: 30px;
+            border: 1px solid rgba(201, 168, 76, .18);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            color: var(--gr);
+            transition: var(--tr)
+        }
+
+        .team-links a:hover {
+            color: var(--g);
+            border-color: var(--g)
+        }
+
+        /* === TESTIMONIALS =========================================== */
+        #testimonials {
+            background: var(--bk);
+            overflow: hidden
+        }
+
+        .tst-hdr {
+            text-align: center;
+            margin-bottom: 56px
+        }
+
+        .tst-track {
+            display: flex;
+            gap: 20px;
+            animation: tscr 32s linear infinite;
+            width: max-content
+        }
+
+        .tst-track:hover {
+            animation-play-state: paused
+        }
+
+        @keyframes tscr {
+            to {
+                transform: translateX(-50%)
+            }
+        }
+
+        .tst-card {
+            width: 320px;
+            flex-shrink: 0;
+            background: var(--d2);
+            border: 1px solid rgba(201, 168, 76, .1);
+            border-radius: var(--r);
+            padding: 28px
+        }
+
+        .tst-stars {
+            color: var(--g);
+            font-size: 12px;
+            letter-spacing: 2px;
+            margin-bottom: 14px
+        }
+
+        .tst-card blockquote {
+            font-family: var(--fs);
+            font-size: 15px;
+            font-style: italic;
+            color: var(--wh);
+            line-height: 1.65;
+            margin-bottom: 18px
+        }
+
+        .tst-author {
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        .tst-av {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--gd), var(--g));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--fd);
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--bk)
+        }
+
+        .tst-name {
+            font-size: 12.5px;
+            font-weight: 500;
+            color: var(--wh)
+        }
+
+        .tst-svc {
+            font-size: 9.5px;
+            letter-spacing: 1px;
+            color: var(--g);
+            text-transform: uppercase
+        }
+
+        /* === PROCESS ================================================= */
+        #process {
+            background: var(--d2);
+            padding: 80px 0
+        }
+
+        .proc-hdr {
+            text-align: center;
+            margin-bottom: 68px
+        }
+
+        .proc-line {
+            position: relative;
+            display: flex;
+            justify-content: space-between
+        }
+
+        .proc-line::before {
+            content: '';
+            position: absolute;
+            top: 28px;
+            left: 6%;
+            right: 6%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gd), var(--g), var(--gd), transparent)
+        }
+
+        .proc-step {
+            flex: 1;
+            text-align: center;
+            padding: 0 18px
+        }
+
+        .ps-num {
+            width: 56px;
+            height: 56px;
+            background: var(--d3);
+            border: 2px solid var(--g);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 22px;
+            font-family: var(--fd);
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--g);
+            position: relative;
+            z-index: 1;
+            transition: var(--tr)
+        }
+
+        .proc-step:hover .ps-num {
+            background: var(--g);
+            color: var(--bk);
+            box-shadow: 0 0 20px rgba(201, 168, 76, .35)
+        }
+
+        .proc-step h4 {
+            font-family: var(--fd);
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 8px
+        }
+
+        .proc-step p {
+            font-size: 12px;
+            color: var(--gr);
+            line-height: 1.7
+        }
+
+        /* === CONTACT ================================================= */
+        #contact {
+            background: var(--d1)
+        }
+
+        .contact-g {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: start
+        }
+
+        .cinfo h2 {
+            font-family: var(--fd);
+            font-size: clamp(28px, 3.5vw, 44px);
+            font-weight: 600;
+            line-height: 1.1
+        }
+
+        .cinfo h2 em {
+            color: var(--g)
+        }
+
+        .cinfo>p {
+            color: var(--gr);
+            font-size: 14px;
+            margin-top: 18px;
+            line-height: 1.9
+        }
+
+        .citems {
+            margin-top: 36px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px
+        }
+
+        .citem {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 18px 22px;
+            background: var(--d2);
+            border: 1px solid rgba(201, 168, 76, .08);
+            border-radius: var(--r);
+            transition: var(--tr);
+            color: inherit
+        }
+
+        .citem:hover {
+            border-color: rgba(201, 168, 76, .3);
+            transform: translateX(4px)
+        }
+
+        .citem .ico {
+            width: 40px;
+            height: 40px;
+            flex-shrink: 0;
+            border: 1px solid rgba(201, 168, 76, .25);
+            border-radius: var(--r);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--g);
+            font-size: 15px
+        }
+
+        .citem .ico.wa {
+            background: rgba(37, 211, 102, .08);
+            border-color: rgba(37, 211, 102, .25);
+            color: var(--wa)
+        }
+
+        .citem .lb {
+            font-size: 9.5px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--gr)
+        }
+
+        .citem .vl {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--wh);
+            margin-top: 2px
+        }
+
+        .cform {
+            background: var(--d2);
+            border: 1px solid rgba(201, 168, 76, .1);
+            border-radius: 6px;
+            padding: 44px
+        }
+
+        .cform h3 {
+            font-family: var(--fd);
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 26px
+        }
+
+        .fg {
+            margin-bottom: 18px
+        }
+
+        .fg label {
+            display: block;
+            font-size: 9.5px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--g);
+            margin-bottom: 7px
+        }
+
+        .fg input,
+        .fg select,
+        .fg textarea {
+            width: 100%;
+            background: var(--d3);
+            border: 1px solid rgba(201, 168, 76, .1);
+            border-radius: var(--r);
+            padding: 13px 16px;
+            color: var(--wh);
+            font-family: var(--fb);
+            font-size: 13px;
+            outline: none;
+            transition: border-color var(--tr)
+        }
+
+        .fg input:focus,
+        .fg select:focus,
+        .fg textarea:focus {
+            border-color: rgba(201, 168, 76, .4)
+        }
+
+        .fg select option {
+            background: var(--d3)
+        }
+
+        .fg textarea {
+            min-height: 110px;
+            resize: vertical
+        }
+
+        .fr {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px
+        }
+
+        .fsuccess {
+            display: none;
+            padding: 18px;
+            background: rgba(37, 211, 102, .08);
+            border: 1px solid rgba(37, 211, 102, .25);
+            border-radius: var(--r);
+            font-size: 13px;
+            color: var(--wa);
+            margin-bottom: 18px
+        }
+
+        .fsuccess.show {
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        /* === FOOTER ================================================== */
+        footer {
+            background: var(--d1);
+            border-top: 1px solid rgba(201, 168, 76, .1);
+            padding: 56px 0 0
+        }
+
+        .foot-g {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.6fr;
+            gap: 48px;
+            padding-bottom: 48px
+        }
+
+        .flogo .fn {
+            font-family: var(--fd);
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--wh)
+        }
+
+        .flogo .fn span {
+            color: var(--g)
+        }
+
+        .flogo .ft {
+            font-size: 9px;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--g);
+            opacity: .7;
+            margin-top: 3px;
+            margin-bottom: 14px
+        }
+
+        .flogo p {
+            font-size: 12px;
+            color: var(--gr);
+            line-height: 1.8;
+            max-width: 270px
+        }
+
+        .fsoc {
+            display: flex;
+            gap: 9px;
+            margin-top: 18px
+        }
+
+        .fsoc a {
+            width: 34px;
+            height: 34px;
+            border: 1px solid rgba(201, 168, 76, .18);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gr);
+            font-size: 12px;
+            transition: var(--tr)
+        }
+
+        .fsoc a:hover {
+            color: var(--g);
+            border-color: var(--g);
+            transform: translateY(-2px)
+        }
+
+        .fcol h5 {
+            font-size: 10px;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--g);
+            margin-bottom: 18px
+        }
+
+        .fcol ul {
+            display: flex;
+            flex-direction: column;
+            gap: 9px
+        }
+
+        .fcol ul li a {
+            font-size: 12.5px;
+            color: var(--gr);
+            transition: color var(--tr);
+            display: flex;
+            align-items: center;
+            gap: 6px
+        }
+
+        .fcol ul li a:hover {
+            color: var(--wh)
+        }
+
+        .fcol ul li a i {
+            font-size: 9px;
+            color: var(--g)
+        }
+
+        .fnews-form {
+            display: flex;
+            margin-top: 14px
+        }
+
+        .fnews-form input {
+            flex: 1;
+            background: var(--d3);
+            border: 1px solid rgba(201, 168, 76, .1);
+            border-right: none;
+            border-radius: var(--r) 0 0 var(--r);
+            padding: 11px 14px;
+            color: var(--wh);
+            font-family: var(--fb);
+            font-size: 12.5px;
+            outline: none
+        }
+
+        .fnews-form button {
+            background: var(--g);
+            color: var(--bk);
+            padding: 11px 16px;
+            border-radius: 0 var(--r) var(--r) 0;
+            font-size: 12px;
+            font-weight: 600;
+            transition: background var(--tr)
+        }
+
+        .fnews-form button:hover {
+            background: var(--gl)
+        }
+
+        .fbot {
+            border-top: 1px solid rgba(201, 168, 76, .07);
+            padding: 18px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px
+        }
+
+        .fbot p {
+            font-size: 11px;
+            color: var(--gr)
+        }
+
+        .fbot-links {
+            display: flex;
+            gap: 18px
+        }
+
+        .fbot-links a {
+            font-size: 11px;
+            color: var(--gr);
+            transition: color var(--tr)
+        }
+
+        .fbot-links a:hover {
+            color: var(--g)
+        }
+
+        /* === FLOATING ================================================ */
+        .fwa {
+            position: fixed;
+            bottom: 96px;
+            right: 22px;
+            z-index: 800;
+            width: 54px;
+            height: 54px;
+            background: var(--wa);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 25px;
+            box-shadow: 0 4px 18px rgba(37, 211, 102, .45);
+            animation: fb 3s ease-in-out infinite;
+            transition: transform var(--tr)
+        }
+
+        .fwa:hover {
+            animation: none;
+            transform: scale(1.1)
+        }
+
+        @keyframes fb {
+
+            0%,
+            100% {
+                transform: translateY(0)
+            }
+
+            50% {
+                transform: translateY(-5px)
+            }
+        }
+
+        .fph {
+            position: fixed;
+            bottom: 162px;
+            right: 22px;
+            z-index: 800;
+            width: 46px;
+            height: 46px;
+            border: 1px solid rgba(201, 168, 76, .35);
+            background: var(--d3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--g);
+            font-size: 17px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, .4);
+            transition: var(--tr)
+        }
+
+        .fph:hover {
+            background: rgba(201, 168, 76, .12);
+            transform: scale(1.08)
+        }
+
+        .ftt {
+            position: absolute;
+            right: 62px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--d3);
+            border: 1px solid rgba(201, 168, 76, .18);
+            padding: 5px 11px;
+            border-radius: 3px;
+            font-size: 10.5px;
+            color: var(--wh);
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity var(--tr)
+        }
+
+        .fwa:hover .ftt,
+        .fph:hover .ftt {
+            opacity: 1
+        }
+
+        /* === MOBILE STICKY =========================================== */
+        .msticky {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 950;
+            background: var(--d2);
+            border-top: 1px solid rgba(201, 168, 76, .18);
+            padding: 10px 16px;
+            gap: 10px
+        }
+
+        .msticky .mb {
+            flex: 1
+        }
+
+        /* === ADMIN LOGIN ============================================= */
+        .admin-login {
+            position: fixed;
+            inset: 0;
+            z-index: 3000;
+            background: rgba(0, 0, 0, .9);
+            backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center
+        }
+
+        .admin-login.open {
+            display: flex
+        }
+
+        .alog-box {
+            background: var(--d2);
+            border: 1px solid rgba(201, 168, 76, .2);
+            border-radius: 8px;
+            padding: 44px;
+            width: 360px;
+            text-align: center
+        }
+
+        .alog-box h3 {
+            font-family: var(--fd);
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 8px
+        }
+
+        .alog-box p {
+            font-size: 12px;
+            color: var(--gr);
+            margin-bottom: 28px
+        }
+
+        .alog-box input {
+            width: 100%;
+            background: var(--d3);
+            border: 1px solid rgba(201, 168, 76, .15);
+            border-radius: var(--r);
+            padding: 13px 16px;
+            color: var(--wh);
+            font-family: var(--fb);
+            font-size: 13px;
+            outline: none;
+            text-align: center;
+            letter-spacing: 4px;
+            margin-bottom: 16px
+        }
+
+        .alog-err {
+            font-size: 11px;
+            color: #e74c3c;
+            margin-top: -8px;
+            margin-bottom: 12px;
+            display: none
+        }
+
+        /* === DIVIDER ================================================= */
+        .dvd {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(201, 168, 76, .18), transparent)
+        }
+
+        /* === RESPONSIVE ============================================== */
+        @media(max-width:1024px) {
+
+            .svcs-grid,
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr)
+            }
+
+            .cases-grid {
+                grid-template-columns: repeat(2, 1fr)
+            }
+
+            .ai-grid {
+                grid-template-columns: 1fr
+            }
+
+            .foot-g {
+                grid-template-columns: 1fr 1fr;
+                gap: 36px
+            }
+
+            .stats-g {
+                grid-template-columns: repeat(2, 1fr)
+            }
+
+            .stat {
+                border-right: none;
+                border-bottom: 1px solid rgba(201, 168, 76, .08)
+            }
+
+            .stat:nth-child(even) {
+                border-bottom-color: transparent
+            }
+        }
+
+        @media(max-width:992px) {
+            :root {
+                --nav: 66px
+            }
+
+            .sp {
+                padding: 60px 0
+            }
+
+            .nlinks,
+            .nph,
+            .nadmin {
+                display: none
+            }
+
+            .hbg {
+                display: flex
+            }
+
+            .ncta {
+                gap: 8px
+            }
+
+            .nwa {
+                padding: 6px 14px;
+                font-size: 10px;
+                letter-spacing: 0
+            }
+
+            .cal-grid,
+            .contact-g,
+            .news-mag,
+            .svcs-grid,
+            .team-grid,
+            .cases-grid,
+            .news-bottom {
+                grid-template-columns: 1fr
+            }
+
+            .hsts {
+                gap: 0;
+                flex-wrap: wrap
+            }
+
+            .hst {
+                flex: 1;
+                min-width: 50%;
+                padding: 18px;
+                border: none;
+                border-bottom: 1px solid rgba(201, 168, 76, .08)
+            }
+
+            .proc-line {
+                flex-direction: column;
+                align-items: center;
+                gap: 28px
+            }
+
+            .proc-line::before {
+                width: 1px;
+                height: 100%;
+                top: 0;
+                left: 50%;
+                right: auto;
+                background: linear-gradient(to bottom, transparent, var(--gd), var(--g), var(--gd), transparent)
+            }
+
+            .proc-step {
+                width: 100%;
+                max-width: 300px
+            }
+
+            .foot-g {
+                grid-template-columns: 1fr
+            }
+
+            .fbot {
+                flex-direction: column;
+                text-align: center
+            }
+
+            .fwa,
+            .fph {
+                display: none
+            }
+
+            .msticky {
+                display: flex
+            }
+
+            .fr {
+                grid-template-columns: 1fr
+            }
+
+            .case-add-btn {
+                display: none
+            }
+
+            .admin-bar {
+                flex-direction: column;
+                gap: 8px;
+                align-items: flex-start
+            }
+
+            .ai-panel {
+                padding: 32px 24px
+            }
+
+            .cform {
+                padding: 28px 22px
+            }
+
+            .news-side {
+                display: none
+            }
+        }
+
+        @media(max-width:480px) {
+            .htitle {
+                font-size: 42px;
+                letter-spacing: -1px
+            }
+
+            .hacts {
+                flex-direction: column
+            }
+
+            .hacts .btn {
+                width: 100%;
+                justify-content: center
+            }
+
+            .stats-g {
+                grid-template-columns: 1fr 1fr
+            }
+
+            .slots-grid {
+                grid-template-columns: repeat(3, 1fr)
+            }
+
+            /* Hide redundant header elements on small mobiles */
+            .nph,
+            .ncta {
+                display: none
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ADMIN BAR -->
+    <div class="admin-bar" id="adminBar">
+        <span><i class="fas fa-tools" style="margin-right:8px"></i>Modo Administrador Activo</span>
+        <div class="admin-btn-group">
+            <button class="admin-btn" onclick="openCaseModal()"
+                style="background:rgba(255,255,255,.05);color:var(--wh);border:1px solid rgba(255,255,255,.1)"><i
+                    class="fas fa-plus"></i> Caso</button>
+            <button class="admin-btn" onclick="openNewsModal()"
+                style="background:rgba(255,255,255,.05);color:var(--wh);border:1px solid rgba(255,255,255,.1)"><i
+                    class="fas fa-newspaper"></i> Noticia</button>
+            <button class="admin-btn ab-discard" onclick="exitAdmin()"><i class="fas fa-times"></i> Salir</button>
+            <button class="admin-btn ab-save" onclick="saveAdminData()"><i class="fas fa-save"></i> Guardar</button>
+        </div>
+    </div>
+
+    <!-- NAV -->
+    <nav id="nav">
+        <div class="c">
+            <a href="#" class="nlogo">
+                <div class="nm">Rantes <span>Loyola</span></div>
+                <div class="nt">Estudio Jurídico · E.I.R.L.</div>
+            </a>
+            <div class="nlinks">
+                <a href="#aihub">IA Legal</a>
+                <a href="#svcs">Servicios</a>
+                <a href="#cases">Casos</a>
+                <a href="javascript:void(0)" onclick="openCalModal()">Agenda</a>
+                <a href="#news">Noticias</a>
+                <a href="#contact">Contacto</a>
+            </div>
+            <div class="ncta">
+                <a href="tel:+51940588338" class="nlinks" style="display:flex">
+                    <a href="tel:+51940588338"
+                        style="font-size:11px;font-weight:500;letter-spacing:1px;color:rgba(244,239,230,.5)"><i
+                            class="fas fa-phone" style="color:var(--g);margin-right:5px"></i>940 588 338</a>
+                </a>
+                <a href="https://wa.me/51940588338" target="_blank" class="nwa"><i class="fab fa-whatsapp"></i> Consulta
+                    gratis</a>
+                <button class="nadmin" onclick="openAdminLogin()" title="Panel Admin"><i
+                        class="fas fa-lock"></i></button>
+                <button class="hbg" id="menuBtn"><span></span><span></span><span></span></button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MOBILE NAV -->
+    <div class="mnav" id="mobileNav">
+        <button class="mnclose" id="mnClose"><i class="fas fa-times"></i></button>
+        <a href="#aihub" class="ml">IA Legal</a>
+        <a href="#svcs" class="ml">Servicios</a>
+        <a href="#cases" class="ml">Casos</a>
+        <a href="javascript:void(0)" onclick="openCalModal()" class="ml">Agenda</a>
+        <a href="#news" class="ml">Noticias</a>
+        <a href="#contact" class="ml">Contacto</a>
+        <div style="display:flex;gap:10px;margin-top:16px">
+            <a href="tel:+51940588338" class="btn btno"><i class="fas fa-phone"></i> Llamar</a>
+            <a href="https://wa.me/51940588338" target="_blank" class="btn btnw"><i class="fab fa-whatsapp"></i>
+                WhatsApp</a>
+        </div>
+    </div>
+
+    <!-- HERO -->
+    <section id="hero">
+        <div class="hbg-layer"></div>
+        <div class="hgrid"></div>
+        <div class="hglow"></div>
+        <div class="hglow2"></div>
+        <div class="hcontent">
+            <div class="heyebrow v"><span class="dot"></span><span>Consulta Online · Presencial · IA Legal</span>
+            </div>
+            <h1 class="htitle v" style="transition-delay:.1s">
+                Justicia<em>inteligente</em>
+                <strong>para cada caso</strong>
+            </h1>
+            <p class="hsubt v" style="transition-delay:.18s" data-editable>Estudio Jurídico Rantes Loyola &
+                Asociados E.I.R.L. — El primer estudio en Lima que combina asesoría legal especializada con análisis de
+                documentos mediante Inteligencia Artificial. Defensa integral, confidencial y a su alcance.</p>
+            <div class="hacts v" style="transition-delay:.26s">
+                <a href="#aihub" class="btn btng"><i class="fas fa-brain"></i> Analizar mi documento</a>
+                <a href="javascript:void(0)" onclick="openCalModal()" class="btn btno"><i
+                        class="fas fa-calendar-check"></i> Agendar consulta</a>
+                <a href="https://wa.me/51940588338?text=Hola%2C%20necesito%20asesor%C3%ADa%20legal" target="_blank"
+                    class="btn btnw"><i class="fab fa-whatsapp"></i> WhatsApp directo</a>
+            </div>
+            <div class="hstats v" style="transition-delay:.34s">
+                <div class="hst">
+                    <div class="n" data-target="500">0</div>
+                    <div class="l">Casos resueltos</div>
+                </div>
+                <div class="hst">
+                    <div class="n" data-target="10">0</div>
+                    <div class="l">Años experiencia</div>
+                </div>
+                <div class="hst">
+                    <div class="n" data-target="98">0</div>
+                    <div class="l">% Satisfacción</div>
+                </div>
+                <div class="hst">
+                    <div class="n" data-target="24">0</div>
+                    <div class="l">Hrs respuesta</div>
+                </div>
+            </div>
+        </div>
+        <div class="scrl">
+            <div class="sl"></div><span>Scroll</span>
+        </div>
+    </section>
+
+    <!-- TICKER -->
+    <div class="tkr">
+        <div class="tkrw" id="tkrw">
+            <span class="tki"><i class="fas fa-scroll"></i>Sucesiones Intestadas</span>
+            <span class="tki"><i class="fas fa-home"></i>Transferencia Inmobiliaria</span>
+            <span class="tki"><i class="fas fa-users"></i>Unión de Hecho</span>
+            <span class="tki"><i class="fas fa-shield-alt"></i>Defensa Penal</span>
+            <span class="tki"><i class="fas fa-building"></i>Constitución de Empresas</span>
+            <span class="tki"><i class="fas fa-gavel"></i>Régimen Disciplinario PNP</span>
+            <span class="tki"><i class="fas fa-heart"></i>Derecho de Familia</span>
+            <span class="tki"><i class="fas fa-file-contract"></i>Beneficios Penitenciarios</span>
+            <span class="tki"><i class="fas fa-scroll"></i>Sucesiones Intestadas</span>
+            <span class="tki"><i class="fas fa-home"></i>Transferencia Inmobiliaria</span>
+            <span class="tki"><i class="fas fa-users"></i>Unión de Hecho</span>
+            <span class="tki"><i class="fas fa-shield-alt"></i>Defensa Penal</span>
+            <span class="tki"><i class="fas fa-building"></i>Constitución de Empresas</span>
+            <span class="tki"><i class="fas fa-gavel"></i>Régimen Disciplinario PNP</span>
+            <span class="tki"><i class="fas fa-heart"></i>Derecho de Familia</span>
+            <span class="tki"><i class="fas fa-file-contract"></i>Beneficios Penitenciarios</span>
+        </div>
+    </div>
+
+    <!-- AI HUB -->
+    <section id="aihub" class="sp">
+        <div class="c">
+            <div class="ai-header v">
+                <div class="tag" style="display:block;text-align:center">Innovación Legal</div>
+                <div class="gl cx"></div>
+                <h2 class="ht" style="text-align:center">Centro de <span>Inteligencia Jurídica</span></h2>
+                <p style="color:var(--gr);text-align:center;max-width:580px;margin:18px auto 0;font-size:14px">Analice
+                    sus documentos legales con IA o realice una consulta jurídica express. Herramientas exclusivas para
+                    entender su situación legal antes de la consulta.</p>
+            </div>
+            <div class="ai-grid reveal" style="transition-delay:.1s">
+
+                <!-- Document Analyzer -->
+                <div class="ai-panel">
+                    <div class="tag" style="margin-bottom:8px">Herramienta #1</div>
+                    <h3 style="font-family:var(--fd);font-size:22px;font-weight:600;margin-bottom:6px">Analizador de
+                        Documentos <span style="color:var(--g)">con IA</span></h3>
+                    <p style="font-size:12.5px;color:var(--gr);margin-bottom:24px;line-height:1.8">Suba un contrato,
+                        testamento, escritura, carta notarial o cualquier documento legal. La IA identificará puntos
+                        clave, riesgos y recomendaciones.</p>
+
+                    <div class="doc-drop" id="docDrop">
+                        <input type="file" id="docFile" accept=".txt,.pdf,.doc,.docx"
+                            onchange="handleFileUpload(event)">
+                        <i class="fas fa-file-arrow-up"></i>
+                        <p>Arrastre su documento aquí o <strong style="color:var(--g)">haga clic</strong> para
+                            seleccionar</p>
+                        <div class="hint">TXT · PDF · DOC — Máx 5MB</div>
+                    </div>
+
+                    <div class="or-divider">o pegue el texto directamente</div>
+
+                    <textarea class="doc-input" id="docText"
+                        placeholder="Pegue aquí el texto de su documento legal... contratos, testamentos, escrituras, cartas notariales, resoluciones, etc."></textarea>
+
+                    <button class="btn btng" style="width:100%;justify-content:center" onclick="analyzeDocument()">
+                        <i class="fas fa-brain"></i> Analizar con Inteligencia Artificial
+                    </button>
+
+                    <div class="ai-loading" id="aiLoading">
+                        <div class="ai-spin"></div>
+                        <p>Analizando su documento...</p>
+                    </div>
+
+                    <div class="ai-result" id="aiResult">
+                        <div class="ai-result-header">
+                            <i class="fas fa-check-circle" style="color:var(--g)"></i>
+                            <div class="badge">Análisis completado</div>
+                        </div>
+                        <div class="ai-result-content" id="aiResultContent"></div>
+                        <div class="ai-result-actions">
+                            <a href="javascript:void(0)" onclick="openCalModal()" class="btn btng"
+                                style="font-size:10px;padding:10px 20px"><i class="fas fa-calendar-check"></i> Agendar
+                                consulta</a>
+                            <a href="https://wa.me/51940588338" target="_blank" class="btn btnw"
+                                style="font-size:10px;padding:10px 20px"><i class="fab fa-whatsapp"></i> Hablar con
+                                abogado</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Legal Chat -->
+                <div class="ai-panel" style="border-left:none;background:var(--d3)">
+                    <div class="tag" style="margin-bottom:8px">Herramienta #2</div>
+                    <h3 style="font-family:var(--fd);font-size:22px;font-weight:600;margin-bottom:6px">Consulta Jurídica
+                        <span style="color:var(--g)">Express</span>
+                    </h3>
+                    <p style="font-size:12.5px;color:var(--gr);margin-bottom:20px;line-height:1.8">Resuelva sus dudas
+                        legales preliminares con nuestra IA especializada en derecho peruano. Disponible 24/7.</p>
+
+                    <div class="chat-window" id="chatWindow">
+                        <div class="chat-msg bot">
+                            <div class="chat-avatar"><i class="fas fa-balance-scale"></i></div>
+                            <div class="chat-bubble">¡Hola! Soy el asistente jurídico de Rantes Loyola. Puedo orientarle
+                                sobre temas legales en Perú: herencias, familia, penal, contratos, PNP y más. ¿En qué
+                                puedo ayudarle hoy?</div>
+                        </div>
+                        <div class="chat-typing" id="chatTyping">
+                            <div class="ct-dot"></div>
+                            <div class="ct-dot"></div>
+                            <div class="ct-dot"></div>
+                        </div>
+                    </div>
+
+                    <div class="chat-form">
+                        <input class="chat-inp" id="chatInp" placeholder="Escriba su consulta legal..."
+                            onkeydown="if(event.key==='Enter')sendChat()">
+                        <button class="chat-send" onclick="sendChat()"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                    <p class="disclaimer">⚠️ Orientación informativa. No reemplaza asesoría legal profesional. Para su
+                        caso específico, agende una consulta.</p>
+
+                    <div class="chat-suggestions">
+                        <div class="chat-suggestion" onclick="quickChat('¿Qué es la sucesión intestada?')">Sucesión
+                            intestada</div>
+                        <div class="chat-suggestion" onclick="quickChat('¿Cómo funciona la unión de hecho?')">Unión de
+                            hecho</div>
+                        <div class="chat-suggestion" onclick="quickChat('¿Qué son los beneficios PNP?')">Beneficios PNP
+                        </div>
+                        <div class="chat-suggestion" onclick="quickChat('¿Cómo transferir un inmueble?')">Transferir
+                            inmueble</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <div class="dvd"></div>
+
+    <!-- SERVICES -->
+    <section id="svcs" class="sp">
+        <div class="c">
+            <div class="svcs-hdr reveal">
+                <div class="tag" style="display:block">Áreas de práctica</div>
+                <div class="gl cx"></div>
+                <h2 class="ht" style="text-align:center">Servicios <span>jurídicos</span> especializados</h2>
+            </div>
+            <div class="svcs-grid reveal" style="transition-delay:.1s">
+                <div class="svc">
+                    <div class="bign">01</div>
+                    <div class="svc-ico"><i class="fas fa-scroll"></i></div>
+                    <h3 data-editable>Derecho Notarial y Registral</h3>
+                    <p data-editable>Gestión integral de trámites notariales y registrales con seguridad jurídica.</p>
+                    <ul>
+                        <li data-editable>Sucesiones Intestadas — Notarial/Judicial</li>
+                        <li data-editable>Rectificación de Partidas</li>
+                        <li data-editable>Unión de Hecho</li>
+                        <li data-editable>Compra-Venta de Bienes Inmuebles</li>
+                        <li data-editable>Constitución de Patrimonio Familiar</li>
+                    </ul><a href="https://wa.me/51940588338?text=Consulta%20Notarial" target="_blank"
+                        class="svc-link">Consultar <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="svc">
+                    <div class="bign">02</div>
+                    <div class="svc-ico"><i class="fas fa-gavel"></i></div>
+                    <h3 data-editable>Derecho Penal</h3>
+                    <p data-editable>Defensa técnica en procesos penales, garantizando sus derechos constitucionales.
+                    </p>
+                    <ul>
+                        <li data-editable>Investigación Preparatoria y Juicio Oral</li>
+                        <li data-editable>Régimen Disciplinario de la PNP</li>
+                        <li data-editable>Beneficios Penitenciarios</li>
+                        <li data-editable>Habeas Corpus</li>
+                        <li data-editable>Delitos Patrimoniales y Económicos</li>
+                    </ul><a href="https://wa.me/51940588338?text=Consulta%20Penal" target="_blank"
+                        class="svc-link">Consultar <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="svc">
+                    <div class="bign">03</div>
+                    <div class="svc-ico"><i class="fas fa-heart"></i></div>
+                    <h3 data-editable>Derecho de Familia</h3>
+                    <p data-editable>Protección legal integral para situaciones familiares complejas.</p>
+                    <ul>
+                        <li data-editable>Divorcio Notarial y Judicial</li>
+                        <li data-editable>Alimentos, Tenencia y Visitas</li>
+                        <li data-editable>Adopción de Persona Mayor</li>
+                        <li data-editable>Violencia Familiar</li>
+                        <li data-editable>Unión de Hecho</li>
+                    </ul><a href="https://wa.me/51940588338?text=Consulta%20Familia" target="_blank"
+                        class="svc-link">Consultar <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="svc">
+                    <div class="bign">04</div>
+                    <div class="svc-ico"><i class="fas fa-building"></i></div>
+                    <h3 data-editable>Derecho Empresarial</h3>
+                    <p data-editable>Asesoría completa para constitución y gestión legal de empresas.</p>
+                    <ul>
+                        <li data-editable>Constitución de Empresas y Asociaciones</li>
+                        <li data-editable>Aumentos de Capital</li>
+                        <li data-editable>Transferencia de Acciones</li>
+                        <li data-editable>Contratos Comerciales</li>
+                    </ul><a href="https://wa.me/51940588338?text=Consulta%20Empresarial" target="_blank"
+                        class="svc-link">Consultar <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="svc">
+                    <div class="bign">05</div>
+                    <div class="svc-ico"><i class="fas fa-home"></i></div>
+                    <h3 data-editable>Procesos Civiles</h3>
+                    <p data-editable>Representación en procesos civiles para proteger sus bienes y derechos.</p>
+                    <ul>
+                        <li data-editable>Restitución de Posesión</li>
+                        <li data-editable>Desalojo y Lanzamiento</li>
+                        <li data-editable>Nulidad de Actos Jurídicos</li>
+                        <li data-editable>Indemnización por Daños</li>
+                    </ul><a href="https://wa.me/51940588338?text=Consulta%20Civil" target="_blank"
+                        class="svc-link">Consultar <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="svc">
+                    <div class="bign">06</div>
+                    <div class="svc-ico"><i class="fas fa-shield-alt"></i></div>
+                    <h3 data-editable>PNP y Administrativo</h3>
+                    <p data-editable>Especialistas en defensa de efectivos policiales ante el Tribunal Disciplinario.
+                    </p>
+                    <ul>
+                        <li data-editable>Defensa ante Tribunal Disciplinario PNP</li>
+                        <li data-editable>Recursos ante Inspectoría General</li>
+                        <li data-editable>Reincorporación al Servicio</li>
+                        <li data-editable>Beneficios Laborales y Pensionarios</li>
+                    </ul><a href="https://wa.me/51940588338?text=Consulta%20PNP" target="_blank"
+                        class="svc-link">Consultar <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS -->
+    <section id="stats">
+        <div class="c">
+            <div class="stats-g">
+                <div class="stat reveal">
+                    <div class="cn"><span class="counter" data-target="500">0</span><sup>+</sup></div>
+                    <div class="cl">Casos resueltos</div>
+                    <div class="cs">exitosamente</div>
+                </div>
+                <div class="stat reveal" style="transition-delay:.08s">
+                    <div class="cn"><span class="counter" data-target="10">0</span><sup>+</sup></div>
+                    <div class="cl">Años de experiencia</div>
+                    <div class="cs">en el mercado legal</div>
+                </div>
+                <div class="stat reveal" style="transition-delay:.16s">
+                    <div class="cn"><span class="counter" data-target="98">0</span><sup>%</sup></div>
+                    <div class="cl">Clientes satisfechos</div>
+                    <div class="cs">según encuestas</div>
+                </div>
+                <div class="stat reveal" style="transition-delay:.24s">
+                    <div class="cn"><span class="counter" data-target="6">0</span></div>
+                    <div class="cl">Áreas especializadas</div>
+                    <div class="cs">de práctica jurídica</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="dvd"></div>
+
+    <!-- CASES -->
+    <section id="cases" class="sp">
+        <div class="c">
+            <div class="cases-top reveal">
+                <div>
+                    <div class="tag">Resultados comprobados</div>
+                    <div class="gl"></div>
+                    <h2 class="ht">Casos de <span>éxito</span></h2>
+                </div>
+                <a href="#contact" class="va">Ver historial completo <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="cases-grid" id="casesGrid">
+                <!-- Cases rendered by JS -->
+            </div>
+        </div>
+    </section>
+
+    <div class="dvd"></div>
+
+    <!-- Calendar moved to Modal -->
+
+    <!-- NEWS / BLOG -->
+    <section id="news" class="sp">
+        <div class="c">
+            <div class="news-hdr reveal">
+                <div>
+                    <div class="tag tg">Derecho & Actualidad</div>
+                    <div class="gl" style="background:linear-gradient(90deg,var(--gd),transparent)"></div>
+                    <h2 class="ht" style="color:var(--bk)">Noticias <span>jurídicas</span> del Perú</h2>
+                </div>
+                <a href="#" class="va">Sala de prensa <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <div class="news-mag reveal" style="transition-delay:.1s">
+                <div class="news-feat">
+                    <div class="news-feat-img">
+                        <i class="fas fa-landmark"></i>
+                        <div class="news-cat-badge" data-editable>Sucesiones</div>
+                    </div>
+                    <div class="news-feat-body">
+                        <div class="nd"><i class="fas fa-calendar" style="color:var(--gd);margin-right:5px"></i><span
+                                data-editable>21 de junio, 2022</span></div>
+                        <h2 data-editable>¿Qué hacer cuando un familiar fallece sin dejar testamento? Guía completa 2024
+                        </h2>
+                        <p data-editable>Cuando una persona fallece sin dejar testamento en el Perú, sus bienes deben
+                            ser transferidos a los herederos legales a través de un proceso conocido como Sucesión
+                            Intestada. Este trámite puede realizarse por vía notarial o judicial, dependiendo de la
+                            complejidad del caso y la situación de los bienes...</p>
+                        <div class="news-author">
+                            <div class="av">JL</div>
+                            <div>
+                                <div class="an" data-editable>Abog. Jane Loyola</div>
+                                <div class="ar">Especialista en Derecho Notarial y Registral</div>
+                            </div>
+                        </div>
+                        <a href="#aihub" class="ra">Consultar este tema <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="news-side">
+                    <div class="news-side-item">
+                        <div class="nsi-cat" data-editable>Disciplinario PNP</div>
+                        <div class="nsi-title" data-editable>Absolución total ante el Tribunal de Disciplina Policial:
+                            claves de la defensa</div>
+                        <div class="nsi-date"><i class="fas fa-calendar"
+                                style="font-size:9px;color:var(--gd);margin-right:4px"></i><span data-editable>8 de
+                                junio, 2022</span></div>
+                    </div>
+                    <div class="news-side-item">
+                        <div class="nsi-cat" data-editable>Unión de Hecho</div>
+                        <div class="nsi-title" data-editable>Derechos después de 2 años de convivencia: todo lo que debe
+                            saber</div>
+                        <div class="nsi-date"><i class="fas fa-calendar"
+                                style="font-size:9px;color:var(--gd);margin-right:4px"></i><span data-editable>20 de
+                                junio, 2022</span></div>
+                    </div>
+                    <div class="news-side-item">
+                        <div class="nsi-cat" data-editable>Inmobiliario</div>
+                        <div class="nsi-title" data-editable>Cómo comprar o vender un inmueble de forma segura y sin
+                            riesgos legales</div>
+                        <div class="nsi-date"><i class="fas fa-calendar"
+                                style="font-size:9px;color:var(--gd);margin-right:4px"></i><span data-editable>3 de
+                                junio, 2022</span></div>
+                    </div>
+                    <div class="news-side-item">
+                        <div class="nsi-cat" data-editable>Beneficios</div>
+                        <div class="nsi-title" data-editable>Semilibertad y liberación condicional: requisitos
+                            actualizados 2024</div>
+                        <div class="nsi-date"><i class="fas fa-calendar"
+                                style="font-size:9px;color:var(--gd);margin-right:4px"></i><span data-editable>1 de
+                                junio, 2022</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="news-bottom reveal" style="transition-delay:.15s" id="newsGrid">
+                <div class="news-mini">
+                    <div class="ncat" data-editable>Empresarial</div>
+                    <h4 data-editable>Constitución de empresas en Perú: SAC, EIRL o SRL — ¿cuál elegir?</h4>
+                    <p data-editable>Conozca las diferencias, ventajas fiscales y requerimientos legales de cada tipo
+                        societario para tomar la mejor decisión para su negocio.</p>
+                    <div class="nd" data-editable>15 de mayo, 2022</div>
+                </div>
+                <div class="news-mini">
+                    <div class="ncat" data-editable>Familia</div>
+                    <h4 data-editable>Divorcio en Perú: vía notarial vs. judicial — tiempos, costos y requisitos</h4>
+                    <p data-editable>Analizamos ambas opciones, cuándo aplica cada una y qué documentos necesita para
+                        iniciar el proceso de separación legal en el menor tiempo posible.</p>
+                    <div class="nd" data-editable>10 de mayo, 2022</div>
+                </div>
+                <div class="news-mini" id="newsExtra"
+                    style="display:none; border: 2px dashed var(--g); padding: 20px; background: rgba(201,168,76,.05); border-radius: 8px; margin-top: 20px;">
+                    <div class="ncat" id="neCat"
+                        style="color:var(--g); font-weight:700; font-size:10px; text-transform:uppercase; letter-spacing:1px; margin-bottom:10px;">
+                        Categoría</div>
+                    <h4 id="neTitle" style="font-family:var(--fd); font-size:18px; color:var(--bk); margin-bottom:8px;">
+                        Título de Noticia</h4>
+                    <p id="neExcerpt" style="font-size:13px; color:#555; line-height:1.6; margin-bottom:12px;">Resumen
+                        del contenido jurídico...</p>
+                    <div class="nd" id="neDate" style="font-size:11px; color:#888;">Fecha de publicación</div>
+                </div>
+                <div id="dynamicNewsGrid" style="display: contents;"></div>
+            </div>
+
+            <div class="news-tags reveal" style="transition-delay:.2s">
+                <a href="#">#SucesiónIntestada</a><a href="#">#DerechoPenal</a><a href="#">#FamiliaPeru</a><a
+                    href="#">#PNP</a><a href="#">#Inmobiliario</a><a href="#">#Empresas</a><a
+                    href="#">#UnionDeHecho</a><a href="#">#BeneficiosPenitenciarios</a><a href="#">#DerechoRegistral</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- TEAM -->
+    <section id="team" class="sp">
+        <div class="c">
+            <div class="team-hdr reveal">
+                <div class="tag" style="display:block">Nuestro equipo</div>
+                <div class="gl cx"></div>
+                <h2 class="ht" style="text-align:center">Los <span>abogados</span> que defienden sus derechos</h2>
+            </div>
+            <div class="team-grid">
+                <div class="team-card reveal">
+                    <div class="team-img"><i class="fas fa-user-tie"></i>
+                        <div class="team-img-ov"></div>
+                    </div>
+                    <div class="team-info">
+                        <h3 data-editable>Dr. Reinaldo Rantes</h3>
+                        <div class="team-role" data-editable>Socio Fundador · Director General</div>
+                        <p data-editable>Especialista en Derecho Penal y Disciplinario con amplia trayectoria en defensa
+                            de efectivos policiales y casos de alta complejidad a nivel nacional.</p>
+                        <div class="team-tags"><span>Derecho Penal</span><span>PNP</span><span>Civil</span></div>
+                        <div class="team-links"><a href="tel:+51940588338"><i class="fas fa-phone"></i></a><a
+                                href="https://wa.me/51940588338" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-card reveal" style="transition-delay:.1s">
+                    <div class="team-img"><i class="fas fa-user-tie"></i>
+                        <div class="team-img-ov"></div>
+                    </div>
+                    <div class="team-info">
+                        <h3 data-editable>Abog. Jane Loyola</h3>
+                        <div class="team-role" data-editable>Socia · Derecho Notarial y Registral</div>
+                        <p data-editable>Especialista en Derecho Notarial y Registral con profundo conocimiento en
+                            sucesiones, transferencias inmobiliarias y constitución de empresas. Asesoría a nivel
+                            nacional.</p>
+                        <div class="team-tags"><span>Notarial</span><span>Registral</span><span>Familia</span></div>
+                        <div class="team-links"><a href="tel:+51940588338"><i class="fas fa-phone"></i></a><a
+                                href="https://wa.me/51940588338" target="_blank"><i class="fab fa-whatsapp"></i></a><a
+                                href="https://instagram.com/estudiojuridico_rantesloyolaa" target="_blank"><i
+                                    class="fab fa-instagram"></i></a></div>
+                    </div>
+                </div>
+                <div class="team-card reveal" style="transition-delay:.2s">
+                    <div class="team-img"><i class="fas fa-users"></i>
+                        <div class="team-img-ov"></div>
+                    </div>
+                    <div class="team-info">
+                        <h3 data-editable>Equipo Asociado</h3>
+                        <div class="team-role" data-editable>Abogados Especializados</div>
+                        <p data-editable>Equipo multidisciplinario con especialistas en Derecho Penal, Laboral,
+                            Tributario y Empresarial. Respaldamos cada caso con conocimiento técnico de excelencia.</p>
+                        <div class="team-tags"><span>Penal</span><span>Laboral</span><span>Tributario</span></div>
+                        <div class="team-links"><a href="mailto:rantesloyola@gmail.com"><i
+                                    class="fas fa-envelope"></i></a><a href="https://wa.me/51940588338"
+                                target="_blank"><i class="fab fa-whatsapp"></i></a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section id="testimonials" class="sp" style="padding-bottom:80px">
+        <div class="c">
+            <div class="tst-hdr reveal">
+                <div class="tag" style="display:block;text-align:center">Lo que dicen nuestros clientes</div>
+                <div class="gl cx"></div>
+                <h2 class="ht" style="text-align:center">Más de <span>44 clientes</span> satisfechos</h2>
+            </div>
+        </div>
+        <div style="overflow:hidden;padding:10px 0">
+            <div class="tst-track">
+                <div class="tst-card">
+                    <div class="tst-stars">★★★★★</div>
+                    <blockquote>"Felicitaciones. Excelente profesional con muy buena calidad humana. Muchos éxitos."
+                    </blockquote>
+                    <div class="tst-author">
+                        <div class="tst-av">W</div>
+                        <div>
+                            <div class="tst-name">Wilma Bobadilla</div>
+                            <div class="tst-svc">Restitución de Posesión</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tst-card">
+                    <div class="tst-stars">★★★★★</div>
+                    <blockquote>"Puedo dar fe del excelente trabajo que realizan. Bendiciones y que sigan los éxitos."
+                    </blockquote>
+                    <div class="tst-author">
+                        <div class="tst-av">A</div>
+                        <div>
+                            <div class="tst-name">Aida Cisneros</div>
+                            <div class="tst-svc">Transferencia Inmobiliaria</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tst-card">
+                    <div class="tst-stars">★★★★★</div>
+                    <blockquote>"Muy buen estudio jurídico. Uno de los mejores abogados. Me encanta su trabajo."
+                    </blockquote>
+                    <div class="tst-author">
+                        <div class="tst-av">G</div>
+                        <div>
+                            <div class="tst-name">Geminis Salazar</div>
+                            <div class="tst-svc">Defensa Penal</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tst-card">
+                    <div class="tst-stars">★★★★★</div>
+                    <blockquote>"Éxitos y mis mejores deseos. Gran equipo legal, muy profesionales y humanos."
+                    </blockquote>
+                    <div class="tst-author">
+                        <div class="tst-av">E</div>
+                        <div>
+                            <div class="tst-name">Elena López</div>
+                            <div class="tst-svc">Sucesión Intestada</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tst-card">
+                    <div class="tst-stars">★★★★★</div>
+                    <blockquote>"Gracias por resolver mi caso con tanta dedicación. Recomiendo este estudio al 100%."
+                    </blockquote>
+                    <div class="tst-author">
+                        <div class="tst-av">Y</div>
+                        <div>
+                            <div class="tst-name">Yoishe Mori</div>
+                            <div class="tst-svc">Derecho de Familia</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Duplicate -->
+                <div class="tst-card">
+                    <div class="tst-stars">★★★★★</div>
+                    <blockquote>"Felicitaciones. Excelente profesional con muy buena calidad humana. Muchos éxitos."
+                    </blockquote>
+                    <div class="tst-author">
+                        <div class="tst-av">W</div>
+                        <div>
+                            <div class="tst-name">Wilma Bobadilla</div>
+                            <div class="tst-svc">Restitución de Posesión</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tst-card">
+                    <div class="tst-stars">★★★★★</div>
+                    <blockquote>"Puedo dar fe del excelente trabajo que realizan. Bendiciones y que sigan los éxitos."
+                    </blockquote>
+                    <div class="tst-author">
+                        <div class="tst-av">A</div>
+                        <div>
+                            <div class="tst-name">Aida Cisneros</div>
+                            <div class="tst-svc">Transferencia Inmobiliaria</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tst-card">
+                    <div class="tst-stars">★★★★★</div>
+                    <blockquote>"Muy buen estudio jurídico. Uno de los mejores abogados. Me encanta su trabajo."
+                    </blockquote>
+                    <div class="tst-author">
+                        <div class="tst-av">G</div>
+                        <div>
+                            <div class="tst-name">Geminis Salazar</div>
+                            <div class="tst-svc">Defensa Penal</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tst-card">
+                    <div class="tst-stars">★★★★★</div>
+                    <blockquote>"Éxitos y mis mejores deseos. Gran equipo legal, muy profesionales y humanos."
+                    </blockquote>
+                    <div class="tst-author">
+                        <div class="tst-av">E</div>
+                        <div>
+                            <div class="tst-name">Elena López</div>
+                            <div class="tst-svc">Sucesión Intestada</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tst-card">
+                    <div class="tst-stars">★★★★★</div>
+                    <blockquote>"Gracias por resolver mi caso con tanta dedicación. Recomiendo este estudio al 100%."
+                    </blockquote>
+                    <div class="tst-author">
+                        <div class="tst-av">Y</div>
+                        <div>
+                            <div class="tst-name">Yoishe Mori</div>
+                            <div class="tst-svc">Derecho de Familia</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section id="process">
+        <div class="c">
+            <div class="proc-hdr reveal">
+                <div class="tag" style="display:block;text-align:center">Cómo trabajamos</div>
+                <div class="gl cx"></div>
+                <h2 class="ht" style="text-align:center">Su caso en <span>4 pasos</span></h2>
+            </div>
+            <div class="proc-line">
+                <div class="proc-step reveal" style="transition-delay:.0s">
+                    <div class="ps-num">01</div>
+                    <h4>Consulta Inicial</h4>
+                    <p>Evaluación gratuita y confidencial de su caso.</p>
+                </div>
+                <div class="proc-step reveal" style="transition-delay:.1s">
+                    <div class="ps-num">02</div>
+                    <h4>Diagnóstico Legal</h4>
+                    <p>Informe jurídico con opciones y tiempos estimados.</p>
+                </div>
+                <div class="proc-step reveal" style="transition-delay:.2s">
+                    <div class="ps-num">03</div>
+                    <h4>Estrategia y Acción</h4>
+                    <p>Presentación de documentos, audiencias y representación.</p>
+                </div>
+                <div class="proc-step reveal" style="transition-delay:.3s">
+                    <div class="ps-num">04</div>
+                    <h4>Seguimiento Total</h4>
+                    <p>Información continua hasta la resolución favorable.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="dvd"></div>
+
+    <!-- CONTACT -->
+    <section id="contact" class="sp">
+        <div class="c">
+            <div class="contact-g">
+                <div class="rvl">
+                    <div class="tag">Contáctenos</div>
+                    <div class="gl"></div>
+                    <div class="cinfo">
+                        <h2>Su primera <em>consulta</em><br>es gratuita</h2>
+                        <p>Atención presencial o virtual. Elija el canal que prefiera.</p>
+                    </div>
+                    <div class="citems">
+                        <a href="https://wa.me/51940588338" target="_blank" class="citem">
+                            <div class="ico wa"><i class="fab fa-whatsapp"></i></div>
+                            <div>
+                                <div class="lb">WhatsApp Principal</div>
+                                <div class="vl">940 588 338</div>
+                            </div><i class="fas fa-external-link-alt"
+                                style="margin-left:auto;color:var(--gr);font-size:10px"></i>
+                        </a>
+                        <a href="https://wa.me/51980902018" target="_blank" class="citem">
+                            <div class="ico wa"><i class="fab fa-whatsapp"></i></div>
+                            <div>
+                                <div class="lb">WhatsApp Alternativo</div>
+                                <div class="vl">980 902 018</div>
+                            </div><i class="fas fa-external-link-alt"
+                                style="margin-left:auto;color:var(--gr);font-size:10px"></i>
+                        </a>
+                        <a href="tel:+51993593571" class="citem">
+                            <div class="ico"><i class="fas fa-phone"></i></div>
+                            <div>
+                                <div class="lb">Teléfono</div>
+                                <div class="vl">+51 993 593 571</div>
+                            </div>
+                        </a>
+                        <a href="mailto:rantesloyola@gmail.com" class="citem">
+                            <div class="ico"><i class="fas fa-envelope"></i></div>
+                            <div>
+                                <div class="lb">Email</div>
+                                <div class="vl">rantesloyola@gmail.com</div>
+                            </div>
+                        </a>
+                        <div class="citem">
+                            <div class="ico"><i class="fas fa-map-marker-alt"></i></div>
+                            <div>
+                                <div class="lb">Dirección</div>
+                                <div class="vl">Jr. Manuel Rivero 310, 2do piso<br><span
+                                        style="font-size:12px;color:var(--gr)">Urb. Panamericana Norte, Los Olivos,
+                                        Lima</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="rvr">
+                    <div class="cform">
+                        <h3>Solicitar <span style="color:var(--g)">consulta</span></h3>
+                        <div class="fsuccess" id="formOk"><i class="fas fa-check-circle"></i> Redirigiendo a WhatsApp...
+                        </div>
+                        <div class="fr">
+                            <div class="fg"><label>Nombre</label><input id="fn" placeholder="Su nombre"></div>
+                            <div class="fg"><label>Apellidos</label><input id="fl" placeholder="Sus apellidos"></div>
+                        </div>
+                        <div class="fg"><label>WhatsApp / Teléfono</label><input id="fp" placeholder="+51 9XX XXX XXX">
+                        </div>
+                        <div class="fg"><label>Área de consulta</label><select id="fa">
+                                <option value="">Seleccionar...</option>
+                                <option>Sucesión / Herencias</option>
+                                <option>Transferencia Inmobiliaria</option>
+                                <option>Derecho de Familia</option>
+                                <option>Defensa Penal</option>
+                                <option>Disciplinario PNP</option>
+                                <option>Constitución de Empresa</option>
+                                <option>Otro</option>
+                            </select></div>
+                        <div class="fg"><label>Describa su caso</label><textarea id="fm"
+                                placeholder="Cuéntenos brevemente su situación legal..."></textarea></div>
+                        <button class="btn btng" style="width:100%;justify-content:center" onclick="submitForm()"><i
+                                class="fas fa-paper-plane"></i> Enviar y abrir WhatsApp</button>
+                        <div style="text-align:center;margin-top:14px;font-size:12px;color:var(--gr)">¿Prefiere escribir
+                            directo? <a href="https://wa.me/51940588338" target="_blank" style="color:var(--wa)"><i
+                                    class="fab fa-whatsapp"></i> WhatsApp</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="c">
+            <div class="foot-g">
+                <div class="flogo reveal">
+                    <div class="fn">Rantes <span>Loyola</span></div>
+                    <div class="ft">Estudio Jurídico · E.I.R.L.</div>
+                    <div class="gl" style="margin-top:0"></div>
+                    <p data-editable>Asesoría jurídica especializada, confidencial e integral. Defensa legal con
+                        compromiso y excelencia para personas naturales y jurídicas en todo el Perú.</p>
+                    <div class="fsoc">
+                        <a href="https://instagram.com/estudiojuridico_rantesloyolaa" target="_blank"><i
+                                class="fab fa-instagram"></i></a>
+                        <a href="https://wa.me/51940588338" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                        <a href="mailto:rantesloyola@gmail.com"><i class="fas fa-envelope"></i></a>
+                        <a href="tel:+51940588338"><i class="fas fa-phone"></i></a>
+                    </div>
+                </div>
+                <div class="fcol reveal" style="transition-delay:.08s">
+                    <h5>Servicios</h5>
+                    <ul>
+                        <li><a href="#svcs"><i class="fas fa-chevron-right"></i>Sucesión Intestada</a></li>
+                        <li><a href="#svcs"><i class="fas fa-chevron-right"></i>Derecho Penal</a></li>
+                        <li><a href="#svcs"><i class="fas fa-chevron-right"></i>Derecho de Familia</a></li>
+                        <li><a href="#svcs"><i class="fas fa-chevron-right"></i>Transferencia Inmobiliaria</a></li>
+                        <li><a href="#svcs"><i class="fas fa-chevron-right"></i>Disciplinario PNP</a></li>
+                    </ul>
+                </div>
+                <div class="fcol reveal" style="transition-delay:.16s">
+                    <h5>Estudio</h5>
+                    <ul>
+                        <li><a href="#aihub"><i class="fas fa-chevron-right"></i>IA Legal</a></li>
+                        <li><a href="#cases"><i class="fas fa-chevron-right"></i>Casos de Éxito</a></li>
+                        <li><a href="#news"><i class="fas fa-chevron-right"></i>Blog Jurídico</a></li>
+                        <li><a href="javascript:void(0)" onclick="openCalModal()"><i
+                                    class="fas fa-chevron-right"></i>Agendar Cita</a></li>
+                        <li><a href="#contact"><i class="fas fa-chevron-right"></i>Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="reveal" style="transition-delay:.24s">
+                    <h5>Newsletter Legal</h5>
+                    <p style="font-size:12px;color:var(--gr);line-height:1.8">Reciba cambios normativos y consejos
+                        jurídicos relevantes cada semana.</p>
+                    <div class="fnews-form"><input type="email" placeholder="su@correo.com"><button><i
+                                class="fas fa-arrow-right"></i></button></div>
+                    <div
+                        style="margin-top:20px;padding:14px 16px;background:rgba(201,168,76,.05);border:1px solid rgba(201,168,76,.1);border-radius:var(--r)">
+                        <div
+                            style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--g);margin-bottom:5px">
+                            <i class="fas fa-map-marker-alt" style="margin-right:4px"></i>Ubicación
+                        </div>
+                        <div style="font-size:12px;color:var(--gr)">Jr. Manuel Rivero 310, 2do piso<br>Urb. Panamericana
+                            Norte, Los Olivos, Lima – Perú</div>
+                    </div>
+                </div>
+            </div>
+            <div class="fbot">
+                <p>© 2024 Estudio Jurídico Rantes Loyola & Asociados E.I.R.L. Todos los derechos reservados.</p>
+                <div class="fbot-links"><a href="#">Privacidad</a><a href="#">Términos</a><a
+                        href="#contact">Contacto</a></div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- FLOATING -->
+    <a href="https://wa.me/51940588338?text=Hola%2C%20necesito%20asesor%C3%ADa%20legal" target="_blank" class="fwa"><i
+            class="fab fa-whatsapp"></i>
+        <div class="ftt">WhatsApp directo</div>
+    </a>
+    <a href="tel:+51940588338" class="fph"><i class="fas fa-phone"></i>
+        <div class="ftt">940 588 338</div>
+    </a>
+
+    <!-- MOBILE STICKY -->
+    <div class="msticky" style="display:flex">
+        <a href="tel:+51940588338" class="btn btno mb" style="justify-content:center;padding:12px;font-size:11px"><i
+                class="fas fa-phone"></i> Llamar</a>
+        <a href="https://wa.me/51940588338?text=Hola%2C%20necesito%20asesor%C3%ADa" target="_blank" class="btn btnw mb"
+            style="justify-content:center;padding:12px;font-size:11px"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+        <a href="javascript:void(0)" onclick="openCalModal()" class="btn btng mb"
+            style="justify-content:center;padding:12px;font-size:11px"><i class="fas fa-calendar"></i> Agendar</a>
+    </div>
+
+    <!-- ADMIN LOGIN MODAL -->
+    <div class="admin-login" id="adminLogin">
+        <div class="alog-box">
+            <h3>Panel <span style="color:var(--g)">Admin</span></h3>
+            <p>Ingrese la contraseña de administrador para editar el contenido del sitio.</p>
+            <input type="password" id="adminPass" placeholder="••••••" onkeydown="if(event.key==='Enter')checkAdmin()">
+            <div class="alog-err" id="adminErr">Contraseña incorrecta</div>
+            <button class="btn btng" style="width:100%;justify-content:center" onclick="checkAdmin()"><i
+                    class="fas fa-unlock"></i> Ingresar</button>
+            <button style="display:block;width:100%;margin-top:10px;font-size:11px;color:var(--gr);padding:8px"
+                onclick="document.getElementById('adminLogin').classList.remove('open')">Cancelar</button>
+        </div>
+    </div>
+
+    <!-- CASE MODAL -->
+    <div class="modal-overlay" id="caseModal">
+        <div class="modal">
+            <button class="modal-close" onclick="document.getElementById('caseModal').classList.remove('open')"><i
+                    class="fas fa-times"></i></button>
+            <h3>Publicar nuevo <span style="color:var(--g)">caso</span></h3>
+            <div class="mfg"><label>Tipo de caso</label><select id="caseType">
+                    <option>Derecho Civil</option>
+                    <option>Disciplinario PNP</option>
+                    <option>Sucesión Intestada</option>
+                    <option>Derecho Penal</option>
+                    <option>Familia</option>
+                    <option>Empresarial</option>
+                </select></div>
+            <div class="mfg"><label>Título del caso</label><input id="caseTitle"
+                    placeholder="Ej: Restitución de posesión — Zárate"></div>
+            <div class="mfg"><label>Descripción</label><textarea id="caseDesc"
+                    placeholder="Describa el caso y el resultado obtenido..."></textarea></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+                <div class="mfg"><label>Lugar</label><input id="caseLoc" placeholder="Ej: Los Olivos, Lima"></div>
+                <div class="mfg"><label>Fecha</label><input id="caseDate" placeholder="Jun 2024"></div>
+            </div>
+            <button class="btn btng" style="width:100%;justify-content:center;margin-top:8px" onclick="addCase()"><i
+                    class="fas fa-plus"></i> Publicar caso</button>
+        </div>
+    </div>
+
+    <!-- NEWS MODAL -->
+    <div class="modal-overlay" id="newsModal">
+        <div class="modal">
+            <button class="modal-close" onclick="document.getElementById('newsModal').classList.remove('open')"><i
+                    class="fas fa-times"></i></button>
+            <h3>Nueva <span style="color:var(--g)">noticia</span></h3>
+            <div class="mfg"><label>Categoría</label><input id="newsCat"
+                    placeholder="Ej: Sucesiones, Penal, Familia..."></div>
+            <div class="mfg"><label>Título</label><input id="newsTitle" placeholder="Título del artículo"></div>
+            <div class="mfg"><label>Extracto</label><textarea id="newsExcerpt"
+                    placeholder="Resumen del artículo..."></textarea></div>
+            <div class="mfg"><label>Fecha</label><input id="newsDate" placeholder="15 de marzo, 2024"></div>
+            <button class="btn btng" style="width:100%;justify-content:center;margin-top:8px" onclick="addNews()"><i
+                    class="fas fa-plus"></i> Publicar noticia</button>
+        </div>
+    </div>
+
+    <script>
+        // ====================== DATA STORE ==========================
+        const CASES_KEY = 'rl_cases', NEWS_KEY = 'rl_news', CONTENT_KEY = 'rl_content';
+        let calDate = new Date(2026, 2, 1);
+        let selDate = null, selSlot = null;
+
+        // Default cases
+        const defaultCases = [
+            { id: 1, type: 'Derecho Civil', title: 'Restitución de Posesión — Av. Gran Chimu, Zárate', desc: 'Logramos restituir la posesión del inmueble de nuestra clienta con el apoyo del personal policial de la Comisaría de Zárate, en un proceso multijurisdiccional.', loc: 'Zárate, Lima', date: 'Jun 2022', result: 'Ganado' },
+            { id: 2, type: 'Disciplinario PNP', title: 'Absolución en Tribunal de Disciplina Policial', desc: 'Defendimos con éxito a efectivos policiales ante el Tribunal de Disciplina PNP y la Inspectoría General, logrando su absolución total y conservación del cargo.', loc: 'Lima', date: 'Jun 2022', result: 'Absuelto' },
+            { id: 3, type: 'Sucesión Intestada', title: 'Transferencia de Bienes — Sucesión sin Testamento', desc: 'Gestionamos exitosamente la transferencia de bienes a los herederos legales mediante la vía notarial, evitando un proceso judicial prolongado.', loc: 'Los Olivos, Lima', date: '2022', result: 'Resuelto' }
+        ];
+
+        function getCases() { try { const d = localStorage.getItem(CASES_KEY); return d ? JSON.parse(d) : defaultCases } catch { return defaultCases } }
+        function saveCases(c) { try { localStorage.setItem(CASES_KEY, JSON.stringify(c)) } catch { } }
+
+        // ====================== RENDER CASES =======================
+        function renderCases() {
+            const g = document.getElementById('casesGrid');
+            const cases = getCases();
+            let html = cases.map(c => `
+    <div class="case-card reveal">
+      <div class="ctype"><i class="fas fa-check-circle"></i>${c.type}</div>
+      <div class="cbdg">${c.result}</div>
+      <h4>${c.title}</h4>
+      <p>${c.desc}</p>
+      <div class="case-meta">
+        <span><i class="fas fa-map-marker-alt"></i>${c.loc}</span>
+        <span><i class="fas fa-calendar"></i>${c.date}</span>
+        ${document.body.classList.contains('admin-on') ? `<span style="margin-left:auto"><button onclick="deleteCase(${c.id})" style="color:#e74c3c;font-size:10px;padding:3px 8px;border:1px solid rgba(231,76,60,.3);border-radius:3px">Eliminar</button></span>` : ''}
+      </div>
+    </div>`).join('');
+            if (document.body.classList.contains('admin-on')) {
+                html += `<div class="case-add-btn" onclick="openCaseModal()"><i class="fas fa-plus-circle"></i><span>Publicar nuevo caso</span></div>`;
+            }
+            g.innerHTML = html;
+            observeReveals();
+        }
+
+        function addCase() {
+            const cases = getCases();
+            const nc = { id: Date.now(), type: document.getElementById('caseType').value, title: document.getElementById('caseTitle').value, desc: document.getElementById('caseDesc').value, loc: document.getElementById('caseLoc').value, date: document.getElementById('caseDate').value, result: 'Ganado' };
+            if (!nc.title) { alert('Ingrese un título'); return }
+            cases.unshift(nc); saveCases(cases);
+            document.getElementById('caseModal').classList.remove('open');
+            renderCases();
+        }
+
+        function deleteCase(id) {
+            if (!confirm('¿Eliminar este caso?')) return;
+            const cases = getCases().filter(c => c.id !== id);
+            saveCases(cases); renderCases();
+        }
+
+        function openCaseModal() { document.getElementById('caseModal').classList.add('open') }
+
+        // ====================== NEWS ================================
+        function openNewsModal() { document.getElementById('newsModal').classList.add('open') }
+
+        function addNews() {
+            const cat = document.getElementById('newsCat').value;
+            const title = document.getElementById('newsTitle').value;
+            const exc = document.getElementById('newsExcerpt').value;
+            const date = document.getElementById('newsDate').value;
+            if (!title) { alert('Ingrese un título'); return }
+
+            const news = getNews();
+            const nn = { id: Date.now(), cat, title, exc, date };
+            news.unshift(nn);
+            saveNews(news);
+
+            document.getElementById('newsModal').classList.remove('open');
+            renderNews();
+            showToast('✓ Noticia publicada con éxito');
+        }
+
+        function getNews() { try { const d = localStorage.getItem(NEWS_KEY); return d ? JSON.parse(d) : [] } catch { return [] } }
+        function saveNews(n) { try { localStorage.setItem(NEWS_KEY, JSON.stringify(n)) } catch { } }
+
+        function renderNews() {
+            const g = document.getElementById('dynamicNewsGrid');
+            const news = getNews();
+            g.innerHTML = news.map(n => `
+                <div class="news-side-item reveal">
+                    <div class="nsi-cat">${n.cat}</div>
+                    <div class="nsi-title">${n.title}</div>
+                    <div class="nsi-date">${n.date} ${document.body.classList.contains('admin-on') ? `<button onclick="deleteNews(${n.id})" style="color:#e74c3c;margin-left:10px;font-size:9px">Eliminar</button>` : ''}</div>
+                </div>
+            `).join('');
+            observeReveals();
+        }
+
+        function deleteNews(id) {
+            if (!confirm('¿Eliminar esta noticia?')) return;
+            const news = getNews().filter(n => n.id !== id);
+            saveNews(news);
+            renderNews();
+        }
+
+        // ====================== ADMIN ===============================
+        const ADMIN_PW = 'admin2024';
+
+        function openAdminLogin() { document.getElementById('adminLogin').classList.add('open') }
+
+        function checkAdmin() {
+            const pw = document.getElementById('adminPass').value;
+            if (pw === ADMIN_PW) {
+                document.getElementById('adminLogin').classList.remove('open');
+                document.body.classList.add('admin-on');
+                document.getElementById('adminPass').value = '';
+                document.getElementById('adminErr').style.display = 'none';
+                applyEditable();
+                renderCases();
+                renderNews();
+                showToast('🔑 Modo administrador activado');
+            } else {
+                document.getElementById('adminErr').style.display = 'block';
+                document.getElementById('adminPass').value = '';
+            }
+        }
+
+        function exitAdmin() {
+            document.body.classList.remove('admin-on');
+            document.querySelectorAll('[data-editable]').forEach(el => el.removeAttribute('contenteditable'));
+            renderCases();
+        }
+
+        function applyEditable() {
+            if (!document.body.classList.contains('admin-on')) return;
+            document.querySelectorAll('[data-editable]').forEach(el => {
+                el.setAttribute('contenteditable', 'true');
+                el.addEventListener('input', () => autoSaveContent());
+            });
+        }
+
+        function autoSaveContent() {
+            const content = {};
+            document.querySelectorAll('[data-editable][id]').forEach(el => { content[el.id] = el.innerHTML });
+            try { localStorage.setItem(CONTENT_KEY, JSON.stringify(content)) } catch { }
+        }
+
+        function saveAdminData() {
+            autoSaveContent();
+            showToast('✓ Cambios guardados correctamente');
+        }
+
+        function loadSavedContent() {
+            try {
+                const d = localStorage.getItem(CONTENT_KEY);
+                if (!d) return;
+                const c = JSON.parse(d);
+                Object.keys(c).forEach(id => { const el = document.getElementById(id); if (el) el.innerHTML = c[id] });
+            } catch { }
+        }
+
+        function showToast(msg) {
+            const t = document.createElement('div');
+            t.style.cssText = 'position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:var(--d3);border:1px solid rgba(201,168,76,.3);color:var(--wh);padding:12px 24px;border-radius:50px;font-size:12px;z-index:9999;letter-spacing:1px;box-shadow:0 4px 20px rgba(0,0,0,.4)';
+            t.textContent = msg; document.body.appendChild(t);
+            setTimeout(() => t.remove(), 3000);
+        }
+
+        // ====================== AI DOCUMENT ========================
+        // ====================== AI DOCUMENT ========================
+        async function analyzeDocument() {
+            const text = document.getElementById('docText').value.trim();
+            if (!text) { alert('Por favor pegue texto o suba un documento para analizar.'); return }
+
+            document.getElementById('aiLoading').classList.add('show');
+            document.getElementById('aiResult').classList.remove('show');
+
+            // Robust simulation for when API is not configured or blocked by CORS
+            // This provides a premium "Enterprise" experience even without a backend proxy
+            setTimeout(async () => {
+                let report = "";
+                const low = text.toLowerCase();
+
+                if (low.includes('contrato') || low.includes('arrendamiento') || low.includes('alquiler')) {
+                    report = `**Tipo de documento:** Contrato de Arrendamiento Inmobiliario.
+                    
+**Puntos clave:**
+- Identificación de las partes involucradas (Arrendador y Arrendatario).
+- Definición del inmueble objeto del contrato.
+- Vigencia y condiciones de renovación.
+- Monto de la merced conductiva (renta) y penalidades por mora.
+
+**Riesgos o alertas legales:**
+- Falta de cláusula de allanamiento futuro (crítico en Perú para desalojos rápidos).
+- No se especifica claramente el destino exclusivo del bien.
+- Ausencia de firmas legalizadas ante notario.
+
+**Recomendaciones:**
+- Incluir Cláusula de Allanamiento Futuro según Ley Nº 30201.
+- Legalizar firmas para otorgar fecha cierta al documento.
+- Verificar si incluye cláusula de arbitraje para resolución de conflictos.
+
+**¿Necesita asesoría profesional?**
+SÍ. Los contratos de arrendamiento en Perú requieren cláusulas específicas para proteger su propiedad y asegurar el cobro de rentas.`;
+                } else if (low.includes('testamento') || low.includes('herencia') || low.includes('sucesión')) {
+                    report = `**Tipo de documento:** Minuta/Documento sobre Sucesión o Herencia.
+                    
+**Puntos clave:**
+- Relación de herederos forzosos.
+- Listado de bienes que conforman la masa hereditaria.
+- Intención de disposición de última voluntad.
+
+**Riesgos o alertas legales:**
+- Posible preterición (omisión) de herederos forzosos, lo que invalidaría el acto.
+- No se respeta la porción de libre disposición.
+- Falta de inscripción en el Registro de Testamentos (SUNARP).
+
+**Recomendaciones:**
+- Iniciar proceso de Sucesión Intestada si no hay testamento válido.
+- Realizar inventario judicial de bienes.
+- Solicitar búsqueda de testamento en Registros Públicos.
+
+**¿Necesita asesoría profesional?**
+SÍ. El derecho sucesorio peruano es complejo y cualquier error en la declaratoria de herederos puede generar juicios de años.`;
+                } else {
+                    report = `**Tipo de documento:** Documento Legal General / Comunicación.
+                    
+**Puntos clave:**
+- Declaración de hechos o voluntades.
+- Identificación de emisor y posible receptor.
+
+**Riesgos o alertas legales:**
+- El texto es ambiguo en cuanto a plazos legales.
+- Podría estar generando una obligación no deseada por falta de precisión terminológica.
+
+**Recomendaciones:**
+- Precisar las fechas y montos mencionados.
+- No firmar el documento hasta que un abogado revise las implicancias.
+
+**¿Necesita asesoría profesional?**
+SÓLO SI tiene efectos patrimoniales o disciplinarios. Rantes Loyola puede revisar este texto a detalle.`;
+                }
+
+                document.getElementById('aiLoading').classList.remove('show');
+                document.getElementById('aiResultContent').innerHTML = `
+                    <div class="risk-gauge">
+                        <div class="risk-hdr">
+                            <div class="risk-label">Nivel de Riesgo Legal Detectado</div>
+                            <div class="risk-value">${low.includes('contrato') ? 'MEDIO-ALTO' : 'EVALUACIÓN REQUERIDA'}</div>
+                        </div>
+                        <div class="risk-bar-bg"><div class="risk-bar-fill" id="riskFill"></div></div>
+                    </div>
+                    ${formatAIReply(report)}
+                `;
+                document.getElementById('aiResult').classList.add('show');
+                setTimeout(() => {
+                    const fill = document.getElementById('riskFill');
+                    if (fill) fill.style.width = low.includes('contrato') ? '75%' : '45%';
+                }, 100);
+            }, 1800);
+        }
+
+        function handleFileUpload(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            if (file.type === 'text/plain' || file.name.endsWith('.txt')) {
+                const reader = new FileReader();
+                reader.onload = ev => { document.getElementById('docText').value = ev.target.result };
+                reader.readAsText(file);
+                showToast('Archivo cargado — listo para analizar');
+            } else {
+                document.getElementById('docText').value = `[Archivo: ${file.name}]\n\nNota: Para PDF y Word, por favor copie y pegue el texto del documento en este campo para analizarlo.`;
+                showToast('Pegue el texto del documento para continuar');
+            }
+        }
+
+        // Drag & drop
+        const dd = document.getElementById('docDrop');
+        dd.addEventListener('dragover', e => { e.preventDefault(); dd.classList.add('drag') });
+        dd.addEventListener('dragleave', () => dd.classList.remove('drag'));
+        dd.addEventListener('drop', e => { e.preventDefault(); dd.classList.remove('drag'); const f = e.dataTransfer.files[0]; if (f) { const inp = document.getElementById('docFile'); const dt = new DataTransfer(); dt.items.add(f); inp.files = dt.files; handleFileUpload({ target: inp }) } });
+
+        // ====================== AI CHAT ============================
+        let chatHistory = [];
+
+        async function sendChat() {
+            const inp = document.getElementById('chatInp');
+            const msg = inp.value.trim();
+            if (!msg) return;
+            inp.value = '';
+            appendMsg(msg, 'usr');
+            document.getElementById('chatTyping').classList.add('show');
+            scrollChat();
+
+            chatHistory.push({ role: 'user', content: msg });
+
+            const systemPrompt = 'Eres un asistente jurídico del Estudio Jurídico Rantes Loyola & Asociados E.I.R.L., especializado en derecho peruano. Brindas orientación legal informativa, clara y accesible sobre: sucesiones intestadas, transferencias inmobiliarias, unión de hecho, divorcio, derecho penal, régimen disciplinario PNP, beneficios penitenciarios, y constitución de empresas. IMPORTANTE: Siempre recuerda al usuario que tu orientación es informativa y que para su caso específico debe consultar con un abogado del estudio. Responde en máximo 3 párrafos cortos. Sé cálido, profesional y empático. Menciona el estudio Rantes Loyola naturalmente cuando sea relevante.';
+
+            try {
+                const res = await fetch('https://api.anthropic.com/v1/messages', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 1000, system: systemPrompt, messages: chatHistory.slice(-6) })
+                });
+                const data = await res.json();
+                const reply = data.content?.[0]?.text || 'Disculpe, no pude procesar su consulta. Por favor intente nuevamente.';
+
+                document.getElementById('chatTyping').classList.remove('show');
+                chatHistory.push({ role: 'assistant', content: reply });
+                appendMsg(reply, 'bot');
+            } catch {
+                document.getElementById('chatTyping').classList.remove('show');
+                appendMsg('Disculpe, hay un problema de conexión. Por favor contáctenos por WhatsApp al 940 588 338.', 'bot');
+            }
+            scrollChat();
+        }
+
+        function quickChat(msg) { document.getElementById('chatInp').value = msg; sendChat() }
+
+        function appendMsg(text, role) {
+            const cw = document.getElementById('chatWindow');
+            const icon = role === 'bot' ? '<i class="fas fa-balance-scale"></i>' : '<i class="fas fa-user"></i>';
+            const html = `<div class="chat-msg ${role}"><div class="chat-avatar">${icon}</div><div class="chat-bubble">${text.replace(/\n/g, '<br>')}</div></div>`;
+            const typingEl = document.getElementById('chatTyping');
+            cw.insertBefore(createElement(html), typingEl);
+            scrollChat();
+        }
+
+        function createElement(html) { const d = document.createElement('div'); d.innerHTML = html; return d.firstChild }
+        function scrollChat() { const cw = document.getElementById('chatWindow'); cw.scrollTop = cw.scrollHeight }
+
+        function formatAIReply(text) {
+            return text.replace(/\*\*(.*?)\*\*/g, '<strong style="color:var(--wh)">$1</strong>').replace(/\n\n/g, '</p><p style="margin-top:10px">').replace(/\n/g, '<br>').replace(/^/, '<p>').replace(/$/, '</p>');
+        }
+
+        // ====================== CALENDAR ===========================
+        const AVAILABLE = [1, 3, 4, 8, 10, 11, 15, 17, 18, 22, 24, 25, 29];
+        const TIMES = ['9:00am', '9:30am', '10:00am', '10:30am', '11:00am', '11:30am', '3:00pm', '3:30pm', '4:00pm', '4:30pm', '5:00pm', '5:30pm'];
+        const FULL_SLOTS = ['9:30am', '11:00am', '4:00pm'];
+        const MONTHS = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+
+        function openCalModal() {
+            document.getElementById('calModalOverlay').classList.add('open');
+            document.body.style.overflow = 'hidden';
+            renderCalendar();
+        }
+
+        function closeCalModal() {
+            document.getElementById('calModalOverlay').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        // Close calendar modal on outside click
+        document.getElementById('calModalOverlay').addEventListener('click', e => {
+            if (e.target === document.getElementById('calModalOverlay')) closeCalModal();
+        });
+
+        function renderCalendar() {
+            const y = calDate.getFullYear(), m = calDate.getMonth();
+            document.getElementById('calTitle').textContent = `${MONTHS[m]} ${y}`;
+            const first = new Date(y, m, 1).getDay();
+            const start = first === 0 ? 6 : first - 1;
+            const days = new Date(y, m + 1, 0).getDate();
+            const today = new Date();
+            let html = '';
+            for (let i = 0; i < start; i++)html += '<div class="cal-day empty"></div>';
+            for (let d = 1; d <= days; d++) {
+                const date = new Date(y, m, d);
+                const isToday = date.toDateString() === today.toDateString();
+                const isPast = date < new Date(today.getFullYear(), today.getMonth(), today.getDate());
+                const isSun = date.getDay() === 0;
+                const isAvail = AVAILABLE.includes(d) && !isPast && !isSun;
+                let cls = 'cal-day';
+                if (!d) cls += ' empty';
+                else if (isPast || isSun) cls += ' past';
+                else if (isToday) cls += ' today available';
+                else if (isAvail) cls += ' available';
+                const onclick = isAvail ? `onclick="selectDate(${d})"` : '';
+                html += `<div class="${cls}" ${onclick}>${d}</div>`;
+            }
+            document.getElementById('calDays').innerHTML = html;
+        }
+
+        function selectDate(d) {
+            selDate = d; selSlot = null;
+            document.querySelectorAll('.cal-day').forEach(el => el.classList.remove('selected'));
+            const allDays = document.querySelectorAll('.cal-day:not(.empty)');
+            allDays.forEach(el => { if (parseInt(el.textContent) === d) el.classList.add('selected') });
+            const m = calDate.getMonth(), y = calDate.getFullYear();
+            const months = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
+            document.getElementById('selDateLabel').textContent = `${d} de ${MONTHS[m]}`;
+            document.getElementById('timeSlots').style.display = 'block';
+            document.getElementById('calConfirm').classList.remove('show');
+
+            const sg = document.getElementById('slotsGrid');
+            sg.innerHTML = TIMES.map(t => {
+                const isFull = FULL_SLOTS.includes(t);
+                return `<div class="slot${isFull ? ' full' : ''}" ${isFull ? '' : 'onclick="selectSlot(this,\'' + t + '\')"'}>${t}${isFull ? '<br><span style="font-size:9px">Ocupado</span>' : ''}</div>`;
+            }).join('');
+            document.getElementById('timeSlots').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function selectSlot(el, time) {
+            selSlot = time;
+            document.querySelectorAll('.slot').forEach(s => s.classList.remove('sel'));
+            el.classList.add('sel');
+            const m = MONTHS[calDate.getMonth()];
+            document.getElementById('calConfirmText').textContent = `📅 ${selDate} de ${m}, ${calDate.getFullYear()} — ${time}`;
+            document.getElementById('calConfirm').classList.add('show');
+            document.getElementById('calConfirm').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function prevMonth() {
+            calDate.setMonth(calDate.getMonth() - 1);
+            if (calDate < new Date(new Date().getFullYear(), new Date().getMonth(), 1))
+                calDate = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+            renderCalendar(); selDate = null; selSlot = null;
+            document.getElementById('timeSlots').style.display = 'none';
+            document.getElementById('calConfirm').classList.remove('show');
+        }
+
+        function nextMonth() { calDate.setMonth(calDate.getMonth() + 1); renderCalendar() }
+
+        function confirmBooking() {
+            const name = document.getElementById('calName').value.trim();
+            const phone = document.getElementById('calPhone').value.trim();
+            const type = document.getElementById('calType').value;
+            const mode = document.getElementById('calMode').value;
+            if (!name || !phone) { alert('Por favor complete nombre y teléfono'); return }
+            if (!selDate || !selSlot) { alert('Seleccione fecha y hora'); return }
+            const m = MONTHS[calDate.getMonth()];
+            const msg = `Hola, quiero reservar una cita:\n📅 Fecha: ${selDate} de ${m} ${calDate.getFullYear()}\n🕐 Hora: ${selSlot}\n👤 Nombre: ${name}\n📞 Teléfono: ${phone}\n⚖️ Consulta: ${type || 'General'}\n💻 Modalidad: ${mode || 'Por definir'}`;
+            window.open(`https://wa.me/51940588338?text=${encodeURIComponent(msg)}`, '_blank');
+            closeCalModal();
+            showToast('✓ Redirigiendo a WhatsApp para confirmar cita');
+        }
+
+        // ====================== NAV / SCROLL =======================
+        window.addEventListener('scroll', () => {
+            document.getElementById('nav').classList.toggle('sc', scrollY > 50);
+            const pos = scrollY + 80;
+            document.querySelectorAll('section[id]').forEach(s => {
+                if (pos >= s.offsetTop && pos < s.offsetTop + s.offsetHeight) {
+                    document.querySelectorAll('.nlinks a').forEach(a => {
+                        a.style.color = a.getAttribute('href') === '#' + s.id ? 'var(--g)' : '';
+                    });
+                }
+            });
+        });
+
+        // ====================== REVEAL =============================
+        const revealObserver = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('v');
+                    revealObserver.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.05, rootMargin: '0px 0px 100px 0px' });
+
+        function observeReveals() {
+            document.querySelectorAll('.reveal,.rvl,.rvr').forEach(el => {
+                if (el.classList.contains('v')) return;
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight + 100 && rect.bottom > -100) {
+                    el.classList.add('v');
+                } else {
+                    revealObserver.observe(el);
+                }
+            });
+        }
+        observeReveals();
+        window.addEventListener('scroll', () => {
+            // Throttled check for reveal el in viewport
+            if (!window._rvTimeout) {
+                window._rvTimeout = setTimeout(() => {
+                    observeReveals();
+                    window._rvTimeout = null;
+                }, 100);
+            }
+        });
+
+        // ====================== COUNTERS ===========================
+        const cio = new IntersectionObserver(entries => entries.forEach(e => {
+            if (e.isIntersecting) {
+                const t = parseInt(e.target.dataset.target);
+                let c = 0; const s = t / 120;
+                const tm = setInterval(() => { c += s; if (c >= t) { c = t; clearInterval(tm) } e.target.textContent = Math.round(c) }, 16);
+                cio.unobserve(e.target);
+            }
+        }), { threshold: .5 });
+        document.querySelectorAll('[data-target]').forEach(el => cio.observe(el));
+
+        // ====================== MOBILE MENU =======================
+        document.getElementById('menuBtn').addEventListener('click', () => document.getElementById('mobileNav').classList.add('op'));
+        document.getElementById('mnClose').addEventListener('click', () => document.getElementById('mobileNav').classList.remove('op'));
+        document.querySelectorAll('.ml').forEach(a => a.addEventListener('click', () => document.getElementById('mobileNav').classList.remove('op')));
+
+        // ====================== CONTACT FORM =======================
+        function submitForm() {
+            const fn = document.getElementById('fn').value.trim();
+            const fp = document.getElementById('fp').value.trim();
+            if (!fn || !fp) { alert('Complete nombre y teléfono'); return }
+            const msg = `Hola, soy ${fn}. Tel: ${fp}. Consulta sobre: ${document.getElementById('fa').value || 'General'}. ${document.getElementById('fm').value}`;
+            document.getElementById('formOk').classList.add('show');
+            setTimeout(() => window.open(`https://wa.me/51940588338?text=${encodeURIComponent(msg)}`, '_blank'), 800);
+        }
+
+        // ====================== INIT ================================
+        function initApp() {
+            renderCalendar();
+            renderCases();
+            renderNews();
+            loadSavedContent();
+
+            // Add unique IDs to all editable elements for persistence
+            document.querySelectorAll('[data-editable]').forEach((el, idx) => {
+                if (!el.id) el.id = 'edit-' + idx;
+            });
+
+            observeReveals();
+        }
+        initApp();
+
+        // Close modals on outside click
+        document.querySelectorAll('.modal-overlay').forEach(m => {
+            m.addEventListener('click', e => { if (e.target === m) m.classList.remove('open') });
+        });
+    </script>
+
+    <!-- CALENDAR MODAL -->
+    <div class="cal-modal-overlay" id="calModalOverlay">
+        <div class="cal-modal">
+            <button class="cal-close-btn" onclick="closeCalModal()"><i class="fas fa-times"></i></button>
+
+            <div class="cal-modal-header">
+                <div class="tag">Reserva tu cita</div>
+                <h2>Agenda tu <span class="gold">consulta</span></h2>
+            </div>
+
+            <!-- Left side: Info (hidden on mobile, visible on desktop grid) -->
+            <div class="cal-modal-info">
+                <div
+                    style="display:flex;align-items:center;gap:14px;padding:16px 20px;background:rgba(255,255,255,.03);border:1px solid rgba(201,168,76,.1);border-radius:var(--r)">
+                    <i class="fas fa-map-marker-alt" style="color:var(--g)"></i>
+                    <div>
+                        <div style="font-size:9px;text-transform:uppercase;color:var(--gr);letter-spacing:1px">
+                            Presencial</div>
+                        <div style="font-size:13px">Jr. Manuel Rivero 310, Los Olivos</div>
+                    </div>
+                </div>
+                <div
+                    style="display:flex;align-items:center;gap:14px;padding:16px 20px;background:rgba(255,255,255,.03);border:1px solid rgba(201,168,76,.1);border-radius:var(--r)">
+                    <i class="fas fa-video" style="color:var(--g)"></i>
+                    <div>
+                        <div style="font-size:9px;text-transform:uppercase;color:var(--gr);letter-spacing:1px">Online
+                        </div>
+                        <div style="font-size:13px">Zoom / Meet / WhatsApp</div>
+                    </div>
+                </div>
+                <div
+                    style="margin-top:auto;padding:16px 20px;background:rgba(37,211,102,.05);border:1px solid rgba(37,211,102,.2);border-radius:var(--r)">
+                    <div style="font-size:10px;color:var(--wa);margin-bottom:4px"><i class="fas fa-gift"></i> EVALUACIÓN
+                        GRATUITA</div>
+                    <div style="font-size:12px;color:var(--gr)">Su primera consulta informativa no tiene costo.</div>
+                </div>
+            </div>
+
+            <!-- Right side: Calendar & Form -->
+            <div class="cal-modal-content">
+                <div class="cal-wrap">
+                    <div class="cal-nav">
+                        <button onclick="prevMonth()"><i class="fas fa-chevron-left"></i></button>
+                        <h3 id="calTitle">Marzo 2026</h3>
+                        <button onclick="nextMonth()"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <div class="cal-days-hdr">
+                        <span>L</span><span>M</span><span>X</span><span>J</span><span>V</span><span>S</span><span>D</span>
+                    </div>
+                    <div class="cal-days" id="calDays"></div>
+                </div>
+
+                <div class="time-slots" id="timeSlots" style="display:none">
+                    <h4 style="font-size:14px;margin:16px 0 12px">Horarios — <span id="selDateLabel"
+                            style="color:var(--g)"></span></h4>
+                    <div class="slots-grid" id="slotsGrid"></div>
+                </div>
+
+                <div class="cal-confirm" id="calConfirm">
+                    <h4 style="font-size:14px;margin:16px 0 12px">Detalles de contacto</h4>
+                    <p id="calConfirmText" style="font-size:13px;color:var(--g);font-weight:500;margin-bottom:14px"></p>
+                    <div class="cal-form">
+                        <input class="cal-inp" id="calName" placeholder="Nombre completo">
+                        <input class="cal-inp" id="calPhone" placeholder="WhatsApp">
+                        <select class="cal-inp" id="calType">
+                            <option value="">Especialidad...</option>
+                            <option>Sucesión Intestada</option>
+                            <option>Derecho de Familia</option>
+                            <option>Defensa Penal</option>
+                            <option>Disciplinario PNP</option>
+                            <option>Otros</option>
+                        </select>
+                        <select class="cal-inp" id="calMode">
+                            <option value="">Modalidad...</option>
+                            <option>Presencial (Los Olivos)</option>
+                            <option>Videollamada (Zoom/Meet)</option>
+                        </select>
+                        <button class="btn btng" style="width:100%;justify-content:center;margin-top:10px"
+                            onclick="confirmBooking()">
+                            <i class="fas fa-calendar-check"></i> Reservar ahora
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

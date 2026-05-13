@@ -1,0 +1,1273 @@
+<!doctype html>
+<html lang="es" class="h-full">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Labor-Guardian & Sentinel | Blindaje Legal y Software Laboral Perú</title>
+    <meta name="description"
+        content="Labor-Guardian & Sentinel: Tu fortaleza legal digital en Perú. Generador IA de documentos, auditoría preventiva ante SUNAFIL y asesoría legal 24/7. Protege tu empresa y tus derechos.">
+    <meta name="keywords"
+        content="derecho laboral peruano, protector legal, sunafil peru, liquidación de beneficios, abogado laboral ia, blindaje empresarial">
+    <!-- Open Graph -->
+    <meta property="og:title" content="Labor-Guardian & Sentinel | Blindaje Legal Perú">
+    <meta property="og:description"
+        content="Software legal impulsado por IA para trabajadores y empresas en Perú. Seguridad jurídica al instante.">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="https://labor-guardian.pe">
+
+    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+    <script src="/_sdk/element_sdk.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-card-light {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal-on-scroll.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .ai-badge {
+            background: linear-gradient(90deg, #760109, #b91c1c);
+            padding: 2px 10px;
+            border-radius: 8px;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: white;
+            box-shadow: 0 0 15px rgba(118, 1, 9, 0.4);
+        }
+
+        /* Billing Toggle Styles */
+        .billing-toggle {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            padding: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 9999px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .billing-toggle button {
+            padding: 6px 16px;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .billing-toggle button.active {
+            background: #760109;
+            color: white;
+            box-shadow: 0 4px 12px rgba(118, 1, 9, 0.3);
+        }
+
+        /* ROI Slider Styles */
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 9999px;
+            outline: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            background: #760109;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(118, 1, 9, 0.5);
+        }
+
+
+
+
+        .gradient-wine {
+            background: linear-gradient(135deg, #50C878 0%, #3BA55D 100%);
+        }
+
+        .gradient-gray {
+            background: linear-gradient(135deg, #64748b 0%, #334155 100%);
+        }
+
+        .gradient-deep-blue {
+            background: linear-gradient(135deg, #144866 0%, #062c41 100%);
+        }
+
+        .gradient-wine {
+            background: linear-gradient(135deg, #760109 0%, #4a0005 100%);
+        }
+
+        .text-gradient-wine {
+            background: linear-gradient(135deg, #760109 0%, #b91c1c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .text-gradient-blue {
+            background: linear-gradient(135deg, #144866 0%, #4a90e2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .pulse-animation {
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+
+            0%,
+            100% {
+                box-shadow: 0 0 20px rgba(80, 200, 120, 0.3);
+            }
+
+            50% {
+                box-shadow: 0 0 40px rgba(80, 200, 120, 0.6);
+            }
+        }
+
+        .slide-up {
+            animation: slideUp 0.6s ease-out forwards;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .typewriter {
+            display: inline-block;
+            overflow: hidden;
+            border-right: .15em solid #760109;
+            white-space: nowrap;
+            margin: 0 auto;
+            letter-spacing: .15em;
+            animation:
+                typing 3.5s steps(40, end),
+                blink-caret .75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from {
+                width: 0
+            }
+
+            to {
+                width: 100%
+            }
+        }
+
+        @keyframes blink-caret {
+
+            from,
+            to {
+                border-color: transparent
+            }
+
+            50% {
+                border-color: #760109;
+            }
+        }
+
+        .cta-glow:hover {
+            box-shadow: 0 0 25px rgba(118, 1, 9, 0.5);
+            transform: scale(1.02);
+        }
+
+        .cta-glow-gray:hover {
+            box-shadow: 0 0 25px rgba(51, 65, 85, 0.4);
+            transform: scale(1.02);
+        }
+
+
+        .modal-backdrop {
+            animation: backdropFade 0.3s ease-out;
+        }
+
+        @keyframes backdropFade {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal-content {
+            animation: slideUpModal 0.4s ease-out;
+        }
+
+        @keyframes slideUpModal {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(118, 1, 9, 0.3);
+            border-radius: 3px;
+        }
+
+        .header-scrolled {
+            background: rgba(6, 44, 65, 0.8) !important;
+            backdrop-filter: blur(25px) !important;
+            border-bottom-color: rgba(255, 255, 255, 0.1) !important;
+        }
+
+        .status-pulse {
+            width: 8px;
+            height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+            display: inline-block;
+            position: relative;
+        }
+
+        .status-pulse::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            background: #10b981;
+            opacity: 0.4;
+            animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+        }
+
+        @keyframes ping {
+
+            75%,
+            100% {
+                transform: scale(2.5);
+                opacity: 0;
+            }
+        }
+    </style>
+    <style>
+        body {
+            box-sizing: border-box;
+        }
+    </style>
+    <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+</head>
+
+<body class="h-full bg-gradient-to-br from-[#062c41] via-[#041d2b] to-[#020d14] text-white overflow-hidden">
+    <div id="app-wrapper" class="w-full h-full flex flex-col">
+        <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+            <div class="absolute top-0 left-1/4 w-96 h-96 bg-[#760109]/10 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-1/4 right-0 w-80 h-80 bg-slate-500/5 rounded-full blur-3xl"></div>
+            <div class="absolute top-1/2 left-0 w-64 h-64 bg-[#062c41]/10 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-0 right-1/3 w-96 h-96 bg-[#334155]/5 rounded-full blur-3xl"></div>
+        </div><!-- HEADER -->
+        <header id="main-header"
+            class="sticky top-0 z-40 transition-all duration-300 border-x-0 border-t-0 border-b border-white/5 bg-transparent">
+            <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 gradient-wine rounded-xl flex items-center justify-center">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h1 id="platform-name" class="text-lg font-bold tracking-tight">Labor-Guardian</h1>
+                            <div
+                                class="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20">
+                                <span class="status-pulse"></span>
+                                <span
+                                    class="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">Live</span>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-500">&amp; Sentinel</p>
+                    </div>
+                </div>
+                <div class="hidden md:flex items-center gap-6 text-sm font-medium text-gray-400 mr-8">
+                    <a href="enterprise/index.html" class="hover:text-white transition">Nuestro Estudio</a>
+                    <a href="enterprise/servicios.html" class="hover:text-white transition">Servicios</a>
+                    <a href="enterprise/nosotros.html" class="hover:text-white transition">Nosotros</a>
+                </div>
+                <div class="flex items-center gap-2"><button onclick="showLoginModal()"
+                        class="px-4 py-2 text-sm font-medium rounded-lg text-gray-400 hover:text-white transition-colors">Ingresar</button>
+                    <button onclick="showSignupModal()"
+                        class="px-4 py-2 text-sm font-bold rounded-lg gradient-wine text-white">Registrarse</button>
+                </div>
+            </div>
+        </header><!-- MAIN CONTENT -->
+        <div class="relative z-10 flex-1 overflow-y-auto"><!-- HERO SECTION -->
+            <section class="px-4 py-16 max-w-7xl mx-auto slide-up">
+                <div class="text-center mb-16">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 glass-card-light rounded-full mb-8"><span
+                            class="text-xs text-[#760109] font-medium">🇵🇪 Legal-as-a-Service</span>
+                    </div>
+                    <h2 id="hero-title" class="text-5xl sm:text-6xl font-bold mb-6 leading-tight">El Futuro del<br><span
+                            class="text-gradient-wine">Derecho Laboral</span></h2>
+                    <p id="hero-subtitle" class="text-gray-400 text-lg max-w-2xl mx-auto mb-8">Transforma vulnerabilidad
+                        en soberanía jurídica. IA entrenada con jurisprudencia peruana. Blindaje legal en minutos, no en
+                        meses.</p>
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-4"><button
+                            onclick="openWorkerFlow()"
+                            class="px-8 py-3 gradient-wine text-white rounded-2xl font-bold flex items-center gap-2 hover:opacity-90 transition-all duration-300 cta-glow">
+                            <span id="cta-worker">Para Trabajadores</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                            </svg></button> <button onclick="openBusinessFlow()"
+                            class="px-8 py-3 gradient-gray text-white rounded-2xl font-bold flex items-center gap-2 hover:opacity-90 transition-all duration-300 cta-glow-gray">
+                            <span id="cta-business">Para Empresas</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                            </svg></button>
+                    </div>
+                </div>
+            </section><!-- FEATURES SECTION -->
+            <section class="px-4 py-20 max-w-7xl mx-auto">
+                <h3 class="text-3xl font-bold text-center mb-12 reveal-on-scroll">Nuestros Servicios</h3>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div
+                        class="glass-card rounded-3xl p-8 hover:border-[#760109]/50 transition-all group reveal-on-scroll">
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="w-20 h-20 relative group-hover:scale-110 transition-transform">
+                                <img src="/home/ec/.gemini/antigravity/brain/6800160b-615a-487b-be5a-eaeda60f384c/service_ia_generator_1772113519447.png"
+                                    alt="Generador IA" class="w-full h-full object-contain">
+                            </div>
+                            <span class="ai-badge">Powered by AI</span>
+                        </div>
+                        <h4 class="text-xl font-bold mb-3">Generador IA</h4>
+                        <p class="text-gray-400 text-sm mb-6">Redacta cartas, actas, liquidaciones y documentos
+                            laborales en segundos con IA entrenada en jurisprudencia peruana.</p>
+                        <ul class="space-y-2 text-sm text-gray-500">
+                            <li class="flex items-center gap-2"><span class="text-wine-400">✓</span> Cartas de
+                                renuncia legales</li>
+                            <li class="flex items-center gap-2"><span class="text-wine-400">✓</span> Actas de
+                                descargo</li>
+                            <li class="flex items-center gap-2"><span class="text-wine-400">✓</span> Calculadora de
+                                beneficios</li>
+                        </ul>
+                    </div>
+                    <div
+                        class="glass-card rounded-3xl p-8 hover:border-[#144866]/50 transition-all group reveal-on-scroll">
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="w-20 h-20 relative group-hover:scale-110 transition-transform">
+                                <img src="/home/ec/.gemini/antigravity/brain/6800160b-615a-487b-be5a-eaeda60f384c/service_audit_1772113539496.png"
+                                    alt="Auditoría IA" class="w-full h-full object-contain">
+                            </div>
+                            <span class="ai-badge">The Pulse</span>
+                        </div>
+                        <h4 class="text-xl font-bold mb-3">Auditoría Inteligente</h4>
+                        <p class="text-gray-400 text-sm mb-6">Escanea tu empresa 24/7 identificando riesgos laborales
+                            antes de que SUNAFIL los detecte.</p>
+                        <ul class="space-y-2 text-sm text-gray-500">
+                            <li class="flex items-center gap-2"><span class="text-[#144866]">✓</span> Validación de
+                                contratos</li>
+                            <li class="flex items-center gap-2"><span class="text-[#144866]">✓</span> Análisis de
+                                planillas</li>
+                            <li class="flex items-center gap-2"><span class="text-[#144866]">✓</span> Risk score en
+                                tiempo real</li>
+                        </ul>
+                    </div>
+                    <div
+                        class="glass-card rounded-3xl p-8 hover:border-gray-500/50 transition-all group reveal-on-scroll">
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="w-20 h-20 relative group-hover:scale-110 transition-transform">
+                                <img src="/home/ec/.gemini/antigravity/brain/6800160b-615a-487b-be5a-eaeda60f384c/service_ai_chat_1772113558964.png"
+                                    alt="Chat IA" class="w-full h-full object-contain">
+                            </div>
+                            <span class="ai-badge">Expert IA</span>
+                        </div>
+                        <h4 class="text-xl font-bold mb-3">Chat Asesor Legal IA</h4>
+                        <p class="text-gray-400 text-sm mb-6">Consulta dudas laborales en minutos. Respuestas legales
+                            basadas en código laboral peruano actualizado.</p>
+                        <ul class="space-y-2 text-sm text-gray-500">
+                            <li class="flex items-center gap-2"><span class="text-gray-400">✓</span> Respuestas 24/7
+                            </li>
+                            <li class="flex items-center gap-2"><span class="text-gray-400">✓</span> Jurisprudencia
+                                actualizada</li>
+                            <li class="flex items-center gap-2"><span class="text-gray-400">✓</span> Asesoramiento
+                                confidencial</li>
+                        </ul>
+                    </div>
+                </div>
+            </section><!-- BENEFITS SECTION -->
+            <section class="px-4 py-20 max-w-7xl mx-auto reveal-on-scroll">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h3 class="text-3xl font-bold mb-8">¿Por qué elegir Labor-Guardian?</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-4">
+                                <div
+                                    class="w-6 h-6 rounded-full gradient-wine flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-4 h-4 text-white" fill="currentColor" viewbox="0 0 20 20">
+                                        <path fill-rule="evenodd"
+                                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="font-bold">Respuestas en Minutos</p>
+                                    <p class="text-gray-400 text-sm">No esperes semanas. Obtén documentos legales
+                                        completos en segundos.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div
+                                    class="w-6 h-6 rounded-full gradient-wine flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-4 h-4 text-white" fill="currentColor" viewbox="0 0 20 20">
+                                        <path fill-rule="evenodd"
+                                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="font-bold">100% Legal</p>
+                                    <p class="text-gray-400 text-sm">Basado en código laboral peruano, jurisprudencia y
+                                        TUO actualizado.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div
+                                    class="w-6 h-6 rounded-full gradient-wine flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-4 h-4 text-white" fill="currentColor" viewbox="0 0 20 20">
+                                        <path fill-rule="evenodd"
+                                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="font-bold">Confidencial</p>
+                                    <p class="text-gray-400 text-sm">Tus documentos y consultas nunca se comparten.
+                                        Encriptación end-to-end.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div
+                                    class="w-6 h-6 rounded-full gradient-wine flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-4 h-4 text-white" fill="currentColor" viewbox="0 0 20 20">
+                                        <path fill-rule="evenodd"
+                                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="font-bold">Acceso 24/7</p>
+                                    <p class="text-gray-400 text-sm">Tu asesor laboral está siempre disponible. Sin
+                                        esperas ni horarios.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="glass-card rounded-3xl p-8 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-40 h-40 bg-[#760109]/20 rounded-full blur-3xl"></div>
+                        <div class="relative z-10">
+                            <div class="inline-flex items-center gap-2 px-4 py-2 glass-card-light rounded-full mb-6">
+                                <span class="text-sm text-[#760109] font-medium">✓ Certificado</span>
+                            </div>
+                            <p class="text-gray-300 mb-8">"Labor-Guardian salvó mi trabajo. En 2 minutos generé una
+                                defensa legal contra un despido injustificado."</p>
+                            <p class="text-sm text-gray-500">— María García, Trabajadora Independiente</p>
+                        </div>
+                    </div>
+                </div>
+            </section><!-- PRICING SECTION -->
+            <section class="px-4 py-20 max-w-7xl mx-auto reveal-on-scroll">
+                <h3 class="text-3xl font-bold text-center mb-4">Inversión en Blindaje Legal</h3>
+                <p class="text-gray-400 text-center max-w-2xl mx-auto mb-8">Soluciones escalables para ciudadanos,
+                    empresas y estudios de abogados.</p>
+
+                <div class="flex justify-center items-center gap-8 mb-12">
+                    <div class="flex flex-col items-center">
+                        <span class="text-[10px] uppercase tracking-widest text-wine-400 font-bold mb-2">Uso
+                            Personal</span>
+                        <div class="h-1 w-12 bg-wine-500 rounded-full"></div>
+                    </div>
+                    <div class="h-8 w-px bg-white/10"></div>
+                    <div class="flex flex-col items-center opacity-50">
+                        <span class="text-[10px] uppercase tracking-widest text-gray-400 font-bold mb-2">Uso Corporativo
+                            / Legal Ops</span>
+                        <div class="h-1 w-12 bg-gray-500 rounded-full"></div>
+                    </div>
+                </div>
+
+
+                <div class="flex justify-center mb-16">
+                    <div class="billing-toggle">
+                        <button id="monthly-btn" class="active" onclick="setBilling('monthly')">Mensual</button>
+                        <button id="annual-btn" onclick="setBilling('annual')">Anual (-20%)</button>
+                    </div>
+                </div>
+
+                <!-- ROI CALCULATOR -->
+                <div class="glass-card rounded-3xl p-8 mb-16 max-w-4xl mx-auto border-[#760109]/30">
+                    <div class="grid md:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h4 class="text-2xl font-bold mb-2">Calculadora de ROI</h4>
+                            <p class="text-gray-400 text-sm mb-6">Estima cuánto ahorras en prevención ante SUNAFIL.</p>
+                            <div class="space-y-6">
+                                <div>
+                                    <div class="flex justify-between mb-2">
+                                        <span class="text-sm font-medium">Nro. de Trabajadores</span>
+                                        <span id="worker-count-display" class="text-[#760109] font-bold">50</span>
+                                    </div>
+                                    <input type="range" id="worker-slider" min="1" max="500" value="50"
+                                        oninput="updateROI()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center p-6 bg-white/5 rounded-2xl border border-white/10">
+                            <p class="text-sm text-gray-400 mb-1">Ahorro Estimado Anual</p>
+                            <h5 id="roi-value" class="text-5xl font-bold text-gradient-wine">S/12,500</h5>
+                            <p class="text-[10px] text-gray-500 mt-4 uppercase tracking-widest">Basado en mitigación de
+                                riesgos y multas</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div
+                        class="glass-card rounded-3xl p-8 hover:border-[#760109]/50 transition-all border border-[#760109]/20">
+                        <div class="flex items-start justify-between mb-6">
+                            <div>
+                                <h4 class="text-2xl font-bold">Guardian</h4>
+                                <p class="text-sm text-gray-500">Personal</p>
+                            </div>
+                        </div>
+                        <div class="mb-8"><span id="price-guardian" class="text-4xl font-bold">S/99</span> <span
+                                class="text-gray-500 text-sm">/mes</span>
+                        </div>
+                        <ul class="space-y-3 mb-8 text-sm">
+                            <li class="flex items-center gap-3"><span class="text-[#760109]">✓</span> Generador IA (10
+                                docs/mes)</li>
+                            <li class="flex items-center gap-3"><span class="text-[#760109]">✓</span> Chat asesor
+                                limitado</li>
+                            <li class="flex items-center gap-3"><span class="text-[#760109]">✓</span> 1 auditoría
+                                anual</li>
+                            <li class="flex items-center gap-3"><span class="text-gray-600">✗</span> API integration
+                            </li>
+                        </ul><button onclick="showSignupModal()"
+                            class="w-full py-3 border border-[#760109] text-[#760109] rounded-xl font-bold hover:bg-[#760109]/10 transition-colors">Empezar</button>
+                    </div>
+                    <div class="glass-card rounded-3xl p-8 border-2 border-[#760109] relative overflow-hidden">
+                        <div
+                            class="absolute top-4 right-4 px-3 py-1 bg-[#760109] text-white text-xs font-bold rounded-full">
+                            Popular
+                        </div>
+                        <div class="flex items-start justify-between mb-6">
+                            <div>
+                                <h4 class="text-2xl font-bold">Sentinel</h4>
+                                <p class="text-sm text-gray-500">Empresas</p>
+                            </div>
+                        </div>
+                        <div class="mb-8"><span id="price-sentinel" class="text-4xl font-bold">S/999</span> <span
+                                class="text-gray-500 text-sm">/mes</span>
+                        </div>
+                        <ul class="space-y-3 mb-8 text-sm">
+                            <li class="flex items-center gap-3"><span class="text-[#760109]">✓</span> Generador IA
+                                ilimitado</li>
+                            <li class="flex items-center gap-3"><span class="text-[#760109]">✓</span> Auditoría 24/7
+                                automática</li>
+                            <li class="flex items-center gap-3"><span class="text-[#760109]">✓</span> Chat asesor sin
+                                límites</li>
+                            <li class="flex items-center gap-3"><span class="text-[#760109]">✓</span> Dashboard The
+                                Pulse</li>
+                            <li class="flex items-center gap-3"><span class="text-[#760109]">✓</span> Modo SUNAFIL
+                            </li>
+                        </ul><button onclick="showSignupModal()"
+                            class="w-full py-3 gradient-wine text-white rounded-xl font-bold hover:opacity-90 transition-opacity">Contratar</button>
+                    </div>
+                    <div class="glass-card rounded-3xl p-8 hover:border-amber-500/50 transition-all">
+                        <div class="flex items-start justify-between mb-6">
+                            <div>
+                                <h4 class="text-2xl font-bold">Bastión</h4>
+                                <p class="text-sm text-gray-500">Enterprise</p>
+                            </div>
+                        </div>
+                        <div class="mb-8 rotate-1">
+                            <span class="text-2xl font-bold text-gradient-wine">Bajo Demanda</span>
+                        </div>
+                        <ul class="space-y-3 mb-8 text-sm">
+                            <li class="flex items-center gap-3"><span class="text-[#760109]">✓</span> Todo en Sentinel +
+                            </li>
+                            <li class="flex items-center gap-3"><span class="text-[#760109]">✓</span> Infraestructura
+                                Propia (On-Premise)</li>
+                            <li class="flex items-center gap-3"><span class="text-[#760109]">✓</span> Integración API
+                                con ERP/CRM</li>
+                            <li class="flex items-center gap-3"><span class="text-[#760109]">✓</span> Equipo de
+                                Ingeniería Dedicado</li>
+                            <li class="flex items-center gap-3"><span class="text-[#760109]">✓</span> SLA de
+                                Disponibilidad 99.99%</li>
+                        </ul><button
+                            class="w-full py-4 gradient-wine text-white rounded-2xl font-bold hover:scale-[1.02] transition-transform shadow-xl shadow-wine-900/20">
+                            Agendar Consultoría Técnica
+                        </button>
+                    </div>
+                </div>
+            </section><!-- FOOTER -->
+            <footer class="px-4 py-16 border-t border-white/10 bg-black/20">
+                <div class="max-w-7xl mx-auto">
+                    <div class="grid md:grid-cols-4 gap-12 mb-16">
+                        <div class="space-y-6">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 gradient-wine rounded-lg flex items-center justify-center">
+                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor"
+                                        viewbox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                                    </svg>
+                                </div>
+                                <h5 class="font-bold text-lg">Labor-Guardian</h5>
+                            </div>
+                            <p class="text-gray-500 text-sm leading-relaxed">Protegiendo el futuro del trabajo en el
+                                Perú con inteligencia jurídica y tecnología de vanguardia.</p>
+                            <div class="flex gap-4">
+                                <div
+                                    class="flex items-center gap-2 px-3 py-2 bg-white/5 rounded-lg border border-white/10">
+                                    <svg class="w-4 h-4 text-emerald-400" fill="currentColor" viewbox="0 0 20 20">
+                                        <path fill-rule="evenodd"
+                                            d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400">SSL
+                                        Secure</span>
+                                </div>
+                                <div
+                                    class="flex items-center gap-2 px-3 py-2 bg-white/5 rounded-lg border border-white/10">
+                                    <svg class="w-4 h-4 text-emerald-400" fill="currentColor" viewbox="0 0 20 20">
+                                        <path fill-rule="evenodd"
+                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400">ISO
+                                        27001</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h5 class="font-bold mb-6 text-white">Soluciones</h5>
+                            <ul class="space-y-4 text-sm text-gray-500">
+                                <li><a href="#" class="hover:text-wine-400 transition" onclick="openWorkerFlow()">Para
+                                        Trabajadores</a></li>
+                                <li><a href="#" class="hover:text-wine-400 transition" onclick="openBusinessFlow()">Para
+                                        Empresas</a></li>
+                                <li><a href="#" class="hover:text-wine-400 transition">Asesoría Preventiva</a></li>
+                                <li><a href="#" class="hover:text-wine-400 transition">Cálculo de Beneficios</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h5 class="font-bold mb-6 text-white">Empresa</h5>
+                            <ul class="space-y-4 text-sm text-gray-500">
+                                <li><a href="#" class="hover:text-white transition">Acerca de nosotros</a></li>
+                                <li><a href="#" class="hover:text-white transition">Nuestra Tecnología</a></li>
+                                <li><a href="#" class="hover:text-white transition">Prensa y Media</a></li>
+                                <li><a href="#" class="hover:text-white transition">Contacto</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h5 class="font-bold mb-6 text-white">Legal</h5>
+                            <ul class="space-y-4 text-sm text-gray-500">
+                                <li><a href="#" class="hover:text-white transition">Términos de Servicio</a></li>
+                                <li><a href="#" class="hover:text-white transition">Política de Privacidad</a></li>
+                                <li><a href="#" class="hover:text-white transition">Política de Cookies</a></li>
+                                <li><a href="#" class="hover:text-white transition">Libro de Reclamaciones</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h5 class="font-bold mb-6 text-white">Portal Legal Ops</h5>
+                            <ul class="space-y-4 text-sm text-gray-500">
+                                <li><a href="enterprise/index.html" class="hover:text-white transition">Consultoría
+                                        Estratégica</a></li>
+                                <li><a href="enterprise/servicios.html" class="hover:text-white transition">Servicios
+                                        Corporativos</a></li>
+                                <li><a href="enterprise/accidentes.html" class="hover:text-white transition">Defensa en
+                                        Accidentes</a></li>
+                                <li><a href="enterprise/nosotros.html" class="hover:text-white transition">Identidad y
+                                        Ética</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="border-t border-white/10 pt-8 text-center text-gray-500 text-sm">
+                        <p>© 2024 Labor-Guardian &amp; Sentinel. Soporte: <span id="emergency-contact"
+                                class="text-[#760109] font-bold">+51 1 4445588</span></p>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div><!-- LOGIN MODAL -->
+    <div id="login-modal" class="fixed inset-0 z-50 hidden modal-backdrop">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeLoginModal()"></div>
+        <div
+            class="absolute inset-4 sm:inset-auto sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:w-full sm:max-w-md glass-card rounded-3xl p-8 overflow-auto max-h-[90%] modal-content">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-2xl font-bold">Ingresar</h3><button onclick="closeLoginModal()"
+                    class="text-gray-400 hover:text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg></button>
+            </div>
+            <form onsubmit="handleLogin(event)">
+                <div class="mb-4"><label class="block text-sm font-medium mb-2">Email</label> <input type="email"
+                        required
+                        class="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-[#760109] text-white"
+                        placeholder="tu@email.com">
+                </div>
+                <div class="mb-6"><label class="block text-sm font-medium mb-2">Contraseña</label> <input
+                        type="password" required
+                        class="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-[#760109] text-white"
+                        placeholder="••••••••">
+                </div><button type="submit"
+                    class="w-full py-3 gradient-wine text-white rounded-xl font-bold hover:opacity-90 transition-opacity">Ingresar</button>
+            </form>
+            <p class="text-center text-gray-400 text-sm mt-4">¿No tienes cuenta? <button onclick="switchModals()"
+                    class="text-[#760109] hover:underline font-bold">Regístrate</button></p>
+        </div>
+    </div><!-- SIGNUP MODAL -->
+    <div id="signup-modal" class="fixed inset-0 z-50 hidden modal-backdrop">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeSignupModal()"></div>
+        <div
+            class="absolute inset-4 sm:inset-auto sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:w-full sm:max-w-md glass-card rounded-3xl p-8 overflow-auto max-h-[90%] modal-content">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-2xl font-bold">Crear Cuenta</h3><button onclick="closeSignupModal()"
+                    class="text-gray-400 hover:text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg></button>
+            </div>
+            <form onsubmit="handleSignup(event)">
+                <div class="mb-4"><label class="block text-sm font-medium mb-2">Nombre Completo</label> <input
+                        type="text" required
+                        class="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-[#760109] text-white"
+                        placeholder="Juan Pérez">
+                </div>
+                <div class="mb-4"><label class="block text-sm font-medium mb-2">Email</label> <input type="email"
+                        required
+                        class="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-[#760109] text-white"
+                        placeholder="tu@email.com">
+                </div>
+                <div class="mb-4"><label class="block text-sm font-medium mb-2">Contraseña</label> <input
+                        type="password" required
+                        class="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-[#760109] text-white"
+                        placeholder="••••••••">
+                </div>
+                <div class="mb-6 flex items-center gap-2"><input type="checkbox" id="terms" required
+                        class="w-4 h-4 rounded"> <label for="terms" class="text-sm text-gray-400">Acepto los términos y
+                        condiciones</label>
+                </div><button type="submit"
+                    class="w-full py-3 gradient-wine text-white rounded-xl font-bold hover:opacity-90 transition-opacity">Registrarse</button>
+            </form>
+            <p class="text-center text-gray-400 text-sm mt-4">¿Ya tienes cuenta? <button onclick="switchModals()"
+                    class="text-[#760109] hover:underline font-bold">Inicia sesión</button></p>
+        </div>
+    </div><!-- WORKER FLOW MODAL -->
+    <div id="worker-flow-modal" class="fixed inset-0 z-50 hidden modal-backdrop">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeWorkerFlow()"></div>
+        <div
+            class="absolute inset-4 sm:inset-auto sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:w-full sm:max-w-2xl glass-card rounded-3xl p-8 overflow-auto max-h-[90%] modal-content">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-2xl font-bold">Tu Protección Laboral</h3><button onclick="closeWorkerFlow()"
+                    class="text-gray-400 hover:text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg></button>
+            </div>
+            <div id="worker-questionnaire" class="hidden">
+                <div class="mb-8">
+                    <div class="flex justify-between items-center mb-4">
+                        <span id="q-step-text" class="text-xs font-bold text-[#760109] uppercase tracking-widest">Paso 1
+                            de 3</span>
+                        <div class="flex gap-1">
+                            <div class="w-8 h-1 bg-[#760109] rounded-full"></div>
+                            <div id="step-bar-2" class="w-8 h-1 bg-white/10 rounded-full"></div>
+                            <div id="step-bar-3" class="w-8 h-1 bg-white/10 rounded-full"></div>
+                        </div>
+                    </div>
+                    <h4 id="q-title" class="text-xl font-bold">¿Cuál es tu situación actual?</h4>
+                </div>
+                <div id="q-options" class="grid grid-cols-1 gap-3 mb-8">
+                    <!-- Options dynamic -->
+                </div>
+                <div class="flex justify-between items-center">
+                    <button onclick="resetWorkerFlow()" class="text-sm text-gray-500 hover:text-white transition">Volver
+                        al inicio</button>
+                    <button id="q-next-btn" disabled
+                        class="px-6 py-2 bg-[#760109] text-white rounded-xl font-bold opacity-50 cursor-not-allowed transition-all">Siguiente</button>
+                </div>
+            </div>
+
+            <div id="worker-main-options" class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6"><button
+                    onclick="startQuestionnaire()"
+                    class="p-6 glass-card-light rounded-2xl text-left hover:border-[#760109]/50 transition-all group">
+                    <div
+                        class="w-12 h-12 gradient-wine rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                    </div>
+                    <p class="font-bold mb-1">Diagnóstico Rápido</p>
+                    <p class="text-xs text-gray-500">Analiza tu caso legal en 3 pasos</p>
+                </button> <button onclick="showChatFlow()"
+                    class="p-6 glass-card-light rounded-2xl text-left hover:border-gray-500/50 transition-all group">
+                    <div
+                        class="w-12 h-12 gradient-gray rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                        </svg>
+                    </div>
+                    <p class="font-bold mb-1">Chat Asesor IA</p>
+                    <p class="text-xs text-gray-500">Consulta dudas laborales 24/7</p>
+                </button>
+            </div><button onclick="showLoginModal()"
+                class="w-full py-3 gradient-wine text-white rounded-xl font-bold hover:opacity-90 transition-opacity">Continuar
+                con Login</button>
+        </div>
+    </div><!-- BUSINESS FLOW MODAL -->
+    <div id="business-flow-modal" class="fixed inset-0 z-50 hidden modal-backdrop">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeBusinessFlow()"></div>
+        <div
+            class="absolute inset-4 sm:inset-auto sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:w-full sm:max-w-2xl glass-card rounded-3xl p-8 overflow-auto max-h-[90%] modal-content">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-2xl font-bold">Blindaje Empresarial</h3><button onclick="closeBusinessFlow()"
+                    class="text-gray-400 hover:text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg></button>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6"><button onclick="showAuditFlow()"
+                    class="p-6 glass-card-light rounded-2xl text-left hover:border-[#144866]/50 transition-all group">
+                    <div
+                        class="w-12 h-12 gradient-deep-blue rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <p class="font-bold mb-1">Auditoría The Pulse</p>
+                    <p class="text-xs text-gray-500">Analiza riesgos laborales en tiempo real</p>
+                </button> <button onclick="showSunafirFlow()"
+                    class="p-6 glass-card-light rounded-2xl text-left hover:border-wine/50 transition-all group">
+                    <div
+                        class="w-12 h-12 bg-gradient-wine rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        </svg>
+                    </div>
+                    <p class="font-bold mb-1">Modo SUNAFIL</p>
+                    <p class="text-xs text-gray-500">Expediente listo para inspección</p>
+                </button>
+            </div><button onclick="showLoginModal()"
+                class="w-full py-3 gradient-gray text-white rounded-xl font-bold hover:opacity-90 transition-opacity">Continuar
+                con Login</button>
+        </div>
+    </div><!-- GENERATOR FLOW MODAL -->
+    <div id="generator-flow-modal" class="fixed inset-0 z-50 hidden modal-backdrop">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeGeneratorFlow()"></div>
+        <div
+            class="absolute inset-4 sm:inset-auto sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:w-full sm:max-w-2xl glass-card rounded-3xl p-8 overflow-auto max-h-[90%] modal-content">
+            <h3 class="text-2xl font-bold mb-6">¿Qué documento necesitas?</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6"><button
+                    onclick="previewDoc('renuncia', 'Carta de Renuncia', 'Solicitud formal de terminación de relación laboral con cálculo de beneficios según ley peruana.')"
+                    class="p-4 glass-card-light rounded-xl text-left hover:border-[#760109]/50 transition-all">
+                    <p class="font-bold text-sm mb-1">Carta de Renuncia</p>
+                    <p class="text-xs text-gray-500">Con cálculo de beneficios</p>
+                </button> <button
+                    onclick="previewDoc('descargo', 'Acta de Descargo', 'Documento legal para defenderse ante acusaciones laborales con jurisprudencia actualizada.')"
+                    class="p-4 glass-card-light rounded-xl text-left hover:border-[#760109]/50 transition-all">
+                    <p class="font-bold text-sm mb-1">Acta de Descargo</p>
+                    <p class="text-xs text-gray-500">Ante acusación laboral</p>
+                </button> <button
+                    onclick="previewDoc('liquidacion', 'Liquidación de Beneficios', 'Cálculo completo de CTS, utilidades, gratificaciones y vacaciones pendientes.')"
+                    class="p-4 glass-card-light rounded-xl text-left hover:border-[#760109]/50 transition-all">
+                    <p class="font-bold text-sm mb-1">Calculadora Liquidación</p>
+                    <p class="text-xs text-gray-500">Beneficios por despido</p>
+                </button> <button
+                    onclick="previewDoc('solicitud', 'Solicitud de Permiso', 'Carta formal para solicitar licencia, descanso o permisos especiales.')"
+                    class="p-4 glass-card-light rounded-xl text-left hover:border-[#760109]/50 transition-all">
+                    <p class="font-bold text-sm mb-1">Solicitud de Permiso</p>
+                    <p class="text-xs text-gray-500">Licencia o descanso</p>
+                </button>
+            </div><button onclick="showLoginModal()"
+                class="w-full py-3 gradient-wine text-white rounded-xl font-bold hover:opacity-90 transition-opacity">Generar
+                Documento</button>
+        </div>
+    </div><!-- CHAT FLOW MODAL -->
+    <div id="chat-flow-modal" class="fixed inset-0 z-50 hidden modal-backdrop">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeChatFlow()"></div>
+        <div
+            class="absolute inset-4 sm:inset-auto sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:w-full sm:max-w-2xl glass-card rounded-3xl p-8 overflow-auto max-h-[90%] modal-content">
+            <h3 class="text-2xl font-bold mb-6">Chat Asesor Legal</h3>
+            <div class="bg-white/5 rounded-2xl p-4 mb-6 h-64 overflow-y-auto space-y-4">
+                <div class="flex gap-3">
+                    <div class="w-8 h-8 rounded-full gradient-wine flex items-center justify-center flex-shrink-0">
+                        <span class="text-xs font-bold text-white">IA</span>
+                    </div>
+                    <div class="bg-[#760109]/20 rounded-2xl px-4 py-2 max-w-xs">
+                        <p class="text-sm">¡Hola! Soy tu asesor laboral IA. ¿Qué consulta tienes sobre derecho laboral
+                            peruano?</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap gap-2 mb-4">
+                <button onclick="setChatMessage('¿Cómo calculo mi liquidación?')"
+                    class="px-3 py-1.5 bg-white/5 border border-white/10 rounded-lg text-xs hover:bg-[#760109]/20 hover:border-[#760109]/30 transition-all">¿Cálculo
+                    de liquidación?</button>
+                <button onclick="setChatMessage('¿Qué es un despido arbitrario?')"
+                    class="px-3 py-1.5 bg-white/5 border border-white/10 rounded-lg text-xs hover:bg-[#760109]/20 hover:border-[#760109]/30 transition-all">¿Despido
+                    arbitrario?</button>
+                <button onclick="setChatMessage('Derechos de gratificación 2024')"
+                    class="px-3 py-1.5 bg-white/5 border border-white/10 rounded-lg text-xs hover:bg-[#760109]/20 hover:border-[#760109]/30 transition-all">Gratificación
+                    2024</button>
+            </div>
+
+            <form onsubmit="sendMessage(event)" class="flex gap-2"><input type="text"
+                    placeholder="Escribe tu pregunta..."
+                    class="flex-1 px-4 py-2 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-[#760109] text-white text-sm">
+                <button type="submit"
+                    class="px-4 py-2 gradient-wine text-white rounded-xl hover:opacity-90 transition-opacity">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 19l9 2-9-18-9 18 9-2m0 0v-8m0 8l6-6m-6 6l-6-6" />
+                    </svg></button>
+            </form>
+        </div>
+    </div><!-- AUDIT FLOW MODAL -->
+    <div id="audit-flow-modal" class="fixed inset-0 z-50 hidden modal-backdrop">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeAuditFlow()"></div>
+        <div
+            class="absolute inset-4 sm:inset-auto sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:w-full sm:max-w-2xl glass-card rounded-3xl p-8 overflow-auto max-h-[90%] modal-content">
+            <h3 class="text-2xl font-bold mb-6">Auditoría The Pulse</h3>
+            <div class="space-y-4 mb-6">
+                <div class="p-4 bg-[#760109]/10 border border-[#760109]/20 rounded-2xl">
+                    <p class="text-sm font-bold mb-2">Validación de Contratos</p>
+                    <div class="w-full bg-white/10 rounded-full h-2 overflow-hidden">
+                        <div class="bg-gradient-wine h-full" style="width: 98%; animation: progress 2s ease-out">
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-2">98% conformidad</p>
+                </div>
+                <div class="p-4 bg-[#760109]/10 border border-[#760109]/20 rounded-2xl">
+                    <p class="text-sm font-bold mb-2">Análisis de Planillas</p>
+                    <div class="w-full bg-white/10 rounded-full h-2 overflow-hidden">
+                        <div class="bg-gradient-wine h-full" style="width: 92%; animation: progress 2s ease-out">
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-2">92% actualizado</p>
+                </div>
+                <div class="p-4 bg-amber-500/10 border border-amber-500/20 rounded-2xl">
+                    <p class="text-sm font-bold mb-2">Riesgos Detectados</p>
+                    <p class="text-xs text-gray-400 font-bold">2 alertas requieren atención</p>
+                    <p class="text-xs text-gray-500 mt-1">Contratos vencidos, diferencias de pago</p>
+                </div>
+            </div><button onclick="showLoginModal()"
+                class="w-full py-3 gradient-deep-blue text-white rounded-xl font-bold hover:opacity-90 transition-opacity">Ver
+                Análisis Completo</button>
+        </div>
+    </div><!-- SUNAFIL FLOW MODAL -->
+    <div id="sunafil-flow-modal" class="fixed inset-0 z-50 hidden modal-backdrop">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeSunafirFlow()"></div>
+        <div
+            class="absolute inset-4 sm:inset-auto sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:w-full sm:max-w-2xl glass-card rounded-3xl p-8 overflow-auto max-h-[90%] modal-content">
+            <h3 class="text-2xl font-bold mb-2">Modo Inspección SUNAFIL</h3>
+            <p class="text-gray-400 text-sm mb-6">Expediente completo listo para presentar</p>
+            <div class="space-y-3 mb-6">
+                <div class="flex items-center gap-3 p-3 bg-[#760109]/10 border border-[#760109]/20 rounded-xl">
+                    <svg class="w-5 h-5 text-[#760109]" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4" />
+                    </svg><span class="text-sm">47 Contratos de trabajo (actualizados)</span>
+                </div>
+                <div class="flex items-center gap-3 p-3 bg-[#760109]/10 border border-[#760109]/20 rounded-xl">
+                    <svg class="w-5 h-5 text-[#760109]" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4" />
+                    </svg><span class="text-sm">Planillas últimos 36 meses (completas)</span>
+                </div>
+                <div class="flex items-center gap-3 p-3 bg-[#760109]/10 border border-[#760109]/20 rounded-xl">
+                    <svg class="w-5 h-5 text-[#760109]" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4" />
+                    </svg><span class="text-sm">Reglamento interno y actas de reuniones</span>
+                </div>
+                <div class="flex items-center gap-3 p-3 bg-[#760109]/10 border border-[#760109]/20 rounded-xl">
+                    <svg class="w-5 h-5 text-[#760109]" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4" />
+                    </svg><span class="text-sm">Registro de asistencia y vacaciones</span>
+                </div>
+            </div><button onclick="showLoginModal()"
+                class="w-full py-3 bg-gradient-wine text-white rounded-xl font-bold hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg> Exportar Expediente </button>
+        </div>
+    </div>
+    <script>
+        // Header Scroll Effect
+        const header = document.getElementById('main-header');
+        const scrollContainer = document.querySelector('.overflow-y-auto');
+
+        scrollContainer.addEventListener('scroll', () => {
+            if (scrollContainer.scrollTop > 20) {
+                header.classList.add('header-scrolled');
+            } else {
+                header.classList.remove('header-scrolled');
+            }
+        });
+
+        // Reveal on Scroll Observer
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+
+        // Pricing Logic
+        let currentBilling = 'monthly';
+        const pricing = {
+            monthly: { guardian: 99, sentinel: 999 },
+            annual: { guardian: 79, sentinel: 799 }
+        };
+
+        function setBilling(type) {
+            currentBilling = type;
+            document.getElementById('monthly-btn').classList.toggle('active', type === 'monthly');
+            document.getElementById('annual-btn').classList.toggle('active', type === 'annual');
+
+            document.getElementById('price-guardian').textContent = `S/${pricing[type].guardian}`;
+            document.getElementById('price-sentinel').textContent = `S/${pricing[type].sentinel}`;
+        }
+
+        // ROI Calculator Logic
+        function updateROI() {
+            const workers = document.getElementById('worker-slider').value;
+            document.getElementById('worker-count-display').textContent = workers;
+
+            // Formula: Estimated saving S/250 per worker per year in risk mitigation
+            const saving = workers * 250;
+            const formatted = new Intl.NumberFormat('es-PE', { style: 'currency', currency: 'PEN', maximumFractionDigits: 0 }).format(saving);
+            document.getElementById('roi-value').textContent = formatted;
+        }
+
+        // Questionnaire Flow Logic
+        const questions = [
+            {
+                title: '¿Cuál es tu situación actual?',
+                options: ['Fui despedido recientemente', 'Quiero renunciar', 'Tengo problemas de pago', 'Solo quiero informarme']
+            },
+            {
+                title: '¿Cuánto tiempo llevas en la empresa?',
+                options: ['Menos de 1 año', 'Entre 1 y 3 años', 'Más de 3 años']
+            },
+            {
+                title: '¿Cuál es tu prioridad hoy?',
+                options: ['Calcular mi liquidación', 'Hacer un reclamo formal', 'Hablar con un abogado', 'Generar una carta']
+            }
+        ];
+        let currentStep = 0;
+
+        function startQuestionnaire() {
+            document.getElementById('worker-main-options').classList.add('hidden');
+            document.getElementById('worker-questionnaire').classList.remove('hidden');
+            renderStep();
+        }
+
+        function resetWorkerFlow() {
+            document.getElementById('worker-main-options').classList.remove('hidden');
+            document.getElementById('worker-questionnaire').classList.add('hidden');
+            currentStep = 0;
+        }
+
+        function renderStep() {
+            const q = questions[currentStep];
+            document.getElementById('q-title').textContent = q.title;
+            document.getElementById('q-step-text').textContent = `Paso ${currentStep + 1} de 3`;
+
+            const optionsDiv = document.getElementById('q-options');
+            optionsDiv.innerHTML = '';
+            q.options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'p-4 glass-card-light rounded-xl text-left hover:border-[#760109]/50 transition-all text-sm';
+                btn.textContent = opt;
+                btn.onclick = () => {
+                    document.querySelectorAll('#q-options button').forEach(b => b.classList.remove('border-[#760109]'));
+                    btn.classList.add('border-[#760109]', 'border-2');
+                    document.getElementById('q-next-btn').disabled = false;
+                    document.getElementById('q-next-btn').classList.remove('opacity-50', 'cursor-not-allowed');
+                };
+                optionsDiv.appendChild(btn);
+            });
+
+            document.getElementById('step-bar-2').classList.toggle('bg-[#760109]', currentStep >= 1);
+            document.getElementById('step-bar-3').classList.toggle('bg-[#760109]', currentStep >= 2);
+
+            document.getElementById('q-next-btn').onclick = () => {
+                if (currentStep < 2) {
+                    currentStep++;
+                    renderStep();
+                    document.getElementById('q-next-btn').disabled = true;
+                    document.getElementById('q-next-btn').classList.add('opacity-50', 'cursor-not-allowed');
+                } else {
+                    showLoginModal();
+                    resetWorkerFlow();
+                }
+            };
+        }
+
+        function setChatMessage(text) {
+            document.querySelector('#chat-flow-modal input').value = text;
+        }
+
+        const defaultConfig = {
+            hero_title: 'El Futuro del Derecho Laboral',
+            hero_subtitle: 'Transforma vulnerabilidad en soberanía jurídica',
+            cta_worker: 'Para Trabajadores',
+            cta_business: 'Para Empresas',
+            emergency_phone: '+51 1 4445588'
+        };
+        let config = { ...defaultConfig };
+
+        async function onConfigChange(cfg) {
+            if (cfg.hero_title) {
+                const heroTitle = document.getElementById('hero-title');
+                const parts = cfg.hero_title.split(' ');
+                const lastWord = parts.pop();
+                heroTitle.innerHTML = parts.join(' ') + '<br><span class="text-gradient-wine">' + lastWord + '</span>';
+            }
+            if (cfg.hero_subtitle) {
+                document.getElementById('hero-subtitle').textContent = cfg.hero_subtitle;
+            }
+            if (cfg.cta_worker) {
+                document.getElementById('cta-worker').textContent = cfg.cta_worker;
+            }
+            if (cfg.cta_business) {
+                document.getElementById('cta-business').textContent = cfg.cta_business;
+            }
+            if (cfg.emergency_phone) {
+                document.getElementById('emergency-contact').textContent = cfg.emergency_phone;
+            }
+        }
+
+        function mapToCapabilities(cfg) { return { recolorables: [], borderables: [], fontEditable: undefined, fontSizeable: undefined }; }
+        function mapToEditPanelValues(cfg) {
+            return new Map([
+                ['hero_title', cfg.hero_title || defaultConfig.hero_title],
+                ['hero_subtitle', cfg.hero_subtitle || defaultConfig.hero_subtitle],
+                ['cta_worker', cfg.cta_worker || defaultConfig.cta_worker],
+                ['cta_business', cfg.cta_business || defaultConfig.cta_business],
+                ['emergency_phone', cfg.emergency_phone || defaultConfig.emergency_phone]
+            ]);
+        }
+
+        if (window.elementSdk) window.elementSdk.init({ defaultConfig, onConfigChange, mapToCapabilities, mapToEditPanelValues });
+
+        // MODAL FUNCTIONS
+        function showLoginModal() { document.getElementById('login-modal').classList.remove('hidden'); }
+        function closeLoginModal() { document.getElementById('login-modal').classList.add('hidden'); }
+        function showSignupModal() { document.getElementById('signup-modal').classList.remove('hidden'); closeLoginModal(); }
+        function closeSignupModal() { document.getElementById('signup-modal').classList.add('hidden'); }
+        function switchModals() { closeLoginModal(); showSignupModal(); }
+
+        function openWorkerFlow() { document.getElementById('worker-flow-modal').classList.remove('hidden'); }
+        function closeWorkerFlow() { document.getElementById('worker-flow-modal').classList.add('hidden'); }
+        function openBusinessFlow() { document.getElementById('business-flow-modal').classList.remove('hidden'); }
+        function closeBusinessFlow() { document.getElementById('business-flow-modal').classList.add('hidden'); }
+
+        function showGeneratorFlow() { document.getElementById('generator-flow-modal').classList.remove('hidden'); closeWorkerFlow(); }
+        function closeGeneratorFlow() { document.getElementById('generator-flow-modal').classList.add('hidden'); }
+        function showChatFlow() { document.getElementById('chat-flow-modal').classList.remove('hidden'); closeWorkerFlow(); }
+        function closeChatFlow() { document.getElementById('chat-flow-modal').classList.add('hidden'); }
+
+        function showAuditFlow() { document.getElementById('audit-flow-modal').classList.remove('hidden'); closeBusinessFlow(); }
+        function closeAuditFlow() { document.getElementById('audit-flow-modal').classList.add('hidden'); }
+        function showSunafirFlow() { document.getElementById('sunafil-flow-modal').classList.remove('hidden'); closeBusinessFlow(); }
+        function closeSunafirFlow() { document.getElementById('sunafil-flow-modal').classList.add('hidden'); }
+
+        function previewDoc(type, title, desc) { alert(title + '\n\n' + desc); }
+        function sendMessage(e) { e.preventDefault(); alert('Mensaje enviado. En producción se integraría con IA real.'); }
+
+        function handleLogin(e) { e.preventDefault(); alert('Login realizado. Bienvenido!'); closeLoginModal(); }
+        function handleSignup(e) { e.preventDefault(); alert('Cuenta creada. Bienvenido a Labor-Guardian!'); closeSignupModal(); }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeLoginModal();
+                closeSignupModal();
+                closeWorkerFlow();
+                closeBusinessFlow();
+            }
+        });
+    </script>
+    <script>(function () { function c() { var b = a.contentDocument || a.contentWindow.document; if (b) { var d = b.createElement('script'); d.innerHTML = "window.__CF$cv$params={r:'9d3d343067736e04',t:'MTc3MjA4NTQzNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);"; b.getElementsByTagName('head')[0].appendChild(d) } } if (document.body) { var a = document.createElement('iframe'); a.height = 1; a.width = 1; a.style.position = 'absolute'; a.style.top = 0; a.style.left = 0; a.style.border = 'none'; a.style.visibility = 'hidden'; document.body.appendChild(a); if ('loading' !== document.readyState) c(); else if (window.addEventListener) document.addEventListener('DOMContentLoaded', c); else { var e = document.onreadystatechange || function () { }; document.onreadystatechange = function (b) { e(b); 'loading' !== document.readyState && (document.onreadystatechange = e, c()) } } } })();</script>
+</body>
+
+</html>
