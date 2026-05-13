@@ -1,0 +1,21 @@
+name: '📡 Notify Main Repo of New Content'
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  notify:
+    name: 'Dispatch update event to companywebapp'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 'Repository Dispatch'
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          # PAT_TOKEN: Personal Access Token con permisos repo y workflow
+          # Añádelo en: Settings > Secrets and variables > Actions > New repository secret
+          token: ${{ secrets.PAT_TOKEN }}
+          repository: brecomperu/companywebapp
+          event-type: update_solutions
+          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
