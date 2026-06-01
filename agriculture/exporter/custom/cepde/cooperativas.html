@@ -620,20 +620,17 @@
         .modal-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.5);
-            display: flex;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
             align-items: center;
             justify-content: center;
-            z-index: 5000;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s;
+            z-index: 9999;
             padding: 20px;
+            backdrop-filter: blur(4px);
         }
 
         .modal-overlay.active {
-            opacity: 1;
-            pointer-events: all;
+            display: flex;
         }
 
         .modal {
@@ -644,12 +641,18 @@
             max-height: 85%;
             overflow-y: auto;
             box-shadow: var(--shadow-3);
-            transform: translateY(20px);
-            transition: transform 0.3s;
+            animation: modalSlideIn 0.3s ease-out;
         }
 
-        .modal-overlay.active .modal {
-            transform: translateY(0);
+        @keyframes modalSlideIn {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
 
         .modal-header {
@@ -3531,8 +3534,9 @@
                 <button class="btn btn-primary btn-sm" onclick="closeModal('modalVoucher')">Cerrar</button>
             </div>
         </div>
-        <!-- Modal Asociado -->
-        <div class="modal-overlay" id="modalAsociado">
+    </div>
+    <!-- Modal Asociado -->
+    <div class="modal-overlay" id="modalAsociado">
             <div class="modal">
                 <div class="modal-header">
                     <h3>Nuevo Asociado</h3><button class="modal-close" onclick="closeModal('modalAsociado')"><i
