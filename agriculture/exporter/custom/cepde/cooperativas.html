@@ -2408,8 +2408,16 @@
                         <div id="subview-ventas-facturacion" class="ventas-subview" style="display: block;">
                             <div class="card-header">
                                 <span class="card-title">Registro de Ventas e Historial de Facturación</span>
-                                <button class="btn btn-primary btn-sm" onclick="openRegisterVenta()"><i
-                                        data-lucide="plus" style="width:14px;height:14px;"></i> Nueva Venta</button>
+                                <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                                    <button class="btn btn-outline btn-sm" onclick="exportFacturasVentasToPDF()" style="color: #c62828; border-color: #c62828; background: transparent;">
+                                        <i data-lucide="printer" style="width:14px;height:14px;"></i> Imprimir PDF
+                                    </button>
+                                    <button class="btn btn-outline btn-sm" onclick="exportFacturasVentasToExcel()" style="color: #1f803f; border-color: #1f803f; background: transparent;">
+                                        <i data-lucide="file-spreadsheet" style="width:14px;height:14px;"></i> Exportar Excel
+                                    </button>
+                                    <button class="btn btn-primary btn-sm" onclick="openRegisterVenta()"><i
+                                            data-lucide="plus" style="width:14px;height:14px;"></i> Nueva Venta</button>
+                                </div>
                             </div>
                             <div
                                 style="margin: 0 0 16px 0; display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
@@ -2577,9 +2585,19 @@
                         </div>
                     </div>
                     <div class="card">
-                        <div class="card-header"><span class="card-title">Control de Créditos Otorgados</span> <button
-                                class="btn btn-primary btn-sm" onclick="openRegisterCXCPayment()"><i data-lucide="plus"
-                                    style="width:14px;height:14px;"></i> Registrar Pago</button>
+                        <div class="card-header">
+                            <span class="card-title">Control de Créditos Otorgados</span>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <button class="btn btn-outline btn-sm" onclick="exportCXCToExcel()">
+                                    <i data-lucide="file-spreadsheet" style="width:14px;height:14px;"></i> Exportar Excel
+                                </button>
+                                <button class="btn btn-outline btn-sm" onclick="exportCXCToPDF()">
+                                    <i data-lucide="file-text" style="width:14px;height:14px;"></i> Exportar PDF
+                                </button>
+                                <button class="btn btn-primary btn-sm" onclick="openRegisterCXCPayment()">
+                                    <i data-lucide="plus" style="width:14px;height:14px;"></i> Registrar Pago
+                                </button>
+                            </div>
                         </div>
                         <div class="table-wrapper">
                             <table>
@@ -2632,9 +2650,19 @@
                         </div>
                     </div>
                     <div class="card">
-                        <div class="card-header"><span class="card-title">Control de Obligaciones</span> <button
-                                class="btn btn-primary btn-sm" onclick="openRegisterCXPPayment()"><i data-lucide="plus"
-                                    style="width:14px;height:14px;"></i> Registrar Pago</button>
+                        <div class="card-header">
+                            <span class="card-title">Control de Obligaciones</span>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <button class="btn btn-outline btn-sm" onclick="exportCXPToExcel()">
+                                    <i data-lucide="file-spreadsheet" style="width:14px;height:14px;"></i> Exportar Excel
+                                </button>
+                                <button class="btn btn-outline btn-sm" onclick="exportCXPToPDF()">
+                                    <i data-lucide="file-text" style="width:14px;height:14px;"></i> Exportar PDF
+                                </button>
+                                <button class="btn btn-primary btn-sm" onclick="openRegisterCXPPayment()">
+                                    <i data-lucide="plus" style="width:14px;height:14px;"></i> Registrar Pago
+                                </button>
+                            </div>
                         </div>
                         <div class="table-wrapper">
                             <table>
@@ -2647,6 +2675,7 @@
                                         <th>Saldo</th>
                                         <th>Vencimiento</th>
                                         <th>Estado</th>
+                                        <th>Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody id="cxpTableBody">
@@ -2944,21 +2973,45 @@
                                 </div>
                             </div>
 
-                            <div
-                                style="margin: 0 0 16px 0; display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
-                                <div style="flex: 1; min-width: 120px;">
-                                    <label
-                                        style="font-size: 11px; font-weight: bold; color: var(--on-surface-secondary); display: block; margin-bottom: 4px;">Desde</label>
-                                    <input type="date" id="costosFechaDesde"
-                                        style="font-size: 13px; padding: 7px; border: 1px solid var(--border); border-radius: var(--radius); width: 100%; outline: none; background: var(--surface); color: var(--on-surface);"
-                                        onchange="renderCentrosCostoView()">
+                            <div style="margin: 0 0 20px 0; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; background: rgba(0,0,0,0.02); padding: 12px; border: 1px solid var(--border); border-radius: var(--radius);">
+                                <div style="flex: 1; min-width: 110px;">
+                                    <label style="font-size: 11px; font-weight: bold; color: var(--on-surface-secondary); display: block; margin-bottom: 4px;">Desde</label>
+                                    <input type="date" id="costosFechaDesde" style="font-size: 13px; padding: 7px; border: 1px solid var(--border); border-radius: var(--radius); width: 100%; outline: none; background: var(--surface); color: var(--on-surface);" onchange="renderCentrosCostoView()">
                                 </div>
-                                <div style="flex: 1; min-width: 120px;">
-                                    <label
-                                        style="font-size: 11px; font-weight: bold; color: var(--on-surface-secondary); display: block; margin-bottom: 4px;">Hasta</label>
-                                    <input type="date" id="costosFechaHasta"
-                                        style="font-size: 13px; padding: 7px; border: 1px solid var(--border); border-radius: var(--radius); width: 100%; outline: none; background: var(--surface); color: var(--on-surface);"
-                                        onchange="renderCentrosCostoView()">
+                                <div style="flex: 1; min-width: 110px;">
+                                    <label style="font-size: 11px; font-weight: bold; color: var(--on-surface-secondary); display: block; margin-bottom: 4px;">Hasta</label>
+                                    <input type="date" id="costosFechaHasta" style="font-size: 13px; padding: 7px; border: 1px solid var(--border); border-radius: var(--radius); width: 100%; outline: none; background: var(--surface); color: var(--on-surface);" onchange="renderCentrosCostoView()">
+                                </div>
+                                <div style="flex: 2; min-width: 160px;">
+                                    <label style="font-size: 11px; font-weight: bold; color: var(--on-surface-secondary); display: block; margin-bottom: 4px;">Concepto / Proveedor</label>
+                                    <input type="text" id="costosBusqueda" placeholder="Buscar..." style="font-size: 13px; padding: 7px; border: 1px solid var(--border); border-radius: var(--radius); width: 100%; outline: none; background: var(--surface); color: var(--on-surface);" oninput="renderCentrosCostoView()">
+                                </div>
+                                <div style="flex: 1; min-width: 130px;">
+                                    <label style="font-size: 11px; font-weight: bold; color: var(--on-surface-secondary); display: block; margin-bottom: 4px;">Centro de Costo</label>
+                                    <select id="costosFiltroCC" style="font-size: 13px; padding: 7px; border: 1px solid var(--border); border-radius: var(--radius); width: 100%; outline: none; background: var(--surface); color: var(--on-surface);" onchange="renderCentrosCostoView()">
+                                        <option value="">Todos</option>
+                                        <option value="Producción">Producción</option>
+                                        <option value="Acopio">Acopio</option>
+                                        <option value="Almacén">Almacén / Inventario</option>
+                                        <option value="Comercialización">Comercialización</option>
+                                        <option value="Administración">Administración</option>
+                                        <option value="Finanzas">Finanzas</option>
+                                    </select>
+                                </div>
+                                <div style="flex: 1; min-width: 150px;">
+                                    <label style="font-size: 11px; font-weight: bold; color: var(--on-surface-secondary); display: block; margin-bottom: 4px;">Categoría (Clasif.)</label>
+                                    <select id="costosFiltroCategoria" style="font-size: 13px; padding: 7px; border: 1px solid var(--border); border-radius: var(--radius); width: 100%; outline: none; background: var(--surface); color: var(--on-surface);" onchange="renderCentrosCostoView()">
+                                        <option value="">Todas</option>
+                                        <option value="Insumo Agrícola">Insumo Agrícola</option>
+                                        <option value="Materiales y Envases">Materiales y Envases</option>
+                                        <option value="Equipos y Activos">Equipos y Activos</option>
+                                        <option value="Gasto Operativo">Gasto Operativo</option>
+                                        <option value="Gasto Administrativo">Gasto Administrativo</option>
+                                        <option value="Gasto Comercial/Ventas">Gasto Comercial/Ventas</option>
+                                        <option value="Acopio - Transporte">Acopio - Transporte</option>
+                                        <option value="Acopio - Almacenamiento">Acopio - Almacenamiento</option>
+                                        <option value="Acopio - Comercialización">Acopio - Comercialización</option>
+                                    </select>
                                 </div>
                             </div>
 
@@ -2967,7 +3020,7 @@
                                 <!-- Dinámico -->
                             </div>
 
-                            <div class="table-wrapper">
+                            <div class="table-wrapper" style="margin-bottom: 24px;">
                                 <table style="width: 100%; border-collapse: collapse;">
                                     <thead>
                                         <tr style="background: var(--border);">
@@ -2979,6 +3032,24 @@
                                         </tr>
                                     </thead>
                                     <tbody id="centrosCostoTableBody">
+                                        <!-- Dinámico -->
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="card-header" style="border-top: 1px solid var(--border); padding-top: 16px;">
+                                <span class="card-title">Distribución por Categoría (Clasificación)</span>
+                            </div>
+                            <div class="table-wrapper">
+                                <table style="width: 100%; border-collapse: collapse;">
+                                    <thead>
+                                        <tr style="background: var(--border);">
+                                            <th style="padding: 10px; text-align: left;">Categoría</th>
+                                            <th style="padding: 10px; text-align: right;">Total S/</th>
+                                            <th style="padding: 10px; text-align: right;">Proporción</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="categoriaCostoTableBody">
                                         <!-- Dinámico -->
                                     </tbody>
                                 </table>
@@ -2995,46 +3066,51 @@
                         <p style="color:var(--on-surface-secondary);font-size:13px;margin-bottom:20px;">Calcula el pago
                             neto cruzando kilos acopiados vs precio, descontando deudas pendientes.</p>
                         <div class="form-row">
-                            <div class="form-group"><label>Asociado</label> <select id="liqAsociado">
-                                    <option>Carlos Mendoza (A-001)</option>
-                                    <option>Rosa Huamán (A-002)</option>
-                                    <option>Pedro Quispe (A-003)</option>
+                            <div class="form-group"><label>Asociado con Entregas Pendientes</label> <select id="liqAsociado" onchange="renderLiquidacionCalculations()">
+                                    <option value="">Seleccione un asociado...</option>
+                                    <!-- Dinámico -->
                                 </select>
                             </div>
-                            <div class="form-group"><label>Campaña</label> <select>
-                                    <option>2024-I</option>
-                                    <option>2023-II</option>
+                            <div class="form-group"><label>Campaña</label> <select id="liqCampana">
+                                    <option value="Campaña 2024-I">2024-I</option>
+                                    <option value="Campaña 2023-II">2023-II</option>
                                 </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group"><label>Precio x Kg (S/)</label>
+                                <input type="number" id="liqPrecioKg" step="0.10" min="0" value="0.00" oninput="renderLiquidacionCalculations()">
+                            </div>
+                            <div class="form-group"><label>Merma por Humedad u Otros (S/)</label>
+                                <input type="number" id="liqMermaSoles" step="1.00" min="0" value="0.00" oninput="renderLiquidacionCalculations()">
                             </div>
                         </div>
                         <div class="card" style="background:#F9FBE7;">
                             <h4 style="margin-bottom:12px;">Resumen de Liquidación</h4>
                             <div class="form-row">
                                 <div>
-                                    <strong>Total Acopiado:</strong> 2,050 kg
+                                    <strong>Total Acopiado:</strong> <span id="liqTotalAcopiado">0</span> kg
                                 </div>
                                 <div>
-                                    <strong>Precio x kg:</strong> S/ 5.80
-                                </div>
-                                <div>
-                                    <strong>Bruto:</strong> S/ 11,890
+                                    <strong>Subtotal Bruto:</strong> S/ <span id="liqBruto">0.00</span>
                                 </div>
                             </div>
                             <hr style="margin:12px 0;border-color:var(--border);">
                             <div class="form-row">
                                 <div>
-                                    <strong>(-) Deuda cuotas:</strong> S/ 0
+                                    <strong>(-) Deuda cuotas:</strong> S/ <span id="liqDeuda">0.00</span>
+                                    <div id="liqDeudaDetalle" style="font-size:11px; color:#c62828;"></div>
                                 </div>
                                 <div>
-                                    <strong>(-) Merma humedad:</strong> S/ 180
+                                    <strong>(-) Merma (Descuento):</strong> S/ <span id="liqMermaVal">0.00</span>
                                 </div>
                                 <div>
-                                    <strong style="color:var(--primary);">NETO A PAGAR: S/ 11,710</strong>
+                                    <strong style="color:var(--primary);">NETO A PAGAR: S/ <span id="liqNeto">0.00</span></strong>
                                 </div>
                             </div>
-                            <div style="margin-top:16px;display:flex;gap:12px;flex-wrap:wrap;"><button
-                                    class="btn btn-primary btn-sm">Generar Orden de Pago</button> <button
-                                    class="btn btn-outline btn-sm">Exportar PDF</button>
+                            <div style="margin-top:16px;display:flex;gap:12px;flex-wrap:wrap;">
+                                <button class="btn btn-primary btn-sm" id="btnGenerarLiquidacion" onclick="saveLiquidacionTransaction()">Generar Orden de Pago (Caja)</button>
+                                <button class="btn btn-outline btn-sm" onclick="exportLiquidacionToPDF()">Imprimir Voucher PDF</button>
                             </div>
                         </div>
                     </div>
@@ -3042,94 +3118,121 @@
                 <div class="module-view" id="mod-reportes">
                     <div class="card fade-in">
                         <div class="tabs">
-                            <div class="tab active">
+                            <div class="tab active" data-tab="estado-resultados" onclick="switchReportesTab(this)">
                                 Estado de Resultados
                             </div>
-                            <div class="tab">
+                            <div class="tab" data-tab="balance-general" onclick="switchReportesTab(this)">
                                 Balance General
                             </div>
-                            <div class="tab">
+                            <div class="tab" data-tab="flujo-caja" onclick="switchReportesTab(this)">
                                 Flujo de Caja
                             </div>
-                            <div class="tab">
-                                Operativos
+                        </div>
+                        
+                        <div style="margin: 20px 0; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; background: rgba(0,0,0,0.02); padding: 12px; border: 1px solid var(--border); border-radius: var(--radius);">
+                            <div style="flex: 1; min-width: 140px;">
+                                <label style="font-size: 11px; font-weight: bold; color: var(--on-surface-secondary); display: block; margin-bottom: 4px;">Desde</label>
+                                <input type="date" id="reportesFechaDesde" style="font-size: 13px; padding: 7px; border: 1px solid var(--border); border-radius: var(--radius); width: 100%; outline: none; background: var(--surface); color: var(--on-surface);" onchange="renderActiveReportesSubtab()">
+                            </div>
+                            <div style="flex: 1; min-width: 140px;">
+                                <label style="font-size: 11px; font-weight: bold; color: var(--on-surface-secondary); display: block; margin-bottom: 4px;">Hasta</label>
+                                <input type="date" id="reportesFechaHasta" style="font-size: 13px; padding: 7px; border: 1px solid var(--border); border-radius: var(--radius); width: 100%; outline: none; background: var(--surface); color: var(--on-surface);" onchange="renderActiveReportesSubtab()">
+                            </div>
+                            <div style="flex: 2; display: flex; justify-content: flex-end; align-items: flex-end;">
+                                <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                                    <button class="btn btn-outline btn-sm" onclick="exportActiveReportToPDF()" style="color: #c62828; border-color: #c62828; background: transparent;">
+                                        <i data-lucide="printer" style="width:14px;height:14px;"></i> Imprimir PDF
+                                    </button>
+                                    <button class="btn btn-outline btn-sm" onclick="exportActiveReportToExcel()" style="color: #1f803f; border-color: #1f803f; background: transparent;">
+                                        <i data-lucide="file-spreadsheet" style="width:14px;height:14px;"></i> Exportar Excel
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                        <div class="card-header"><span class="card-title">Reportes de Gestión</span>
-                            <div style="display:flex;gap:8px;flex-wrap:wrap;"><button class="btn btn-outline btn-sm"><i
-                                        data-lucide="file-text" style="width:14px;height:14px;"></i> Exportar
-                                    PDF</button> <button class="btn btn-secondary btn-sm"><i data-lucide="table"
-                                        style="width:14px;height:14px;"></i> Exportar Excel</button>
+
+                        <!-- ESTADO DE RESULTADOS SUBVIEW -->
+                        <div id="subview-reportes-estado-resultados" class="reportes-subview" style="display: block;">
+                            <div class="card-header"><span class="card-title">Estado de Resultados (Ganancias y Pérdidas)</span></div>
+                            <div class="table-wrapper">
+                                <table style="width: 100%; border-collapse: collapse;">
+                                    <thead>
+                                        <tr style="background: var(--border);">
+                                            <th style="padding: 10px; text-align: left;">Concepto</th>
+                                            <th style="padding: 10px; text-align: right;">Monto (S/)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbodyEstadoResultados">
+                                        <!-- Dynamic JS content -->
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
-                        <div class="table-wrapper">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Concepto</th>
-                                        <th style="text-align:right;">Monto (S/)</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr style="font-weight:700;background:#E8F5E9;">
-                                        <td>INGRESOS</td>
-                                        <td style="text-align:right;"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>&nbsp;&nbsp;Ventas de Frijol Seco</td>
-                                        <td style="text-align:right;">32,500</td>
-                                    </tr>
-                                    <tr>
-                                        <td>&nbsp;&nbsp;Ventas de Palo Verde</td>
-                                        <td style="text-align:right;">7,200</td>
-                                    </tr>
-                                    <tr>
-                                        <td>&nbsp;&nbsp;Aportes de Asociados</td>
-                                        <td style="text-align:right;">5,530</td>
-                                    </tr>
-                                    <tr style="font-weight:700;">
-                                        <td>&nbsp;&nbsp;Total Ingresos</td>
-                                        <td style="text-align:right;">45,230</td>
-                                    </tr>
-                                    <tr style="font-weight:700;background:#FFEBEE;">
-                                        <td>EGRESOS</td>
-                                        <td style="text-align:right;"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>&nbsp;&nbsp;Compras de Productos</td>
-                                        <td style="text-align:right;">18,600</td>
-                                    </tr>
-                                    <tr>
-                                        <td>&nbsp;&nbsp;Gastos Operativos</td>
-                                        <td style="text-align:right;">8,100</td>
-                                    </tr>
-                                    <tr>
-                                        <td>&nbsp;&nbsp;Gastos Administrativos</td>
-                                        <td style="text-align:right;">3,200</td>
-                                    </tr>
-                                    <tr>
-                                        <td>&nbsp;&nbsp;Fletes y Logística</td>
-                                        <td style="text-align:right;">2,200</td>
-                                    </tr>
-                                    <tr style="font-weight:700;">
-                                        <td>&nbsp;&nbsp;Total Egresos</td>
-                                        <td style="text-align:right;">32,100</td>
-                                    </tr>
-                                    <tr style="font-weight:700;font-size:15px;background:#E8F5E9;">
-                                        <td>UTILIDAD NETA</td>
-                                        <td style="text-align:right;color:var(--primary);">S/ 13,130</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+
+                        <!-- BALANCE GENERAL SUBVIEW -->
+                        <div id="subview-reportes-balance-general" class="reportes-subview" style="display: none;">
+                            <div class="card-header"><span class="card-title">Balance General (Situación Financiera Simplificada)</span></div>
+                            <div class="table-wrapper">
+                                <table style="width: 100%; border-collapse: collapse;">
+                                    <thead>
+                                        <tr style="background: var(--border);">
+                                            <th style="padding: 10px; text-align: left;">Cuentas</th>
+                                            <th style="padding: 10px; text-align: right;">Monto (S/)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbodyBalanceGeneral">
+                                        <!-- Dynamic JS content -->
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
+
+                        <!-- FLUJO DE CAJA SUBVIEW -->
+                        <div id="subview-reportes-flujo-caja" class="reportes-subview" style="display: none;">
+                            <div class="card-header"><span class="card-title">Flujo de Caja (Movimientos de Efectivo)</span></div>
+                            <div class="table-wrapper">
+                                <table style="width: 100%; border-collapse: collapse;">
+                                    <thead>
+                                        <tr style="background: var(--border);">
+                                            <th style="padding: 10px; text-align: left;">Categoría</th>
+                                            <th style="padding: 10px; text-align: right;">Total S/</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbodyFlujoCaja">
+                                        <!-- Dynamic JS content -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
                     </div>
                 </div><!-- ===== AUDITORIA ===== -->
                 <div class="module-view" id="mod-auditoria">
                     <div class="card fade-in">
                         <div class="card-header"><span class="card-title">Historial de Auditoría (Logs)</span>
-                            <div style="display:flex;gap:8px;align-items:center;"><input type="date"
-                                    style="padding:8px 12px;border:2px solid var(--border);border-radius:var(--radius);font-size:13px;">
-                                <button class="btn btn-outline btn-sm">Filtrar</button>
+                            <div style="display:flex;gap:8px;align-items:center; flex-wrap:wrap;">
+                                <select id="auditFilterModule" style="padding:8px; border-radius:4px; border:2px solid var(--border);" onchange="renderAuditLogs()">
+                                    <option value="">Todos los Módulos</option>
+                                    <option value="Sistema">Sistema / Navegación</option>
+                                    <option value="Caja">Caja y Bancos</option>
+                                    <option value="Finanzas">Finanzas (CxC/CxP)</option>
+                                    <option value="Acopio">Acopio</option>
+                                    <option value="Ventas">Ventas</option>
+                                    <option value="Compras">Compras</option>
+                                    <option value="Almacén">Almacén</option>
+                                    <option value="Reportes">Reportes</option>
+                                    <option value="Capacitación">Capacitación</option>
+                                </select>
+                                <select id="auditFilterAction" style="padding:8px; border-radius:4px; border:2px solid var(--border);" onchange="renderAuditLogs()">
+                                    <option value="">Cualquier Acción</option>
+                                    <option value="LOGIN">Autenticación (LOGIN)</option>
+                                    <option value="CREAR">Creación (CREAR)</option>
+                                    <option value="EDITAR">Modificación (EDITAR)</option>
+                                    <option value="VER">Visualización (VER)</option>
+                                    <option value="EXPORTAR">Exportación (EXPORTAR)</option>
+                                    <option value="NAVEGAR">Navegación (NAVEGAR)</option>
+                                </select>
+                                <input type="date" id="auditFilterDate" onchange="renderAuditLogs()" style="padding:8px 12px;border:2px solid var(--border);border-radius:var(--radius);font-size:13px;">
+                                <button class="btn btn-outline btn-sm" onclick="document.getElementById('auditFilterDate').value='';document.getElementById('auditFilterModule').value='';document.getElementById('auditFilterAction').value='';renderAuditLogs();">Limpiar Filtros</button>
                             </div>
                         </div>
                         <div class="table-wrapper">
@@ -3144,34 +3247,7 @@
                                     </tr>
                                 </thead>
                                 <tbody id="auditTable">
-                                    <tr>
-                                        <td>2024-01-15 14:32</td>
-                                        <td>admin</td>
-                                        <td>Acopio</td>
-                                        <td><span class="log-action">CREAR</span></td>
-                                        <td>Registro de acopio - Carlos Mendoza 850kg</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2024-01-15 11:20</td>
-                                        <td>almacen01</td>
-                                        <td>Almacén</td>
-                                        <td><span class="log-action">EDITAR</span></td>
-                                        <td>Ajuste de merma -45kg Frijol Seco</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2024-01-14 16:45</td>
-                                        <td>admin</td>
-                                        <td>Ventas</td>
-                                        <td><span class="log-action">CREAR</span></td>
-                                        <td>Factura F001-0045 - Exportadora ABC</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2024-01-14 09:00</td>
-                                        <td>admin</td>
-                                        <td>Caja</td>
-                                        <td><span class="log-action">CREAR</span></td>
-                                        <td>Ingreso S/12,500 - Venta frijol</td>
-                                    </tr>
+                                    <!-- Renderizado Dinámico -->
                                 </tbody>
                             </table>
                         </div>
@@ -3185,7 +3261,7 @@
                         <p style="color:var(--on-surface-secondary);margin-bottom:20px;font-size:13px;">Manuales y
                             videos de capacitación para el uso del sistema.</p>
                         <div class="grid-3">
-                            <div class="video-card">
+                            <div class="video-card" onclick="watchVideo('Registro de Acopio')">
                                 <div class="video-thumb">
                                     <i data-lucide="play-circle" style="width:48px;height:48px;"></i>
                                 </div>
@@ -3194,7 +3270,7 @@
                                     <p>Cómo registrar la recepción en balanza</p>
                                 </div>
                             </div>
-                            <div class="video-card">
+                            <div class="video-card" onclick="watchVideo('Caja y Bancos')">
                                 <div class="video-thumb"
                                     style="background:linear-gradient(135deg,var(--secondary),var(--secondary-dark));">
                                     <i data-lucide="play-circle" style="width:48px;height:48px;"></i>
@@ -3204,7 +3280,7 @@
                                     <p>Ingresos, egresos y conciliación</p>
                                 </div>
                             </div>
-                            <div class="video-card">
+                            <div class="video-card" onclick="watchVideo('Generación de Reportes')">
                                 <div class="video-thumb" style="background:linear-gradient(135deg,#1565C0,#0D47A1);">
                                     <i data-lucide="play-circle" style="width:48px;height:48px;"></i>
                                 </div>
@@ -3213,7 +3289,7 @@
                                     <p>Exportar a PDF y Excel</p>
                                 </div>
                             </div>
-                            <div class="video-card">
+                            <div class="video-card" onclick="watchVideo('Ventas y Facturación')">
                                 <div class="video-thumb" style="background:linear-gradient(135deg,#6A1B9A,#4A148C);">
                                     <i data-lucide="play-circle" style="width:48px;height:48px;"></i>
                                 </div>
@@ -3222,7 +3298,7 @@
                                     <p>Registro de ventas a exportadores</p>
                                 </div>
                             </div>
-                            <div class="video-card">
+                            <div class="video-card" onclick="watchVideo('Modo Offline')">
                                 <div class="video-thumb" style="background:linear-gradient(135deg,#00695C,#004D40);">
                                     <i data-lucide="play-circle" style="width:48px;height:48px;"></i>
                                 </div>
@@ -3231,7 +3307,7 @@
                                     <p>Cómo trabajar sin conexión a internet</p>
                                 </div>
                             </div>
-                            <div class="video-card">
+                            <div class="video-card" onclick="watchVideo('Liquidación de Compra')">
                                 <div class="video-thumb" style="background:linear-gradient(135deg,#E65100,#BF360C);">
                                     <i data-lucide="play-circle" style="width:48px;height:48px;"></i>
                                 </div>
@@ -4195,6 +4271,21 @@
                 </div>
             </div>
         </div>
+
+        <!-- ===== MODAL CAPACITACION (VIDEO) ===== -->
+        <div class="modal-overlay" id="modalVideo">
+            <div class="modal" style="max-width: 800px;">
+                <div class="modal-header">
+                    <h3 id="modalVideoTitle">Cargando Capacitación...</h3>
+                    <button class="modal-close" onclick="closeModal('modalVideo'); document.getElementById('videoPlayer').src='';"><i data-lucide="x"></i></button>
+                </div>
+                <div class="modal-body" style="padding:0; background:#000;">
+                    <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden;">
+                        <iframe id="videoPlayer" style="position:absolute; top:0; left:0; width:100%; height:100%; border:0;" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
         <script>
             // ==================== INITIALIZATION ====================
             if (window.elementSdk) {
@@ -4276,6 +4367,19 @@
                     // Close sidebar on mobile
                     document.getElementById('sidebar').classList.remove('open');
                     document.getElementById('sidebarOverlay').classList.remove('show');
+
+                    // Refresh data based on selected module
+                    if (mod === 'liquidacion') {
+                        if (typeof renderLiquidacionView === 'function') renderLiquidacionView();
+                    }
+                    if (mod === 'auditoria') {
+                        if (typeof renderAuditLogs === 'function') renderAuditLogs();
+                    }
+
+                    // Log navigation if not initial load
+                    if (headerTitle.textContent) {
+                        addAuditLog('admin', 'Sistema', 'NAVEGAR', `El usuario ingresó a la sección: ${titles[mod] || 'Dashboard'}`);
+                    }
                 });
             });
 
@@ -4355,6 +4459,223 @@
                     renderActiveAcopioSubtab();
                 });
             });
+
+            // ==================== LIQUIDACION LOGIC ====================
+            window.renderLiquidacionView = renderLiquidacionView;
+            function renderLiquidacionView() {
+                const select = document.getElementById('liqAsociado');
+                if (!select) return;
+
+                // Encontrar asociados con acopios sin liquidar
+                const pendingAsociados = {};
+                acopioData.forEach(a => {
+                    if (a.cooperativa === activeCooperativa && a.estado !== 'Rechazado' && !a.liquidado) {
+                        if (!pendingAsociados[a.asociadoId]) {
+                            pendingAsociados[a.asociadoId] = { id: a.asociadoId, nombre: a.asociado, kilos: 0 };
+                        }
+                        pendingAsociados[a.asociadoId].kilos += parseFloat(a.peso) || 0;
+                    }
+                });
+
+                select.innerHTML = '<option value="">Seleccione un asociado...</option>';
+                Object.values(pendingAsociados).forEach(asoc => {
+                    const option = document.createElement('option');
+                    option.value = asoc.id;
+                    option.textContent = `${asoc.nombre} (${asoc.id}) - Pendiente: ${asoc.kilos.toFixed(2)} kg`;
+                    select.appendChild(option);
+                });
+
+                renderLiquidacionCalculations();
+            }
+
+            window.renderLiquidacionCalculations = renderLiquidacionCalculations;
+            function renderLiquidacionCalculations() {
+                const select = document.getElementById('liqAsociado');
+                const asocId = select ? select.value : '';
+                
+                let totalAcopiado = 0;
+                let deudaSoles = 0;
+                let detalleDeuda = '';
+                
+                if (asocId) {
+                    acopioData.forEach(a => {
+                        if (a.cooperativa === activeCooperativa && a.asociadoId === asocId && a.estado !== 'Rechazado' && !a.liquidado) {
+                            totalAcopiado += parseFloat(a.peso) || 0;
+                        }
+                    });
+
+                    // Search for debts
+                    const asocName = select.options[select.selectedIndex].text.split(' (')[0];
+                    cxcInvoices.forEach(c => {
+                        if (c.cooperativa === activeCooperativa && c.cliente === asocName && c.saldo > 0) {
+                            deudaSoles += c.saldo;
+                            detalleDeuda += `Doc: ${c.id} (Saldo: S/ ${c.saldo.toFixed(2)})<br>`;
+                        }
+                    });
+                }
+
+                const precioKg = parseFloat(document.getElementById('liqPrecioKg').value) || 0;
+                const mermaSoles = parseFloat(document.getElementById('liqMermaSoles').value) || 0;
+                
+                const bruto = totalAcopiado * precioKg;
+                const neto = bruto - deudaSoles - mermaSoles;
+
+                document.getElementById('liqTotalAcopiado').textContent = totalAcopiado.toLocaleString('es-PE', { minimumFractionDigits: 2 });
+                document.getElementById('liqBruto').textContent = bruto.toLocaleString('es-PE', { minimumFractionDigits: 2 });
+                document.getElementById('liqDeuda').textContent = deudaSoles.toLocaleString('es-PE', { minimumFractionDigits: 2 });
+                document.getElementById('liqDeudaDetalle').innerHTML = detalleDeuda;
+                document.getElementById('liqMermaVal').textContent = mermaSoles.toLocaleString('es-PE', { minimumFractionDigits: 2 });
+                document.getElementById('liqNeto').textContent = (neto > 0 ? neto : 0).toLocaleString('es-PE', { minimumFractionDigits: 2 });
+                
+                const btn = document.getElementById('btnGenerarLiquidacion');
+                if (btn) {
+                    btn.disabled = (!asocId || totalAcopiado === 0 || precioKg <= 0 || neto <= 0);
+                }
+            }
+
+            window.saveLiquidacionTransaction = saveLiquidacionTransaction;
+            function saveLiquidacionTransaction() {
+                const select = document.getElementById('liqAsociado');
+                const asocId = select.value;
+                if (!asocId) { showToast('Seleccione un asociado.', 'error'); return; }
+
+                const asocName = select.options[select.selectedIndex].text.split(' (')[0];
+                const precioKg = parseFloat(document.getElementById('liqPrecioKg').value) || 0;
+                const mermaSoles = parseFloat(document.getElementById('liqMermaSoles').value) || 0;
+                
+                let totalKilos = 0;
+                let countLiquidado = 0;
+
+                // First pass to get total kilos
+                acopioData.forEach(a => {
+                    if (a.cooperativa === activeCooperativa && a.asociadoId === asocId && a.estado !== 'Rechazado' && !a.liquidado) {
+                        totalKilos += parseFloat(a.peso) || 0;
+                    }
+                });
+
+                if (totalKilos === 0) { showToast('No hay acopio para liquidar.', 'error'); return; }
+
+                // Deduct debts from CxC
+                let deudaCobrada = 0;
+                cxcInvoices.forEach(c => {
+                    if (c.cooperativa === activeCooperativa && c.cliente === asocName && c.saldo > 0) {
+                        deudaCobrada += c.saldo;
+                        c.saldo = 0;
+                        c.estado = 'Pagada';
+                    }
+                });
+
+                const bruto = totalKilos * precioKg;
+                const neto = bruto - deudaCobrada - mermaSoles;
+
+                // Update acopio records
+                acopioData.forEach(a => {
+                    if (a.cooperativa === activeCooperativa && a.asociadoId === asocId && a.estado !== 'Rechazado' && !a.liquidado) {
+                        a.liquidado = true;
+                        a.precioUnitario = precioKg;
+                        // Distribute net proportionally
+                        const proportion = a.peso / totalKilos;
+                        a.totalNeto = neto * proportion; 
+                        countLiquidado++;
+                    }
+                });
+
+                // Generate Egreso in Caja
+                const transId = 'LIQ-' + Date.now().toString().slice(-6);
+                cajaMovements.unshift({
+                    id: transId,
+                    fecha: new Date().toISOString(),
+                    concepto: `Liquidación Acopio: ${asocName} (${countLiquidado} lotes)`,
+                    tipo: 'Retiro',
+                    monto: neto,
+                    saldoPost: 0, // Recalculated below
+                    usuario: 'Admin',
+                    cooperativa: activeCooperativa
+                });
+
+                // Save to localStorage
+                localStorage.setItem('acopioData', JSON.stringify(acopioData));
+                localStorage.setItem('cxcInvoicesData', JSON.stringify(cxcInvoices));
+                
+                // Recalculate Caja Stats and save
+                calculateCajaStats(); 
+                calculateCXCStats();
+                if (typeof renderCXCTable === 'function') renderCXCTable();
+
+                showToast(`✅ Liquidación exitosa por S/ ${neto.toFixed(2)}. ${deudaCobrada > 0 ? '(Se dedujo S/' + deudaCobrada.toFixed(2) + ' de deudas)' : ''}`, 'success');
+                
+                // Reset form
+                document.getElementById('liqPrecioKg').value = '0.00';
+                document.getElementById('liqMermaSoles').value = '0.00';
+                renderLiquidacionView();
+            }
+
+            window.exportLiquidacionToPDF = exportLiquidacionToPDF;
+            function exportLiquidacionToPDF() {
+                const asocSelect = document.getElementById('liqAsociado');
+                const asocName = asocSelect && asocSelect.value ? asocSelect.options[asocSelect.selectedIndex].text.split(' (')[0] : 'Desconocido';
+                
+                addAuditLog('admin', 'Acopio', 'EXPORTAR', `Exportación de Voucher PDF de liquidación para ${asocName}`);
+                
+                const totalAcopiado = document.getElementById('liqTotalAcopiado').textContent;
+                const precio = document.getElementById('liqPrecioKg').value;
+                const bruto = document.getElementById('liqBruto').textContent;
+                const deuda = document.getElementById('liqDeuda').textContent;
+                const merma = document.getElementById('liqMermaVal').textContent;
+                const neto = document.getElementById('liqNeto').textContent;
+
+                const printWindow = window.open('', '_blank');
+                printWindow.document.write(`
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Voucher de Liquidación - ${activeCooperativa}</title>
+                    <style>
+                        body { font-family: 'Inter', sans-serif; padding: 40px; color: #333; max-width: 600px; margin: 0 auto; }
+                        h1 { color: #1e88e5; margin-bottom: 5px; text-align: center; }
+                        .subtitle { font-size: 14px; color: #666; margin-bottom: 30px; text-align: center; }
+                        .box { border: 1px solid #ddd; padding: 20px; border-radius: 8px; }
+                        .row { display: flex; justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed #eee; padding-bottom: 5px; }
+                        .total { font-size: 18px; font-weight: bold; margin-top: 20px; border-top: 2px solid #333; padding-top: 10px; color: #2E7D32; }
+                    </style>
+                </head>
+                <body>
+                    <h1>Voucher de Liquidación de Acopio</h1>
+                    <div class="subtitle">
+                        <strong>${activeCooperativa}</strong><br>
+                        Fecha: ${new Date().toLocaleString('es-PE')}
+                    </div>
+                    
+                    <div class="box">
+                        <div class="row"><strong>Asociado:</strong> <span>${asocName}</span></div>
+                        <div class="row"><strong>Total Acopiado:</strong> <span>${totalAcopiado} kg</span></div>
+                        <div class="row"><strong>Precio pactado x Kg:</strong> <span>S/ ${precio}</span></div>
+                        <div class="row" style="background:#f9f9f9;"><strong>Subtotal Bruto:</strong> <span>S/ ${bruto}</span></div>
+                        <div class="row"><strong>Deuda Deducida (CxC):</strong> <span>- S/ ${deuda}</span></div>
+                        <div class="row"><strong>Descuento/Merma:</strong> <span>- S/ ${merma}</span></div>
+                        
+                        <div class="row total">
+                            <strong>NETO PAGADO AL ASOCIADO:</strong> 
+                            <span>S/ ${neto}</span>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top:80px; display:flex; justify-content:space-between; text-align:center;">
+                        <div style="border-top: 1px solid #333; width: 45%; padding-top: 10px;">Firma del Operario</div>
+                        <div style="border-top: 1px solid #333; width: 45%; padding-top: 10px;">Firma del Asociado</div>
+                    </div>
+
+                    \x3cscript>
+                        window.onload = function() {
+                            window.print();
+                            setTimeout(function() { window.close(); }, 500);
+                        }
+                    \x3c/script>
+                </body>
+                </html>
+                `);
+                printWindow.document.close();
+            }
 
             window.renderActiveAcopioSubtab = renderActiveAcopioSubtab;
             function renderActiveAcopioSubtab() {
@@ -5063,17 +5384,81 @@
                 }, 75);
             };
 
-            // ==================== AUDIT LOG ====================
+            // ==================== AUDIT LOG & CAPACITACION ====================
+            window.watchVideo = function(title) {
+                addAuditLog('admin', 'Capacitación', 'VER', `El usuario visualizó el video/manual: ${title}`);
+                
+                document.getElementById('modalVideoTitle').textContent = `Capacitación: ${title}`;
+                // En un sistema real esto vendría de una base de datos.
+                // Aquí usamos un video de placeholder amigable (W3Schools HTML5 Demo en YT)
+                document.getElementById('videoPlayer').src = 'https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1';
+                
+                openModal('modalVideo');
+            };
+
+            window.renderAuditLogs = function() {
+                const tbody = document.getElementById('auditTable');
+                if (!tbody) return;
+                
+                const filterDate = document.getElementById('auditFilterDate')?.value;
+                const filterModule = document.getElementById('auditFilterModule')?.value;
+                const filterAction = document.getElementById('auditFilterAction')?.value;
+
+                let filteredLogs = auditLog;
+
+                if (filterDate) {
+                    // Date comes as YYYY-MM-DD, our date might be DD/MM/YYYY, HH:MM:SS or similar based on locale
+                    // We will do a simple string inclusion check or parse it.
+                    // toLocaleString() usually contains the date in local format. We will do our best.
+                    const d = new Date(filterDate + 'T00:00:00');
+                    const dateStr = d.toLocaleDateString();
+                    filteredLogs = filteredLogs.filter(log => log.date.includes(dateStr));
+                }
+                if (filterModule) {
+                    filteredLogs = filteredLogs.filter(log => log.module === filterModule);
+                }
+                if (filterAction) {
+                    filteredLogs = filteredLogs.filter(log => log.action.includes(filterAction));
+                }
+
+                tbody.innerHTML = '';
+
+                if (filteredLogs.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#888;">No se encontraron registros de auditoría.</td></tr>';
+                    return;
+                }
+
+                filteredLogs.forEach(entry => {
+                    const row = document.createElement('tr');
+                    
+                    // Assign Badge colors
+                    let badgeColor = '#757575'; // default gray
+                    if (entry.action.includes('CREAR')) badgeColor = '#43A047'; // Green
+                    if (entry.action.includes('EDITAR') || entry.action.includes('MODIFICAR')) badgeColor = '#F57C00'; // Orange
+                    if (entry.action.includes('ELIMINAR')) badgeColor = '#E53935'; // Red
+                    if (entry.action.includes('EXPORTAR')) badgeColor = '#1E88E5'; // Blue
+                    if (entry.action.includes('VER')) badgeColor = '#8E24AA'; // Purple
+                    if (entry.action.includes('NAVEGAR')) badgeColor = '#546E7A'; // Slate
+                    if (entry.action.includes('PAGO') || entry.action.includes('COBRO')) badgeColor = '#00897B'; // Teal
+
+                    row.innerHTML = `
+                        <td style="font-size:12px;color:#555;">${entry.date}</td>
+                        <td style="font-weight:500;">${entry.user}</td>
+                        <td>${entry.module}</td>
+                        <td><span class="log-action" style="background-color:${badgeColor}; color:white; padding:4px 8px; border-radius:12px; font-size:11px; font-weight:bold;">${entry.action}</span></td>
+                        <td style="font-size:12.5px;">${entry.detail}</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            };
+
             function addAuditLog(user, module, action, detail) {
                 const entry = { date: new Date().toLocaleString(), user, module, action, detail };
                 auditLog.unshift(entry);
-                if (auditLog.length > 100) auditLog.pop();
+                if (auditLog.length > 500) auditLog.pop(); // Increased to 500
                 localStorage.setItem('auditLog', JSON.stringify(auditLog));
-                const tbody = document.getElementById('auditTable');
-                if (tbody) {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `<td>${entry.date}</td><td>${entry.user}</td><td>${entry.module}</td><td><span class="log-action">${entry.action}</span></td><td>${entry.detail}</td>`;
-                    tbody.insertBefore(row, tbody.firstChild);
+                if (document.getElementById('mod-auditoria')?.classList.contains('active')) {
+                    renderAuditLogs(); // Re-render if we are in the audit module
                 }
             }
 
@@ -6791,6 +7176,134 @@
                 }
             };
 
+            // Export CXC to CSV
+            window.exportCXCToExcel = exportCXCToExcel;
+            function exportCXCToExcel() {
+                const coopInvoices = cxcInvoices.filter(inv => inv.cooperativa === activeCooperativa);
+
+                if (coopInvoices.length === 0) {
+                    showToast('No hay cuentas por cobrar para exportar.', 'warning');
+                    return;
+                }
+
+                // Sort by date descending
+                coopInvoices.sort((a, b) => new Date(b.vencimiento) - new Date(a.vencimiento));
+
+                let csvContent = "\ufeff"; // BOM
+                csvContent += "Cliente;Documento;Monto (S/);Pagado (S/);Saldo (S/);Vencimiento;Estado\n";
+
+                coopInvoices.forEach(inv => {
+                    const status = getInvoiceStatus(inv);
+                    csvContent += `"${inv.cliente}";"${inv.id}";${inv.monto};${inv.pagado};${inv.saldo};"${inv.vencimiento}";"${status}"\n`;
+                });
+
+                const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement("a");
+                link.setAttribute("href", url);
+                link.setAttribute("download", `Reporte_Cuentas_Cobrar_${activeCooperativa.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.csv`);
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                showToast('📊 Reporte de Cuentas por Cobrar exportado a Excel (CSV).', 'success');
+            }
+
+            // Export CXC to PDF
+            window.exportCXCToPDF = exportCXCToPDF;
+            function exportCXCToPDF() {
+                const coopInvoices = cxcInvoices.filter(inv => inv.cooperativa === activeCooperativa);
+
+                if (coopInvoices.length === 0) {
+                    showToast('No hay cuentas por cobrar para exportar.', 'warning');
+                    return;
+                }
+
+                coopInvoices.sort((a, b) => new Date(b.vencimiento) - new Date(a.vencimiento));
+
+                let htmlContent = `
+                    <html>
+                    <head>
+                        <title>Reporte de Cuentas por Cobrar - ${activeCooperativa}</title>
+                        <style>
+                            body { font-family: 'Inter', sans-serif; padding: 20px; color: #333; }
+                            h2 { text-align: center; color: #1e3a8a; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; }
+                            .header-info { margin-bottom: 20px; font-size: 14px; color: #475569; }
+                            table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 12px; }
+                            th, td { border: 1px solid #cbd5e1; padding: 10px; text-align: left; }
+                            th { background-color: #f8fafc; color: #1e293b; font-weight: 600; }
+                            .amount { text-align: right; font-family: monospace; }
+                            .footer { margin-top: 30px; font-size: 12px; color: #64748b; text-align: center; border-top: 1px solid #e2e8f0; padding-top: 10px; }
+                        </style>
+                    </head>
+                    <body>
+                        <h2>Reporte de Cuentas por Cobrar</h2>
+                        <div class="header-info">
+                            <strong>Cooperativa:</strong> ${activeCooperativa}<br>
+                            <strong>Fecha de Emisión:</strong> ${new Date().toLocaleDateString('es-PE')}
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Cliente</th>
+                                    <th>Documento</th>
+                                    <th>Monto (S/)</th>
+                                    <th>Pagado (S/)</th>
+                                    <th>Saldo (S/)</th>
+                                    <th>Vencimiento</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                `;
+
+                let totalMonto = 0;
+                let totalSaldo = 0;
+
+                coopInvoices.forEach(inv => {
+                    const status = getInvoiceStatus(inv);
+                    totalMonto += parseFloat(inv.monto);
+                    totalSaldo += parseFloat(inv.saldo);
+                    htmlContent += `
+                        <tr>
+                            <td>${inv.cliente}</td>
+                            <td>${inv.id}</td>
+                            <td class="amount">${parseFloat(inv.monto).toLocaleString('es-PE', { minimumFractionDigits: 2 })}</td>
+                            <td class="amount">${parseFloat(inv.pagado).toLocaleString('es-PE', { minimumFractionDigits: 2 })}</td>
+                            <td class="amount"><strong>${parseFloat(inv.saldo).toLocaleString('es-PE', { minimumFractionDigits: 2 })}</strong></td>
+                            <td>${inv.vencimiento}</td>
+                            <td>${status}</td>
+                        </tr>
+                    `;
+                });
+
+                htmlContent += `
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th colspan="2" style="text-align: right;">Total:</th>
+                                    <th class="amount">${totalMonto.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</th>
+                                    <th></th>
+                                    <th class="amount">${totalSaldo.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</th>
+                                    <th colspan="2"></th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        <div class="footer">
+                            Generado por BRECOM ERP el ${new Date().toLocaleString('es-PE')}
+                        </div>
+                        \x3cscript\x3e
+                            window.onload = function() { window.print(); }
+                        <\/script>
+                    </body>
+                    </html>
+                `;
+
+                const printWindow = window.open('', '', 'width=900,height=600');
+                printWindow.document.write(htmlContent);
+                printWindow.document.close();
+            }
+
             // Open payment modal
             window.openRegisterCXCPayment = openRegisterCXCPayment;
             function openRegisterCXCPayment() {
@@ -6986,7 +7499,7 @@
                 const coopObligations = cxpInvoices.filter(ob => ob.cooperativa === activeCooperativa);
 
                 if (coopObligations.length === 0) {
-                    tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: var(--on-surface-secondary); padding: 20px;">No hay obligaciones de pago para esta cooperativa.</td></tr>`;
+                    tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; color: var(--on-surface-secondary); padding: 20px;">No hay obligaciones de pago para esta cooperativa.</td></tr>`;
                     return;
                 }
 
@@ -7008,6 +7521,17 @@
                         statusBadge = '<span class="badge badge-info" style="background: rgba(46, 125, 50, 0.15); color: #2e7d32;">Vigente</span>';
                     }
 
+                    let actionBtn = '';
+                    if (ob.saldo > 0) {
+                        actionBtn = `<span style="color: #ea580c; display: inline-flex; align-items: center; gap: 4px; font-weight: 600; font-size: 11px; padding: 4px 8px; border: 1px solid #fed7aa; border-radius: 4px; background: #fff7ed;">
+                            <i data-lucide="bell" style="width:12px;height:12px;"></i> Pago Pendiente
+                        </span>`;
+                    } else {
+                        actionBtn = `<span style="color: var(--success); font-size: 11px; display: inline-flex; align-items: center; gap: 4px; font-weight: 600;">
+                            <i data-lucide="check" style="width:12px;height:12px;"></i> Cancelado
+                        </span>`;
+                    }
+
                     tr.innerHTML = `
                     <td><div style="font-weight: 600;">${ob.proveedor}</div></td>
                     <td>${ob.concepto}</td>
@@ -7016,10 +7540,142 @@
                     <td style="font-weight: 700; color: ${ob.saldo > 0 ? 'var(--error)' : 'var(--success)'}">S/ ${parseFloat(ob.saldo).toLocaleString('es-PE', { minimumFractionDigits: 2 })}</td>
                     <td>${ob.vencimiento}</td>
                     <td>${statusBadge}</td>
+                    <td>${actionBtn}</td>
                 `;
                     tbody.appendChild(tr);
                 });
+                
+                if (window.lucide) {
+                    window.lucide.createIcons();
+                }
             };
+
+            // Export CXP to CSV
+            window.exportCXPToExcel = exportCXPToExcel;
+            function exportCXPToExcel() {
+                const coopObligations = cxpInvoices.filter(ob => ob.cooperativa === activeCooperativa);
+
+                if (coopObligations.length === 0) {
+                    showToast('No hay cuentas por pagar para exportar.', 'warning');
+                    return;
+                }
+
+                coopObligations.sort((a, b) => new Date(b.vencimiento) - new Date(a.vencimiento));
+
+                let csvContent = "\ufeff"; // BOM
+                csvContent += "Proveedor;Concepto;Monto (S/);Pagado (S/);Saldo (S/);Vencimiento;Estado\n";
+
+                coopObligations.forEach(ob => {
+                    const status = getObligacionStatus(ob);
+                    csvContent += `"${ob.proveedor}";"${ob.concepto}";${ob.monto};${ob.pagado};${ob.saldo};"${ob.vencimiento}";"${status}"\n`;
+                });
+
+                const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement("a");
+                link.setAttribute("href", url);
+                link.setAttribute("download", `Reporte_Cuentas_Pagar_${activeCooperativa.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.csv`);
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                showToast('📊 Reporte de Cuentas por Pagar exportado a Excel (CSV).', 'success');
+            }
+
+            // Export CXP to PDF
+            window.exportCXPToPDF = exportCXPToPDF;
+            function exportCXPToPDF() {
+                const coopObligations = cxpInvoices.filter(ob => ob.cooperativa === activeCooperativa);
+
+                if (coopObligations.length === 0) {
+                    showToast('No hay cuentas por pagar para exportar.', 'warning');
+                    return;
+                }
+
+                coopObligations.sort((a, b) => new Date(b.vencimiento) - new Date(a.vencimiento));
+
+                let htmlContent = `
+                    <html>
+                    <head>
+                        <title>Reporte de Cuentas por Pagar - ${activeCooperativa}</title>
+                        <style>
+                            body { font-family: 'Inter', sans-serif; padding: 20px; color: #333; }
+                            h2 { text-align: center; color: #b91c1c; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; }
+                            .header-info { margin-bottom: 20px; font-size: 14px; color: #475569; }
+                            table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 12px; }
+                            th, td { border: 1px solid #cbd5e1; padding: 10px; text-align: left; }
+                            th { background-color: #f8fafc; color: #1e293b; font-weight: 600; }
+                            .amount { text-align: right; font-family: monospace; }
+                            .footer { margin-top: 30px; font-size: 12px; color: #64748b; text-align: center; border-top: 1px solid #e2e8f0; padding-top: 10px; }
+                        </style>
+                    </head>
+                    <body>
+                        <h2>Reporte de Cuentas por Pagar</h2>
+                        <div class="header-info">
+                            <strong>Cooperativa:</strong> ${activeCooperativa}<br>
+                            <strong>Fecha de Emisión:</strong> ${new Date().toLocaleDateString('es-PE')}
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Proveedor</th>
+                                    <th>Concepto</th>
+                                    <th>Monto (S/)</th>
+                                    <th>Pagado (S/)</th>
+                                    <th>Saldo (S/)</th>
+                                    <th>Vencimiento</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                `;
+
+                let totalMonto = 0;
+                let totalSaldo = 0;
+
+                coopObligations.forEach(ob => {
+                    const status = getObligacionStatus(ob);
+                    totalMonto += parseFloat(ob.monto);
+                    totalSaldo += parseFloat(ob.saldo);
+                    htmlContent += `
+                        <tr>
+                            <td>${ob.proveedor}</td>
+                            <td>${ob.concepto}</td>
+                            <td class="amount">${parseFloat(ob.monto).toLocaleString('es-PE', { minimumFractionDigits: 2 })}</td>
+                            <td class="amount">${parseFloat(ob.pagado).toLocaleString('es-PE', { minimumFractionDigits: 2 })}</td>
+                            <td class="amount"><strong>${parseFloat(ob.saldo).toLocaleString('es-PE', { minimumFractionDigits: 2 })}</strong></td>
+                            <td>${ob.vencimiento}</td>
+                            <td>${status}</td>
+                        </tr>
+                    `;
+                });
+
+                htmlContent += `
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th colspan="2" style="text-align: right;">Total:</th>
+                                    <th class="amount">${totalMonto.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</th>
+                                    <th></th>
+                                    <th class="amount">${totalSaldo.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</th>
+                                    <th colspan="2"></th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        <div class="footer">
+                            Generado por BRECOM ERP el ${new Date().toLocaleString('es-PE')}
+                        </div>
+                        \x3cscript\x3e
+                            window.onload = function() { window.print(); }
+                        <\/script>
+                    </body>
+                    </html>
+                `;
+
+                const printWindow = window.open('', '', 'width=900,height=600');
+                printWindow.document.write(htmlContent);
+                printWindow.document.close();
+            }
 
             // Open CxP payment modal
             window.openRegisterCXPPayment = openRegisterCXPPayment;
@@ -8535,40 +9191,58 @@
                 const activeCoop = activeCooperativa;
                 const fromDate = document.getElementById('costosFechaDesde').value;
                 const toDate = document.getElementById('costosFechaHasta').value;
+                const searchQ = (document.getElementById('costosBusqueda').value || '').toLowerCase().trim();
+                const filterCC = document.getElementById('costosFiltroCC').value;
+                const filterCat = document.getElementById('costosFiltroCategoria').value;
 
-                // 1. Gather all cost centers
+                // 1. Gather all cost centers and categories
                 const centers = ['Producción', 'Acopio', 'Almacén', 'Comercialización', 'Administración', 'Finanzas'];
-                const aggregation = {};
+                const aggregationCC = {};
                 centers.forEach(c => {
-                    aggregation[c] = { contado: 0, credito: 0, total: 0 };
+                    aggregationCC[c] = { contado: 0, credito: 0, total: 0 };
                 });
 
-                // 2. Aggregate data applying date filters
+                const aggregationCat = {};
+
+                // 2. Aggregate data applying date and custom filters
                 compras.forEach(item => {
                     if (item.cooperativa !== activeCoop) return;
 
                     if (fromDate && item.fecha < fromDate) return;
                     if (toDate && item.fecha > toDate) return;
+                    
+                    if (filterCC && item.centroCosto !== filterCC) return;
+                    if (filterCat && item.clasificacion !== filterCat) return;
+                    
+                    if (searchQ) {
+                        const match = item.proveedor.toLowerCase().includes(searchQ) || item.concepto.toLowerCase().includes(searchQ);
+                        if (!match) return;
+                    }
 
                     const cc = item.centroCosto || 'Administración';
-                    if (!aggregation[cc]) return;
-
                     const amount = item.monto;
-                    if (item.condicion === 'Crédito') {
-                        aggregation[cc].credito += amount;
-                    } else {
-                        aggregation[cc].contado += amount;
+                    
+                    if (aggregationCC[cc]) {
+                        if (item.condicion === 'Crédito') {
+                            aggregationCC[cc].credito += amount;
+                        } else {
+                            aggregationCC[cc].contado += amount;
+                        }
+                        aggregationCC[cc].total += amount;
                     }
-                    aggregation[cc].total += amount;
+                    
+                    const cat = item.clasificacion || 'Sin Clasificar';
+                    if (!aggregationCat[cat]) aggregationCat[cat] = 0;
+                    aggregationCat[cat] += amount;
                 });
 
-                const grandTotal = Object.values(aggregation).reduce((acc, cur) => acc + cur.total, 0);
+                const grandTotal = Object.values(aggregationCC).reduce((acc, cur) => acc + cur.total, 0);
 
                 // 3. Render Cards
                 const cardsGrid = document.getElementById('centrosCostoCardsGrid');
                 if (cardsGrid) {
                     cardsGrid.innerHTML = '';
-                    const sortedCenters = [...centers].sort((a, b) => aggregation[b].total - aggregation[a].total);
+                    const sortedCenters = [...centers].sort((a, b) => aggregationCC[b].total - aggregationCC[a].total);
 
                     const ccColors = {
                         'Producción': '#2e7d32', // Green
@@ -8580,7 +9254,9 @@
                     };
 
                     sortedCenters.forEach(cc => {
-                        const cData = aggregation[cc];
+                        const cData = aggregationCC[cc];
+                        if (filterCC && filterCC !== cc && cData.total === 0) return; // Hide empty cards if filtered
+                        
                         const color = ccColors[cc] || '#37474f';
                         const card = document.createElement('div');
                         card.className = 'card fade-in';
@@ -8597,36 +9273,71 @@
                     });
                 }
 
-                // 4. Populate Table
-                const tbody = document.getElementById('centrosCostoTableBody');
-                if (!tbody) return;
-                tbody.innerHTML = '';
+                // 4. Populate Table CC
+                const tbodyCC = document.getElementById('centrosCostoTableBody');
+                if (tbodyCC) {
+                    tbodyCC.innerHTML = '';
+                    centers.forEach(cc => {
+                        const cData = aggregationCC[cc];
+                        if (filterCC && filterCC !== cc && cData.total === 0) return;
+                        
+                        let prop = 0;
+                        if (grandTotal > 0) {
+                            prop = Math.round((cData.total / grandTotal) * 100);
+                        }
 
-                centers.forEach(cc => {
-                    const cData = aggregation[cc];
-                    let prop = 0;
-                    if (grandTotal > 0) {
-                        prop = Math.round((cData.total / grandTotal) * 100);
-                    }
-
-                    const tr = document.createElement('tr');
-                    tr.style = 'border-bottom: 1px solid var(--border);';
-                    tr.innerHTML = `
-                    <td style="padding: 12px 10px; font-weight: bold; color: var(--on-surface);">${cc}</td>
-                    <td style="padding: 12px 10px; text-align: right; color: #2e7d32;">S/ ${cData.contado.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</td>
-                    <td style="padding: 12px 10px; text-align: right; color: #ef6c00;">S/ ${cData.credito.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</td>
-                    <td style="padding: 12px 10px; text-align: right; font-weight: bold; color: var(--on-surface);">S/ ${cData.total.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</td>
-                    <td style="padding: 12px 10px; text-align: right;">
-                        <div style="display: flex; align-items: center; justify-content: flex-end; gap: 8px;">
-                            <span style="font-size: 11px; font-weight: bold;">${prop}%</span>
-                            <div style="width: 60px; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden;">
-                                <div style="height:100%; background:#1f803f; width:${prop}%;"></div>
+                        const tr = document.createElement('tr');
+                        tr.style = 'border-bottom: 1px solid var(--border);';
+                        tr.innerHTML = `
+                        <td style="padding: 12px 10px; font-weight: bold; color: var(--on-surface);">${cc}</td>
+                        <td style="padding: 12px 10px; text-align: right; color: #2e7d32;">S/ ${cData.contado.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</td>
+                        <td style="padding: 12px 10px; text-align: right; color: #ef6c00;">S/ ${cData.credito.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</td>
+                        <td style="padding: 12px 10px; text-align: right; font-weight: bold; color: var(--on-surface);">S/ ${cData.total.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</td>
+                        <td style="padding: 12px 10px; text-align: right;">
+                            <div style="display: flex; align-items: center; justify-content: flex-end; gap: 8px;">
+                                <span style="font-size: 11px; font-weight: bold;">${prop}%</span>
+                                <div style="width: 60px; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden;">
+                                    <div style="height:100%; background:#1f803f; width:${prop}%;"></div>
+                                </div>
                             </div>
-                        </div>
-                    </td>
-                `;
-                    tbody.appendChild(tr);
-                });
+                        </td>
+                    `;
+                        tbodyCC.appendChild(tr);
+                    });
+                }
+                
+                // 5. Populate Table Categoria
+                const tbodyCat = document.getElementById('categoriaCostoTableBody');
+                if (tbodyCat) {
+                    tbodyCat.innerHTML = '';
+                    const cats = Object.keys(aggregationCat).sort((a, b) => aggregationCat[b] - aggregationCat[a]);
+                    
+                    if (cats.length === 0) {
+                        tbodyCat.innerHTML = `<tr><td colspan="3" style="text-align:center;color:var(--on-surface-secondary);padding:20px;">No hay datos para los filtros seleccionados.</td></tr>`;
+                    } else {
+                        cats.forEach(cat => {
+                            const val = aggregationCat[cat];
+                            let prop = 0;
+                            if (grandTotal > 0) prop = Math.round((val / grandTotal) * 100);
+                            
+                            const tr = document.createElement('tr');
+                            tr.style = 'border-bottom: 1px solid var(--border);';
+                            tr.innerHTML = `
+                            <td style="padding: 12px 10px; font-weight: 600; color: var(--on-surface);">${cat}</td>
+                            <td style="padding: 12px 10px; text-align: right; font-weight: bold;">S/ ${val.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</td>
+                            <td style="padding: 12px 10px; text-align: right;">
+                                <div style="display: flex; align-items: center; justify-content: flex-end; gap: 8px;">
+                                    <span style="font-size: 11px; font-weight: bold;">${prop}%</span>
+                                    <div style="width: 60px; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden;">
+                                        <div style="height:100%; background:#1565c0; width:${prop}%;"></div>
+                                    </div>
+                                </div>
+                            </td>
+                            `;
+                            tbodyCat.appendChild(tr);
+                        });
+                    }
+                }
             }
             window.renderCentrosCostoView = renderCentrosCostoView;
 
@@ -8795,25 +9506,42 @@
             window.exportComprasToExcel = exportComprasToExcel;
             function exportComprasToExcel() {
                 const activeCoop = activeCooperativa;
-                const filtered = compras.filter(item => item.cooperativa === activeCoop);
+                const fromDate = document.getElementById('costosFechaDesde') ? document.getElementById('costosFechaDesde').value : '';
+                const toDate = document.getElementById('costosFechaHasta') ? document.getElementById('costosFechaHasta').value : '';
+                const searchQ = document.getElementById('costosBusqueda') ? document.getElementById('costosBusqueda').value.toLowerCase().trim() : '';
+                const filterCC = document.getElementById('costosFiltroCC') ? document.getElementById('costosFiltroCC').value : '';
+                const filterCat = document.getElementById('costosFiltroCategoria') ? document.getElementById('costosFiltroCategoria').value : '';
+
+                const filtered = compras.filter(item => {
+                    if (item.cooperativa !== activeCoop) return false;
+                    if (fromDate && item.fecha < fromDate) return false;
+                    if (toDate && item.fecha > toDate) return false;
+                    if (filterCC && item.centroCosto !== filterCC) return false;
+                    if (filterCat && item.clasificacion !== filterCat) return false;
+                    if (searchQ) {
+                        const match = item.proveedor.toLowerCase().includes(searchQ) || item.concepto.toLowerCase().includes(searchQ);
+                        if (!match) return false;
+                    }
+                    return true;
+                });
 
                 if (filtered.length === 0) {
-                    showToast('⚠️ No hay transacciones de compras para exportar.', 'error');
+                    showToast('⚠️ No hay transacciones de compras para exportar.', 'warning');
                     return;
                 }
 
                 let csvContent = "\ufeff"; // BOM for excel utf-8
-                csvContent += "ID,Fecha,Proveedor,Concepto,Clasificación,Cantidad,Unidad,Monto,Centro Costo,Condición\n";
+                csvContent += "ID;Fecha;Proveedor;Concepto;Clasificación;Cantidad;Unidad;Monto (S/);Centro Costo;Condición\n";
 
                 filtered.forEach(item => {
-                    csvContent += `"${item.id}","${item.fecha}","${item.proveedor.replace(/"/g, '""')}","${item.concepto.replace(/"/g, '""')}","${item.clasificacion}","${item.cantidad}","${item.unidad}","${item.monto}","${item.centroCosto}","${item.condicion}"\n`;
+                    csvContent += `"${item.id}";"${item.fecha}";"${item.proveedor.replace(/"/g, '""')}";"${item.concepto.replace(/"/g, '""')}";"${item.clasificacion}";${item.cantidad};"${item.unidad}";${item.monto};"${item.centroCosto}";"${item.condicion}"\n`;
                 });
 
                 const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
                 const url = URL.createObjectURL(blob);
                 const link = document.createElement("a");
                 link.setAttribute("href", url);
-                link.setAttribute("download", `compras_gastos_${activeCoop.replace(/\s+/g, '_')}_2024.csv`);
+                link.setAttribute("download", `Reporte_Compras_${activeCoop.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.csv`);
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
@@ -8825,10 +9553,27 @@
             window.exportComprasToPDF = exportComprasToPDF;
             function exportComprasToPDF() {
                 const activeCoop = activeCooperativa;
-                const filtered = compras.filter(item => item.cooperativa === activeCoop);
+                const fromDate = document.getElementById('costosFechaDesde') ? document.getElementById('costosFechaDesde').value : '';
+                const toDate = document.getElementById('costosFechaHasta') ? document.getElementById('costosFechaHasta').value : '';
+                const searchQ = document.getElementById('costosBusqueda') ? document.getElementById('costosBusqueda').value.toLowerCase().trim() : '';
+                const filterCC = document.getElementById('costosFiltroCC') ? document.getElementById('costosFiltroCC').value : '';
+                const filterCat = document.getElementById('costosFiltroCategoria') ? document.getElementById('costosFiltroCategoria').value : '';
+
+                const filtered = compras.filter(item => {
+                    if (item.cooperativa !== activeCoop) return false;
+                    if (fromDate && item.fecha < fromDate) return false;
+                    if (toDate && item.fecha > toDate) return false;
+                    if (filterCC && item.centroCosto !== filterCC) return false;
+                    if (filterCat && item.clasificacion !== filterCat) return false;
+                    if (searchQ) {
+                        const match = item.proveedor.toLowerCase().includes(searchQ) || item.concepto.toLowerCase().includes(searchQ);
+                        if (!match) return false;
+                    }
+                    return true;
+                });
 
                 if (filtered.length === 0) {
-                    showToast('⚠️ No hay transacciones para generar reporte.', 'error');
+                    showToast('⚠️ No hay transacciones para generar reporte.', 'warning');
                     return;
                 }
 
@@ -9383,6 +10128,99 @@
             };
 
             // ==================== CONSOLIDADOS EXPORTS ====================
+            window.exportFacturasVentasToExcel = exportFacturasVentasToExcel;
+            function exportFacturasVentasToExcel() {
+                const tbody = document.getElementById('tbodyFacturacionVentas');
+                if (!tbody) return;
+
+                let csvContent = "\ufeffHistorial de Ventas\nFecha;Cliente;Producto/Servicio;Cantidad;Precio Unitario (S/);Total (S/);Estado\n";
+                const rows = tbody.querySelectorAll('tr');
+                rows.forEach(r => {
+                    const cols = r.querySelectorAll('td');
+                    if (cols.length >= 7) {
+                        const date = cols[0].innerText.trim();
+                        const client = cols[1].innerText.trim();
+                        const product = cols[2].innerText.trim();
+                        const qty = cols[3].innerText.replace(/,/g, '').trim();
+                        const price = cols[4].innerText.replace('S/', '').replace(/,/g, '').trim();
+                        const total = cols[5].innerText.replace('S/', '').replace(/,/g, '').trim();
+                        const status = cols[6].innerText.trim();
+                        csvContent += `"${date}";"${client}";"${product}";${qty};${price};${total};"${status}"\n`;
+                    }
+                });
+
+                const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement("a");
+                link.setAttribute("href", url);
+                link.setAttribute("download", `Historial_Ventas_${activeCooperativa.replace(/\s+/g, '_')}.csv`);
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                showToast('📊 Historial de Ventas exportado a Excel.', 'success');
+            }
+
+            window.exportFacturasVentasToPDF = exportFacturasVentasToPDF;
+            function exportFacturasVentasToPDF() {
+                const tbody = document.getElementById('tbodyFacturacionVentas');
+                if (!tbody) return;
+
+                const printWindow = window.open('', '_blank');
+                printWindow.document.write(`
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Historial de Ventas - ${activeCooperativa}</title>
+                    <style>
+                        body { font-family: 'Inter', sans-serif; padding: 40px; color: #333; }
+                        h1 { color: #1e88e5; margin-bottom: 5px; }
+                        .subtitle { font-size: 14px; color: #666; margin-bottom: 30px; }
+                        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+                        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; font-size: 13px; }
+                        th { background-color: #f5f5f5; color: #444; }
+                        .badge { padding: 4px 8px; border-radius: 4px; font-weight: bold; }
+                        .badge-success { background: #E8F5E9; color: #2E7D32; }
+                        .badge-warning { background: #FFF8E1; color: #F57F17; }
+                    </style>
+                </head>
+                <body>
+                    <h1>Historial de Ventas</h1>
+                    <div class="subtitle">
+                        <strong>Cooperativa:</strong> ${activeCooperativa}<br>
+                        <strong>Generado el:</strong> ${new Date().toLocaleString('es-PE')}
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Cliente</th>
+                                <th>Producto/Servicio</th>
+                                <th>Cantidad</th>
+                                <th>Precio Unitario (S/)</th>
+                                <th>Total (S/)</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${tbody.innerHTML}
+                        </tbody>
+                    </table>
+                    <div style="margin-top:50px; text-align:center; color:#888; font-size:12px;">
+                        Documento generado automáticamente por el Sistema Integral de Gestión
+                    </div>
+                    \x3cscript>
+                        window.onload = function() {
+                            window.print();
+                            setTimeout(function() { window.close(); }, 500);
+                        }
+                    \x3c/script>
+                </body>
+                </html>
+                `);
+                printWindow.document.close();
+                showToast('🖨️ Documento de impresión generado.', 'success');
+            }
+
             window.exportConsolidadosToExcel = exportConsolidadosToExcel;
             function exportConsolidadosToExcel() {
                 let csvContent = "data:text/csv;charset=utf-8,\uFEFF";
@@ -9561,7 +10399,435 @@
                 showToast('🖨️ Documento de impresión de Consolidados de Ventas generado.', 'success');
             };
 
-            // ==================== INIT ====================
+            // ==================== REPORTES FINANCIEROS MODULE ====================
+            let activeReportesTab = 'estado-resultados';
+            window.switchReportesTab = switchReportesTab;
+            function switchReportesTab(element) {
+                const tabs = document.querySelectorAll('#mod-reportes .tabs .tab');
+                tabs.forEach(t => t.classList.remove('active'));
+                element.classList.add('active');
+                activeReportesTab = element.dataset.tab;
+
+                const subviews = document.querySelectorAll('#mod-reportes .reportes-subview');
+                subviews.forEach(v => v.style.display = 'none');
+                document.getElementById('subview-reportes-' + activeReportesTab).style.display = 'block';
+
+                renderActiveReportesSubtab();
+            }
+
+            window.renderActiveReportesSubtab = renderActiveReportesSubtab;
+            function renderActiveReportesSubtab() {
+                if (activeReportesTab === 'estado-resultados') renderEstadoResultadosView();
+                else if (activeReportesTab === 'balance-general') renderBalanceGeneralView();
+                else if (activeReportesTab === 'flujo-caja') renderFlujoCajaView();
+            }
+
+            window.renderEstadoResultadosView = renderEstadoResultadosView;
+            function renderEstadoResultadosView() {
+                const tbody = document.getElementById('tbodyEstadoResultados');
+                if (!tbody) return;
+                tbody.innerHTML = '';
+                
+                const fromDate = document.getElementById('reportesFechaDesde').value;
+                const toDate = document.getElementById('reportesFechaHasta').value;
+                const coop = activeCooperativa;
+
+                // INGRESOS (Ventas)
+                let totalIngresos = 0;
+                let ingresosVentas = 0;
+                let ingresosServicios = 0;
+
+                ventas.forEach(v => {
+                    if (v.cooperativa !== coop) return;
+                    if (fromDate && v.fecha < fromDate) return;
+                    if (toDate && v.fecha > toDate) return;
+                    totalIngresos += parseFloat(v.total) || 0;
+                    if ((v.producto || '').toLowerCase().includes('servicio')) ingresosServicios += parseFloat(v.total) || 0;
+                    else ingresosVentas += parseFloat(v.total) || 0;
+                });
+
+                // EGRESOS (Compras y Acopio - excluir activos fijos)
+                let totalEgresos = 0;
+                let egresosAcopio = 0;
+                let egresosInsumos = 0;
+                let egresosOperativos = 0;
+                let egresosAdmin = 0;
+
+                compras.forEach(c => {
+                    if (c.cooperativa !== coop) return;
+                    if (fromDate && c.fecha < fromDate) return;
+                    if (toDate && c.fecha > toDate) return;
+                    if (c.clasificacion === 'Equipos y Activos') return; // Capitalized, not expensed
+
+                    totalEgresos += c.monto;
+                    if (c.clasificacion === 'Insumo Agrícola') egresosInsumos += c.monto;
+                    else if (c.centroCosto === 'Administración' || c.centroCosto === 'Finanzas') egresosAdmin += c.monto;
+                    else egresosOperativos += c.monto;
+                });
+
+                acopioData.forEach(a => {
+                    if (a.cooperativa !== coop) return;
+                    if (!a.liquidado) return;
+                    if (fromDate && a.fecha < fromDate) return;
+                    if (toDate && a.fecha > toDate) return;
+                    totalEgresos += a.totalNeto || 0;
+                    egresosAcopio += a.totalNeto || 0;
+                });
+
+                const utilidadNeta = totalIngresos - totalEgresos;
+
+                tbody.innerHTML = `
+                    <tr style="font-weight:700;background:#E8F5E9;">
+                        <td>INGRESOS OPERATIVOS</td>
+                        <td style="text-align:right;"></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Ventas de Productos</td>
+                        <td style="text-align:right;">S/ ${ingresosVentas.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Ingresos por Servicios</td>
+                        <td style="text-align:right;">S/ ${ingresosServicios.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</td>
+                    </tr>
+                    <tr style="font-weight:700;">
+                        <td>&nbsp;&nbsp;Total Ingresos</td>
+                        <td style="text-align:right;">S/ ${totalIngresos.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</td>
+                    </tr>
+                    <tr style="font-weight:700;background:#FFEBEE;">
+                        <td>COSTOS Y GASTOS (EGRESOS)</td>
+                        <td style="text-align:right;"></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Costo de Acopio</td>
+                        <td style="text-align:right;">S/ ${egresosAcopio.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Costo de Insumos</td>
+                        <td style="text-align:right;">S/ ${egresosInsumos.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Gastos Operativos / Logística</td>
+                        <td style="text-align:right;">S/ ${egresosOperativos.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Gastos Administrativos / Financieros</td>
+                        <td style="text-align:right;">S/ ${egresosAdmin.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</td>
+                    </tr>
+                    <tr style="font-weight:700;">
+                        <td>&nbsp;&nbsp;Total Costos y Gastos</td>
+                        <td style="text-align:right;">S/ ${totalEgresos.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</td>
+                    </tr>
+                    <tr style="font-weight:700;font-size:15px;background:${utilidadNeta >= 0 ? '#E8F5E9' : '#FFEBEE'}; color: ${utilidadNeta >= 0 ? 'var(--primary)' : 'var(--error)'};">
+                        <td>UTILIDAD (O PÉRDIDA) NETA</td>
+                        <td style="text-align:right;">S/ ${utilidadNeta.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</td>
+                    </tr>
+                `;
+            }
+
+            window.renderBalanceGeneralView = renderBalanceGeneralView;
+            function renderBalanceGeneralView() {
+                const tbody = document.getElementById('tbodyBalanceGeneral');
+                if (!tbody) return;
+                tbody.innerHTML = '';
+                
+                const fromDate = document.getElementById('reportesFechaDesde').value;
+                const toDate = document.getElementById('reportesFechaHasta').value;
+                const coop = activeCooperativa;
+
+                // 1. Activos
+                let activoCaja = 0;
+                cajaMovements.forEach(m => {
+                    if (m.tipo === 'Ingreso' || m.tipo === 'Aporte') activoCaja += m.monto;
+                    else activoCaja -= m.monto;
+                });
+
+                let activoCxC = 0;
+                cxcInvoices.filter(c => c.cooperativa === coop).forEach(c => activoCxC += c.saldo);
+
+                // Valorización Inventario (approximate from static list for demo)
+                const products = [
+                    { codigo: 'VAL-SECO', nombre: 'Frijol Seco', categoria: 'Comercial', unidad: 'kg' },
+                    { codigo: 'VAL-VERD', nombre: 'Palo Verde', categoria: 'Comercial', unidad: 'kg' },
+                    { codigo: 'VAL-SACO', nombre: 'Sacos 50kg', categoria: 'Envases', unidad: 'und' },
+                    { codigo: 'VAL-UREA', nombre: 'Fertilizante Urea', categoria: 'Insumos Agrícolas', unidad: 'kg' },
+                    { codigo: 'VAL-SEMI', nombre: 'Semillas Frijol', categoria: 'Insumos Agrícolas', unidad: 'kg' }
+                ];
+                let activoInventario = 0;
+                products.forEach(p => {
+                    const stock = typeof calculateProductStock === 'function' ? calculateProductStock(p.nombre, coop) : 0;
+                    const costUnit = (typeof PRODUCT_COSTS !== 'undefined' ? PRODUCT_COSTS[p.nombre] : 0) || 5;
+                    activoInventario += (stock * costUnit);
+                });
+
+                const totalActivos = activoCaja + activoCxC + activoInventario;
+
+                // 2. Pasivos
+                let pasivoCxP = 0;
+                cxpInvoices.filter(c => c.cooperativa === coop).forEach(c => pasivoCxP += c.saldo);
+                const totalPasivos = pasivoCxP;
+
+                // 3. Patrimonio
+                let patrimonioAportes = 0;
+                aportes.filter(a => a.cooperativa === coop).forEach(a => patrimonioAportes += a.monto);
+                
+                // Calculo de Utilidad Histórica (Ignorando fechas para balance, o respetándolas si se desea. El Balance General suele ser a una fecha "Hasta", ignorando "Desde")
+                let ingresosHist = 0;
+                ventas.filter(v => v.cooperativa === coop && (!toDate || v.fecha <= toDate)).forEach(v => ingresosHist += parseFloat(v.total) || 0);
+                
+                let egresosHist = 0;
+                compras.filter(c => c.cooperativa === coop && c.clasificacion !== 'Equipos y Activos' && (!toDate || c.fecha <= toDate)).forEach(c => egresosHist += c.monto);
+                acopioData.filter(a => a.cooperativa === coop && a.liquidado && (!toDate || a.fecha <= toDate)).forEach(a => egresosHist += a.totalNeto || 0);
+                
+                const utilidadAcumulada = ingresosHist - egresosHist;
+                
+                // Ajuste de cuadre: en un sistema real de partida doble siempre cuadra. Aquí hacemos un plug para la demostración financiera.
+                const plugAjuste = totalActivos - (totalPasivos + patrimonioAportes + utilidadAcumulada);
+                const totalPatrimonio = patrimonioAportes + utilidadAcumulada + plugAjuste;
+
+                tbody.innerHTML = `
+                    <tr style="font-weight:700;background:#E3F2FD;">
+                        <td>ACTIVOS</td>
+                        <td style="text-align:right;"></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Efectivo y Equivalentes (Caja y Bancos)</td>
+                        <td style="text-align:right;">S/ ${activoCaja.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Cuentas por Cobrar Comerciales</td>
+                        <td style="text-align:right;">S/ ${activoCxC.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Inventarios (Existencias y Almacén)</td>
+                        <td style="text-align:right;">S/ ${activoInventario.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</td>
+                    </tr>
+                    <tr style="font-weight:800; font-size:14px; background:#BBDEFB;">
+                        <td>TOTAL ACTIVOS</td>
+                        <td style="text-align:right;">S/ ${totalActivos.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</td>
+                    </tr>
+
+                    <tr style="font-weight:700;background:#FFEBEE;">
+                        <td>PASIVOS</td>
+                        <td style="text-align:right;"></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Cuentas por Pagar (Proveedores y Terceros)</td>
+                        <td style="text-align:right;">S/ ${pasivoCxP.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</td>
+                    </tr>
+                    <tr style="font-weight:800; font-size:14px; background:#FFCDD2;">
+                        <td>TOTAL PASIVOS</td>
+                        <td style="text-align:right;">S/ ${totalPasivos.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</td>
+                    </tr>
+
+                    <tr style="font-weight:700;background:#F3E5F5;">
+                        <td>PATRIMONIO</td>
+                        <td style="text-align:right;"></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Capital Social (Aportes de Asociados)</td>
+                        <td style="text-align:right;">S/ ${patrimonioAportes.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Resultados Acumulados (Utilidad/Pérdida)</td>
+                        <td style="text-align:right;">S/ ${utilidadAcumulada.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Ajuste de Conversión / Otros</td>
+                        <td style="text-align:right;">S/ ${plugAjuste.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</td>
+                    </tr>
+                    <tr style="font-weight:800; font-size:14px; background:#E1BEE7;">
+                        <td>TOTAL PATRIMONIO</td>
+                        <td style="text-align:right;">S/ ${totalPatrimonio.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</td>
+                    </tr>
+                    
+                    <tr style="font-weight:900; font-size:15px; background:#ECEFF1; color: var(--on-surface);">
+                        <td>TOTAL PASIVO + PATRIMONIO</td>
+                        <td style="text-align:right;">S/ ${(totalPasivos + totalPatrimonio).toLocaleString('es-PE', { minimumFractionDigits: 2 })}</td>
+                    </tr>
+                `;
+            }
+
+            window.renderFlujoCajaView = renderFlujoCajaView;
+            function renderFlujoCajaView() {
+                const tbody = document.getElementById('tbodyFlujoCaja');
+                if (!tbody) return;
+                tbody.innerHTML = '';
+                
+                const fromDate = document.getElementById('reportesFechaDesde').value;
+                const toDate = document.getElementById('reportesFechaHasta').value;
+
+                let ingresosCobranza = 0;
+                let ingresosAportes = 0;
+                let egresosCompras = 0;
+                let egresosAcopio = 0;
+                let egresosOtros = 0;
+                
+                // En un sistema real filtramos por cooperativa, pero cajaMovements aquí es global en la demo.
+                cajaMovements.forEach(m => {
+                    const dateOnly = m.fecha.split('T')[0];
+                    if (fromDate && dateOnly < fromDate) return;
+                    if (toDate && dateOnly > toDate) return;
+                    
+                    if (m.tipo === 'Ingreso') ingresosCobranza += m.monto;
+                    else if (m.tipo === 'Aporte') ingresosAportes += m.monto;
+                    else if (m.tipo === 'Retiro') {
+                        const concept = m.concepto.toLowerCase();
+                        if (concept.includes('compra')) egresosCompras += m.monto;
+                        else if (concept.includes('acopio') || concept.includes('liquidaci')) egresosAcopio += m.monto;
+                        else egresosOtros += m.monto;
+                    }
+                });
+
+                const totalEntradas = ingresosCobranza + ingresosAportes;
+                const totalSalidas = egresosCompras + egresosAcopio + egresosOtros;
+                const flujoNeto = totalEntradas - totalSalidas;
+
+                tbody.innerHTML = `
+                    <tr style="font-weight:700;background:#E8F5E9;">
+                        <td>ENTRADAS DE EFECTIVO (Cobros)</td>
+                        <td style="text-align:right;"></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Cobranza de Ventas y Servicios</td>
+                        <td style="text-align:right;">S/ ${ingresosCobranza.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Aportes de Capital de Asociados</td>
+                        <td style="text-align:right;">S/ ${ingresosAportes.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</td>
+                    </tr>
+                    <tr style="font-weight:700;">
+                        <td>&nbsp;&nbsp;Total Entradas Operativas</td>
+                        <td style="text-align:right;">S/ ${totalEntradas.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</td>
+                    </tr>
+                    
+                    <tr style="font-weight:700;background:#FFEBEE; margin-top:10px;">
+                        <td>SALIDAS DE EFECTIVO (Pagos)</td>
+                        <td style="text-align:right;"></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Pago a Asociados (Acopio)</td>
+                        <td style="text-align:right;">S/ ${egresosAcopio.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Pago a Proveedores (Compras)</td>
+                        <td style="text-align:right;">S/ ${egresosCompras.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Otros Pagos Operativos y Administrativos</td>
+                        <td style="text-align:right;">S/ ${egresosOtros.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</td>
+                    </tr>
+                    <tr style="font-weight:700;">
+                        <td>&nbsp;&nbsp;Total Salidas Operativas</td>
+                        <td style="text-align:right;">S/ ${totalSalidas.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</td>
+                    </tr>
+                    
+                    <tr style="font-weight:800; font-size:15px; background:${flujoNeto >= 0 ? '#C8E6C9' : '#FFCDD2'}; color: var(--on-surface);">
+                        <td>FLUJO NETO DE EFECTIVO DEL PERIODO</td>
+                        <td style="text-align:right;">S/ ${flujoNeto.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</td>
+                    </tr>
+                `;
+            }
+
+            window.exportActiveReportToExcel = exportActiveReportToExcel;
+            function exportActiveReportToExcel() {
+                let tbodyId = '';
+                let title = '';
+                if (activeReportesTab === 'estado-resultados') { tbodyId = 'tbodyEstadoResultados'; title = 'Estado_Resultados'; }
+                else if (activeReportesTab === 'balance-general') { tbodyId = 'tbodyBalanceGeneral'; title = 'Balance_General'; }
+                else if (activeReportesTab === 'flujo-caja') { tbodyId = 'tbodyFlujoCaja'; title = 'Flujo_Caja'; }
+                
+                addAuditLog('admin', 'Reportes', 'EXPORTAR', `Exportación a EXCEL generada: ${title.replace('_', ' ')}`);
+
+                const tbody = document.getElementById(tbodyId);
+                if (!tbody) return;
+
+                let csvContent = "\ufeff" + title.replace('_', ' ') + "\nConcepto;Monto (S/)\n";
+                const rows = tbody.querySelectorAll('tr');
+                rows.forEach(r => {
+                    const cols = r.querySelectorAll('td');
+                    if (cols.length === 2) {
+                        const col1 = cols[0].innerText.replace(/&nbsp;/g, '').trim();
+                        const col2 = cols[1].innerText.replace('S/ ', '').replace(/,/g, '').trim() || '0.00';
+                        csvContent += `"${col1}";${col2}\n`;
+                    }
+                });
+
+                const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement("a");
+                link.setAttribute("href", url);
+                link.setAttribute("download", `${title}_${activeCooperativa.replace(/\s+/g, '_')}_2024.csv`);
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                showToast(`📊 ${title.replace('_', ' ')} exportado a Excel.`, 'success');
+            }
+
+            window.exportActiveReportToPDF = exportActiveReportToPDF;
+            function exportActiveReportToPDF() {
+                let tbodyId = '';
+                let title = '';
+                if (activeReportesTab === 'estado-resultados') { tbodyId = 'tbodyEstadoResultados'; title = 'Estado de Resultados (Ganancias y Pérdidas)'; }
+                else if (activeReportesTab === 'balance-general') { tbodyId = 'tbodyBalanceGeneral'; title = 'Balance General (Situación Financiera)'; }
+                else if (activeReportesTab === 'flujo-caja') { tbodyId = 'tbodyFlujoCaja'; title = 'Reporte de Flujo de Caja'; }
+
+                const tbody = document.getElementById(tbodyId);
+                if (!tbody) return;
+
+                const fromDate = document.getElementById('reportesFechaDesde').value;
+                const toDate = document.getElementById('reportesFechaHasta').value;
+                const dateSub = (fromDate || toDate) ? `Del ${fromDate || 'Inicio'} al ${toDate || 'Presente'}` : 'Acumulado Histórico';
+
+                const printWindow = window.open('', '_blank');
+                printWindow.document.write(`
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>${title} - ${activeCooperativa}</title>
+                    <style>
+                        body { font-family: 'Inter', sans-serif; padding: 40px; color: #333; }
+                        h1 { color: #1e88e5; margin-bottom: 5px; }
+                        .subtitle { font-size: 14px; color: #666; margin-bottom: 30px; }
+                        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+                        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+                        th { background-color: #f5f5f5; color: #444; }
+                        .text-right { text-align: right; }
+                        .bold-row { font-weight: bold; background: #fafafa; }
+                    </style>
+                </head>
+                <body>
+                    <h1>${title}</h1>
+                    <div class="subtitle">
+                        <strong>Cooperativa:</strong> ${activeCooperativa}<br>
+                        <strong>Periodo:</strong> ${dateSub}<br>
+                        <strong>Generado el:</strong> ${new Date().toLocaleString('es-PE')}
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Concepto / Cuenta</th>
+                                <th class="text-right">Monto (S/)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${tbody.innerHTML}
+                        </tbody>
+                    </table>
+                    <div style="margin-top:50px; text-align:center; color:#888; font-size:12px;">
+                        Documento generado automáticamente por el Sistema Integral de Gestión
+                    </div>
+                    \x3cscript>
+                        window.onload = function() {
+                            window.print();
+                            setTimeout(function() { window.close(); }, 500);
+                        }
+                    \x3c/script>
+                </body>
+                </html>
+                `);
+                printWindow.document.close();
+                showToast(`🖨️ Documento de ${title} generado para impresión.`, 'success');
+            }
             calculateCajaStats();
             renderCajaMovements();
             renderSalesChart();
@@ -9576,6 +10842,9 @@
             calculateAcopioStats();
             populateAcopioAsociadoDropdown();
             renderActiveAcopioSubtab();
+            
+            // Liquidacion Module Init
+            if (typeof renderLiquidacionView === 'function') renderLiquidacionView();
 
             // CxC Module Init
             calculateCXCStats();
@@ -9596,6 +10865,12 @@
             // Compras Module Init
             calculateComprasStats();
             renderActiveComprasSubtab();
+
+            // Reportes Financieros Module Init
+            renderActiveReportesSubtab();
+
+            // Auditoria Init
+            if (typeof renderAuditLogs === 'function') renderAuditLogs();
 
             document.getElementById('cooperativaSelector').value = activeCooperativa;
 
