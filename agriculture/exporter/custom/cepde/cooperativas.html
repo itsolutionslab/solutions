@@ -1062,6 +1062,29 @@
             padding: 2px 8px;
             border-radius: 4px;
         }
+            .conf-tabs {
+            display: flex;
+            flex-direction: column;
+        }
+        .conf-tab {
+            padding: 10px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            color: var(--on-surface-secondary);
+            font-weight: 500;
+            transition: all 0.2s;
+            text-align: left;
+            margin-bottom: 4px;
+        }
+        .conf-tab:hover {
+            background: rgba(31, 128, 63, 0.05);
+            color: var(--primary);
+        }
+        .conf-tab.active {
+            background: rgba(31, 128, 63, 0.1);
+            color: var(--primary);
+            font-weight: 600;
+        }
     </style>
     <style>
         body {
@@ -3319,102 +3342,186 @@
                         </div>
                     </div>
                 </div><!-- ===== CONFIGURACION ===== -->
-                <div class="module-view" id="mod-configuracion">
-                    <div class="grid-2 fade-in">
-                        <div class="card">
-                            <div class="card-header">
-                                <span class="card-title">Roles y Permisos</span>
+                                <div class="module-view" id="mod-configuracion">
+                    <div style="display: flex; gap: 20px; min-height: 70vh; flex-wrap: wrap;">
+                        <!-- SIDEBAR DE CONFIGURACION -->
+                        <div class="card fade-in" style="width: 260px; flex-shrink: 0; padding: 0; align-self: flex-start;">
+                            <div class="card-header" style="padding: 16px; border-bottom: 1px solid var(--border);">
+                                <span class="card-title">Panel de Administración SaaS</span>
                             </div>
-                            <div class="table-wrapper">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Rol</th>
-                                            <th>Usuarios</th>
-                                            <th>Permisos</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><strong>Administrador</strong></td>
-                                            <td>1</td>
-                                            <td>Acceso total</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Directivo</strong></td>
-                                            <td>3</td>
-                                            <td>Reportes, Aprobaciones</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Almacén</strong></td>
-                                            <td>2</td>
-                                            <td>Acopio, Inventarios</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Contabilidad</strong></td>
-                                            <td>1</td>
-                                            <td>Caja, CxC, CxP</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div><button class="btn btn-outline btn-sm" style="margin-top:12px;"><i data-lucide="plus"
-                                    style="width:14px;height:14px;"></i> Nuevo Rol</button>
-                        </div>
-                        <div class="card">
-                            <div class="card-header">
-                                <span class="card-title">Configuración del Sistema</span>
-                            </div>
-                            <div class="form-group"><label>Nombre Cooperativa</label> <input type="text"
-                                    value="Cooperativa Agraria del Norte">
-                            </div>
-                            <div class="form-group"><label>Campaña Activa</label> <select>
-                                    <option>2024-I</option>
-                                    <option>2023-II</option>
-                                </select>
-                            </div>
-                            <div class="form-group"><label>Humedad Máxima Permitida (%)</label> <input type="number"
-                                    value="16" id="configHumedad">
-                            </div>
-                            <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:16px;"><button
-                                    class="btn btn-primary btn-sm">Guardar Cambios</button> <button
-                                    class="btn btn-secondary btn-sm"><i data-lucide="download"
-                                        style="width:14px;height:14px;"></i> Copia de Seguridad</button>
+                            <div class="conf-tabs" style="display: flex; flex-direction: column; padding: 12px; gap: 4px;">
+                                <div class="conf-tab active" data-tab="conf-general" onclick="switchConfTab('conf-general')"><i data-lucide="settings" style="width:16px;height:16px;margin-right:8px;vertical-align:-3px;"></i> Perfil y Empresa</div>
+                                <div class="conf-tab" data-tab="conf-productos" onclick="switchConfTab('conf-productos')"><i data-lucide="box" style="width:16px;height:16px;margin-right:8px;vertical-align:-3px;"></i> Catálogo de Productos</div>
+                                <div class="conf-tab" data-tab="conf-cajas" onclick="switchConfTab('conf-cajas')"><i data-lucide="wallet" style="width:16px;height:16px;margin-right:8px;vertical-align:-3px;"></i> Cuentas Bancarias y Cajas</div>
+                                <div class="conf-tab" data-tab="conf-padron" onclick="switchConfTab('conf-padron')"><i data-lucide="users" style="width:16px;height:16px;margin-right:8px;vertical-align:-3px;"></i> Padrón de Asociados</div>
+                                <div class="conf-tab" data-tab="conf-roles" onclick="switchConfTab('conf-roles')"><i data-lucide="shield" style="width:16px;height:16px;margin-right:8px;vertical-align:-3px;"></i> Usuarios y Roles</div>
+                                <div class="conf-tab" data-tab="conf-videos" onclick="switchConfTab('conf-videos')"><i data-lucide="play-square" style="width:16px;height:16px;margin-right:8px;vertical-align:-3px;"></i> Videotutoriales</div>
                             </div>
                         </div>
-                        <div class="card" style="grid-column: span 2; margin-top: 16px;">
-                            <div class="card-header">
-                                <span class="card-title" style="display: inline-flex; align-items: center; gap: 8px;">
-                                    <i data-lucide="rocket"
-                                        style="color: var(--primary); width: 20px; height: 20px;"></i>
-                                    Configuración Inicial & Contratación (Onboarding)
-                                </span>
-                            </div>
-                            <div style="display: flex; flex-direction: column; gap: 12px; font-size: 13px;">
-                                <p style="color: var(--on-surface-secondary); line-height: 1.5; margin: 0;">
-                                    Durante la etapa de implementación de la cuenta cooperativa, puede cargar de forma
-                                    masiva el padrón completo de asociados entregadores. Esto habilitará la
-                                    identificación transaccional en la balanza de acopio y el módulo de aportes
-                                    automáticamente.
-                                </p>
-                                <div
-                                    style="background: rgba(31, 128, 63, 0.05); border: 1px solid rgba(31, 128, 63, 0.2); border-radius: 8px; padding: 12px; display: flex; align-items: center; justify-content: space-between; gap: 12px;">
-                                    <div>
-                                        <strong style="color: #1f803f; display: block; margin-bottom: 2px;">Carga de
-                                            Base de Datos de Asociados</strong>
-                                        <span style="font-size: 11px; color: var(--on-surface-secondary);">Sube tu
-                                            padrón desde un archivo Excel (.xlsx, .xls) o CSV de forma rápida.</span>
+
+                        <!-- CONTENEDOR DE VISTAS -->
+                        <div style="flex-grow: 1; min-width: 300px;">
+                            
+                            <!-- GENERAL -->
+                            <div class="conf-subview active fade-in" id="conf-general" style="display: block;">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <span class="card-title">Configuración del Sistema</span>
                                     </div>
-                                    <button class="btn btn-primary btn-sm" onclick="openModal('modalImportExcel')"
-                                        style="background: #1f803f; border-color: #1f803f; display: inline-flex; align-items: center; gap: 6px; font-weight: 600; cursor: pointer;">
-                                        <i data-lucide="file-spreadsheet" style="width:14px;height:14px;"></i> Importar
-                                        Padrón (Excel)
-                                    </button>
+                                    <div class="form-row">
+                                        <div class="form-group"><label>Nombre Cooperativa</label> <input type="text" id="configCoopName" value="Cooperativa Agraria del Norte"></div>
+                                        <div class="form-group"><label>RUC</label> <input type="text" id="configRUC" value="20000000001"></div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group"><label>Campaña Activa</label> <select id="configCampana">
+                                                <option>2024-I</option>
+                                                <option>2023-II</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group"><label>Humedad Máxima Permitida (%)</label> <input type="number" id="configHumedad" value="16"></div>
+                                    </div>
+                                    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:16px;">
+                                        <button class="btn btn-primary btn-sm" onclick="saveGeneralConfig()">Guardar Cambios</button> 
+                                        <button class="btn btn-secondary btn-sm" onclick="exportDataBackup()"><i data-lucide="download" style="width:14px;height:14px;"></i> Copia de Seguridad Local</button>
+                                    </div>
                                 </div>
                             </div>
+
+                            <!-- PRODUCTOS -->
+                            <div class="conf-subview fade-in" id="conf-productos" style="display: none;">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <span class="card-title">Catálogo de Productos</span>
+                                        <button class="btn btn-primary btn-sm" onclick="openConfProductoModal()">+ Añadir Producto</button>
+                                    </div>
+                                    <div class="table-wrapper">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>Código</th>
+                                                    <th>Nombre del Producto</th>
+                                                    <th>Unidad</th>
+                                                    <th>Precio Ref. (S/)</th>
+                                                    <th>Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="confProductosTable">
+                                                <!-- Dynamic -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- CAJAS -->
+                            <div class="conf-subview fade-in" id="conf-cajas" style="display: none;">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <span class="card-title">Cuentas Bancarias y Cajas</span>
+                                        <button class="btn btn-primary btn-sm" onclick="openConfCajaModal()">+ Añadir Cuenta</button>
+                                    </div>
+                                    <div class="table-wrapper">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>Nombre de Cuenta</th>
+                                                    <th>Tipo</th>
+                                                    <th>Número / CCI</th>
+                                                    <th>Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="confCajasTable">
+                                                <!-- Dynamic -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- PADRON -->
+                            <div class="conf-subview fade-in" id="conf-padron" style="display: none;">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <span class="card-title">Padrón de Asociados</span>
+                                        <div style="display:flex; gap:8px;">
+                                            <button class="btn btn-outline btn-sm" onclick="openModal('modalImportExcel')" style="color:#1f803f; border-color:#1f803f;"><i data-lucide="file-spreadsheet" style="width:14px;height:14px;"></i> Importar Excel</button>
+                                            <button class="btn btn-primary btn-sm" onclick="openConfAsociadoModal()">+ Añadir Asociado</button>
+                                        </div>
+                                    </div>
+                                    <div class="table-wrapper">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>DNI</th>
+                                                    <th>Nombre Completo</th>
+                                                    <th>Zona / Predio</th>
+                                                    <th>Hectáreas</th>
+                                                    <th>Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="confPadronTable">
+                                                <!-- Dynamic -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- ROLES -->
+                            <div class="conf-subview fade-in" id="conf-roles" style="display: none;">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <span class="card-title">Usuarios y Roles</span>
+                                        <button class="btn btn-primary btn-sm" onclick="openConfUserModal()">+ Nuevo Usuario</button>
+                                    </div>
+                                    <div class="table-wrapper">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>Usuario</th>
+                                                    <th>Rol</th>
+                                                    <th>Permisos</th>
+                                                    <th>Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="confUsersTable">
+                                                <!-- Dynamic -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- VIDEOS -->
+                            <div class="conf-subview fade-in" id="conf-videos" style="display: none;">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <span class="card-title">Videotutoriales (Centro de Capacitación)</span>
+                                        <button class="btn btn-primary btn-sm" onclick="openConfVideoModal()">+ Añadir Video</button>
+                                    </div>
+                                    <p style="color:var(--on-surface-secondary); font-size:13px; margin-bottom:16px;">Sube enlaces de Youtube/Vimeo para que aparezcan en el módulo de Capacitación de tus usuarios.</p>
+                                    <div class="table-wrapper">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>Título del Video</th>
+                                                    <th>Descripción</th>
+                                                    <th>URL (Youtube/Vimeo)</th>
+                                                    <th>Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="confVideosTable">
+                                                <!-- Dynamic -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
-            </div><!-- /page-content -->
+                </div><!-- /page-content -->
         </main>
     </div><!-- /app-layout --> <!-- ==================== NOTIFICATIONS PANEL ==================== -->
     <div class="notif-panel" id="notifPanel">
@@ -4268,6 +4375,152 @@
                 <div class="modal-footer">
                     <button class="btn btn-outline" onclick="closeModal('modalObligacionPago')">Cancelar</button><button
                         class="btn btn-primary" onclick="saveCXPPayment()">Registrar Pago</button>
+                </div>
+            </div>
+        </div>
+
+                <!-- ===== MODALS DE CONFIGURACION SAAS ===== -->
+        <div class="modal-overlay" id="modalConfProducto">
+            <div class="modal" style="max-width: 400px;">
+                <div class="modal-header">
+                    <h3>Añadir Producto</h3>
+                    <button class="modal-close" onclick="closeModal('modalConfProducto')"><i data-lucide="x"></i></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Nombre del Producto</label>
+                        <input type="text" id="confProdName" placeholder="Ej: Cacao Orgánico">
+                    </div>
+                    <div class="form-group">
+                        <label>Unidad de Medida</label>
+                        <input type="text" id="confProdUnit" placeholder="Ej: Saco 50kg" value="Saco 50kg">
+                    </div>
+                    <div class="form-group">
+                        <label>Precio Referencial (S/)</label>
+                        <input type="number" id="confProdPrice" placeholder="Ej: 150.00" value="0.00">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-outline" onclick="closeModal('modalConfProducto')">Cancelar</button>
+                    <button class="btn btn-primary" onclick="saveConfProducto()">Guardar Producto</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-overlay" id="modalConfCaja">
+            <div class="modal" style="max-width: 400px;">
+                <div class="modal-header">
+                    <h3>Añadir Cuenta/Caja</h3>
+                    <button class="modal-close" onclick="closeModal('modalConfCaja')"><i data-lucide="x"></i></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Nombre de la Cuenta</label>
+                        <input type="text" id="confCajaName" placeholder="Ej: BBVA Soles">
+                    </div>
+                    <div class="form-group">
+                        <label>Tipo</label>
+                        <select id="confCajaType">
+                            <option value="Banco">Banco</option>
+                            <option value="Efectivo">Efectivo (Caja Chica)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Número / CCI</label>
+                        <input type="text" id="confCajaNumber" placeholder="Ej: 0011-0111-0200..." value="-">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-outline" onclick="closeModal('modalConfCaja')">Cancelar</button>
+                    <button class="btn btn-primary" onclick="saveConfCaja()">Guardar Cuenta</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-overlay" id="modalConfUser">
+            <div class="modal" style="max-width: 400px;">
+                <div class="modal-header">
+                    <h3>Añadir Usuario</h3>
+                    <button class="modal-close" onclick="closeModal('modalConfUser')"><i data-lucide="x"></i></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Nombre / Correo</label>
+                        <input type="text" id="confUserName" placeholder="Ej: juan.perez@">
+                    </div>
+                    <div class="form-group">
+                        <label>Rol del Sistema</label>
+                        <select id="confUserRole">
+                            <option value="Administrador">Administrador (Acceso total)</option>
+                            <option value="Directivo">Directivo (Reportes)</option>
+                            <option value="Almacén">Almacén (Acopio/Inventario)</option>
+                            <option value="Contabilidad">Contabilidad (Caja/CxC)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-outline" onclick="closeModal('modalConfUser')">Cancelar</button>
+                    <button class="btn btn-primary" onclick="saveConfUser()">Crear Usuario</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-overlay" id="modalConfVideo">
+            <div class="modal" style="max-width: 450px;">
+                <div class="modal-header">
+                    <h3>Añadir Videotutorial</h3>
+                    <button class="modal-close" onclick="closeModal('modalConfVideo')"><i data-lucide="x"></i></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Título del Videotutorial</label>
+                        <input type="text" id="confVideoTitle" placeholder="Ej: Cómo liquidar a un asociado">
+                    </div>
+                    <div class="form-group">
+                        <label>Breve Descripción</label>
+                        <input type="text" id="confVideoDesc" placeholder="Ej: Pasos para generar voucher">
+                    </div>
+                    <div class="form-group">
+                        <label>URL (Youtube / Vimeo Embebido)</label>
+                        <input type="text" id="confVideoUrl" placeholder="https://www.youtube.com/embed/..." value="https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-outline" onclick="closeModal('modalConfVideo')">Cancelar</button>
+                    <button class="btn btn-primary" onclick="saveConfVideo()">Guardar Video</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-overlay" id="modalConfAsociado">
+            <div class="modal" style="max-width: 400px;">
+                <div class="modal-header">
+                    <h3>Añadir Asociado (Padrón)</h3>
+                    <button class="modal-close" onclick="closeModal('modalConfAsociado')"><i data-lucide="x"></i></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>DNI / RUC</label>
+                        <input type="text" id="confAsocDni" placeholder="Ej: 72000000">
+                    </div>
+                    <div class="form-group">
+                        <label>Nombre Completo</label>
+                        <input type="text" id="confAsocName" placeholder="Ej: Roberto Sánchez">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Zona / Predio</label>
+                            <input type="text" id="confAsocZona" placeholder="Ej: Caserío La Paz">
+                        </div>
+                        <div class="form-group">
+                            <label>Hectáreas</label>
+                            <input type="number" id="confAsocHa" placeholder="2.5" step="0.1">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-outline" onclick="closeModal('modalConfAsociado')">Cancelar</button>
+                    <button class="btn btn-primary" onclick="saveConfAsociado()">Añadir Asociado</button>
                 </div>
             </div>
         </div>
@@ -10872,11 +11125,336 @@
             // Auditoria Init
             if (typeof renderAuditLogs === 'function') renderAuditLogs();
 
+            // Configuracion SaaS Init
+            if (typeof initSaasConfig === 'function') initSaasConfig();
+
             document.getElementById('cooperativaSelector').value = activeCooperativa;
 
             if (window.lucide) {
                 window.lucide.createIcons();
             }
+
+                    // ==================== CONFIGURACION SAAS ====================
+            function switchConfTab(tabId) {
+                // Remove active from all tabs
+                document.querySelectorAll('.conf-tab').forEach(el => el.classList.remove('active'));
+                document.querySelectorAll('.conf-subview').forEach(el => {
+                    el.classList.remove('active');
+                    el.style.display = 'none';
+                });
+                
+                // Add active to selected
+                document.querySelector(`.conf-tab[data-tab="${tabId}"]`).classList.add('active');
+                const subview = document.getElementById(tabId);
+                subview.classList.add('active');
+                subview.style.display = 'block';
+            }
+
+            // Defaults (if not in localStorage)
+            const defaultProducts = [
+                { id: 'PROD01', name: 'Café Pergamino Seco', unit: 'Saco 69kg', price: 620 },
+                { id: 'PROD02', name: 'Cacao Grano Seco', unit: 'Saco 50kg', price: 450 },
+                { id: 'PROD03', name: 'Maíz Amarillo Duro', unit: 'Saco 50kg', price: 65 }
+            ];
+
+            const defaultCajas = [
+                { id: 'CAJA01', name: 'Caja Chica Central', type: 'Efectivo', number: '-' },
+                { id: 'CTA01', name: 'BCP Corriente', type: 'Banco', number: '191-0000000-0-00' }
+            ];
+
+            const defaultVideos = [
+                { id: 'VID01', title: 'Registro de Acopio', desc: 'Cómo registrar el peso', url: 'https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1' },
+                { id: 'VID02', title: 'Generación de Reportes', desc: 'Exportar a PDF/Excel', url: 'https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1' },
+                { id: 'VID03', title: 'Caja y Bancos', desc: 'Ingresos y Egresos', url: 'https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1' }
+            ];
+
+            const defaultUsers = [
+                { id: 'U01', name: 'admin', role: 'Administrador', perm: 'Acceso total' },
+                { id: 'U02', name: 'balanza', role: 'Almacén', perm: 'Acopio, Inventarios' },
+                { id: 'U03', name: 'caja', role: 'Contabilidad', perm: 'Caja, CxC, CxP' }
+            ];
+
+            function initSaasConfig() {
+                if (!localStorage.getItem('configProductos')) {
+                    localStorage.setItem('configProductos', JSON.stringify(defaultProducts));
+                }
+                if (!localStorage.getItem('configCajas')) {
+                    localStorage.setItem('configCajas', JSON.stringify(defaultCajas));
+                }
+                if (!localStorage.getItem('configVideos')) {
+                    localStorage.setItem('configVideos', JSON.stringify(defaultVideos));
+                }
+                if (!localStorage.getItem('configUsers')) {
+                    localStorage.setItem('configUsers', JSON.stringify(defaultUsers));
+                }
+                if (!localStorage.getItem('cooperativaAsociados')) {
+                    // Populate from existing 'asociados' list used earlier, or empty.
+                    localStorage.setItem('cooperativaAsociados', JSON.stringify([
+                        { dni: '12345678', name: 'Juan Pérez', zona: 'Sector El Milagro', ha: 2.5 },
+                        { dni: '87654321', name: 'María Gómez', zona: 'Fundo La Esperanza', ha: 1.8 }
+                    ]));
+                }
+                renderConfTables();
+            }
+
+            function renderConfTables() {
+                const prods = JSON.parse(localStorage.getItem('configProductos'));
+                const cajas = JSON.parse(localStorage.getItem('configCajas'));
+                const videos = JSON.parse(localStorage.getItem('configVideos'));
+                const users = JSON.parse(localStorage.getItem('configUsers'));
+                const asoc = JSON.parse(localStorage.getItem('cooperativaAsociados'));
+
+                // Render Products
+                const tbodyP = document.getElementById('confProductosTable');
+                if (tbodyP) {
+                    tbodyP.innerHTML = prods.map((p, i) => `
+                        <tr>
+                            <td>${p.id}</td>
+                            <td><strong>${p.name}</strong></td>
+                            <td>${p.unit}</td>
+                            <td>S/ ${p.price.toFixed(2)}</td>
+                            <td>
+                                <button class="btn btn-outline btn-sm" onclick="deleteConfigItem('configProductos', ${i})"><i data-lucide="trash-2" style="width:14px;height:14px;color:#d32f2f;"></i></button>
+                            </td>
+                        </tr>
+                    `).join('');
+                }
+
+                // Render Cajas
+                const tbodyC = document.getElementById('confCajasTable');
+                if (tbodyC) {
+                    tbodyC.innerHTML = cajas.map((c, i) => `
+                        <tr>
+                            <td><strong>${c.name}</strong></td>
+                            <td><span class="badge ${c.type === 'Efectivo' ? 'badge-verde' : 'badge-azul'}">${c.type}</span></td>
+                            <td>${c.number}</td>
+                            <td>
+                                <button class="btn btn-outline btn-sm" onclick="deleteConfigItem('configCajas', ${i})"><i data-lucide="trash-2" style="width:14px;height:14px;color:#d32f2f;"></i></button>
+                            </td>
+                        </tr>
+                    `).join('');
+                }
+
+                // Render Videos
+                const tbodyV = document.getElementById('confVideosTable');
+                if (tbodyV) {
+                    tbodyV.innerHTML = videos.map((v, i) => `
+                        <tr>
+                            <td><strong>${v.title}</strong></td>
+                            <td>${v.desc}</td>
+                            <td><a href="#" onclick="window.open('${v.url}', '_blank')">Enlace</a></td>
+                            <td>
+                                <button class="btn btn-outline btn-sm" onclick="deleteConfigItem('configVideos', ${i})"><i data-lucide="trash-2" style="width:14px;height:14px;color:#d32f2f;"></i></button>
+                            </td>
+                        </tr>
+                    `).join('');
+                }
+
+                // Render Users
+                const tbodyU = document.getElementById('confUsersTable');
+                if (tbodyU) {
+                    tbodyU.innerHTML = users.map((u, i) => `
+                        <tr>
+                            <td><strong>${u.name}</strong></td>
+                            <td><span class="badge badge-morado">${u.role}</span></td>
+                            <td>${u.perm}</td>
+                            <td>
+                                <button class="btn btn-outline btn-sm" onclick="deleteConfigItem('configUsers', ${i})"><i data-lucide="trash-2" style="width:14px;height:14px;color:#d32f2f;"></i></button>
+                            </td>
+                        </tr>
+                    `).join('');
+                }
+
+                // Render Padron
+                const tbodyA = document.getElementById('confPadronTable');
+                if (tbodyA) {
+                    tbodyA.innerHTML = asoc.map((a, i) => `
+                        <tr>
+                            <td>${a.dni}</td>
+                            <td><strong>${a.name}</strong></td>
+                            <td>${a.zona}</td>
+                            <td>${a.ha} ha</td>
+                            <td>
+                                <button class="btn btn-outline btn-sm" onclick="deleteConfigItem('cooperativaAsociados', ${i})"><i data-lucide="trash-2" style="width:14px;height:14px;color:#d32f2f;"></i></button>
+                            </td>
+                        </tr>
+                    `).join('');
+                }
+
+                if (window.lucide) window.lucide.createIcons();
+                syncSelects();
+                syncCapacitacionGrid();
+            }
+
+            function deleteConfigItem(storageKey, index) {
+                if (confirm('¿Seguro que deseas eliminar este registro?')) {
+                    let items = JSON.parse(localStorage.getItem(storageKey));
+                    items.splice(index, 1);
+                    localStorage.setItem(storageKey, JSON.stringify(items));
+                    addAuditLog('admin', 'Configuración', 'ELIMINAR', `Eliminó un registro de ${storageKey}`);
+                    renderConfTables();
+                }
+            }
+
+            // Sync all selects across the app
+            function syncSelects() {
+                const prods = JSON.parse(localStorage.getItem('configProductos'));
+                const cajas = JSON.parse(localStorage.getItem('configCajas'));
+
+                // Sync Products Select in Acopio
+                const acopioProd = document.getElementById('acopioProducto');
+                if (acopioProd) {
+                    const currentVal = acopioProd.value;
+                    acopioProd.innerHTML = prods.map(p => `<option value="${p.name}">${p.name}</option>`).join('');
+                    if (prods.find(p => p.name === currentVal)) acopioProd.value = currentVal;
+                }
+
+                // Sync Cajas Select in CxP/Liquidacion/Caja
+                const liqFormaPago = document.getElementById('liqFormaPago');
+                if (liqFormaPago) {
+                    liqFormaPago.innerHTML = cajas.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
+                }
+
+                const cxpForma = document.getElementById('cxpPagoForma');
+                if (cxpForma) {
+                    cxpForma.innerHTML = cajas.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
+                }
+
+                const cajaSelect = document.getElementById('cajaCuentaSelect');
+                if (cajaSelect) {
+                    cajaSelect.innerHTML = `<option value="all">Todas las Cuentas</option>` + cajas.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
+                }
+            }
+
+            function syncCapacitacionGrid() {
+                const videos = JSON.parse(localStorage.getItem('configVideos')) || [];
+                const grid = document.querySelector('#mod-capacitacion .grid-4');
+                if (!grid) return;
+
+                grid.innerHTML = videos.map(v => `
+                    <div class="video-card" onclick="watchVideo('${v.title}', '${v.url}')">
+                        <div class="video-thumb" style="background:linear-gradient(135deg,#000000,#333333);">
+                            <i data-lucide="play-circle" style="width:48px;height:48px;"></i>
+                        </div>
+                        <div class="video-card-body">
+                            <h4>${v.title}</h4>
+                            <p>${v.desc}</p>
+                        </div>
+                    </div>
+                `).join('');
+                if (window.lucide) window.lucide.createIcons();
+            }
+
+                        // UI Modals for Config (Replaces prompts)
+            function openConfProductoModal() {
+                document.getElementById('confProdName').value = '';
+                document.getElementById('confProdUnit').value = 'Saco 50kg';
+                document.getElementById('confProdPrice').value = '0.00';
+                openModal('modalConfProducto');
+            }
+            
+            window.saveConfProducto = function() {
+                const name = document.getElementById('confProdName').value.trim();
+                const unit = document.getElementById('confProdUnit').value.trim() || 'Saco 50kg';
+                const price = parseFloat(document.getElementById('confProdPrice').value) || 0;
+                
+                if (!name) { alert('El nombre es obligatorio'); return; }
+                
+                const prods = JSON.parse(localStorage.getItem('configProductos')) || [];
+                prods.push({ id: 'PROD' + (prods.length + 1).toString().padStart(2, '0'), name, unit, price });
+                localStorage.setItem('configProductos', JSON.stringify(prods));
+                addAuditLog('admin', 'Configuración', 'CREAR', `Añadió el producto ${name}`);
+                renderConfTables();
+                closeModal('modalConfProducto');
+            };
+
+            function openConfCajaModal() {
+                document.getElementById('confCajaName').value = '';
+                document.getElementById('confCajaType').value = 'Banco';
+                document.getElementById('confCajaNumber').value = '-';
+                openModal('modalConfCaja');
+            }
+
+            window.saveConfCaja = function() {
+                const name = document.getElementById('confCajaName').value.trim();
+                const type = document.getElementById('confCajaType').value;
+                const number = document.getElementById('confCajaNumber').value.trim() || '-';
+                
+                if (!name) { alert('El nombre es obligatorio'); return; }
+
+                const cajas = JSON.parse(localStorage.getItem('configCajas')) || [];
+                cajas.push({ id: 'CTA' + (cajas.length + 1).toString().padStart(2, '0'), name, type, number });
+                localStorage.setItem('configCajas', JSON.stringify(cajas));
+                addAuditLog('admin', 'Configuración', 'CREAR', `Añadió la cuenta ${name}`);
+                renderConfTables();
+                closeModal('modalConfCaja');
+            };
+
+            function openConfUserModal() {
+                document.getElementById('confUserName').value = '';
+                document.getElementById('confUserRole').value = 'Administrador';
+                openModal('modalConfUser');
+            }
+
+            window.saveConfUser = function() {
+                const name = document.getElementById('confUserName').value.trim();
+                const role = document.getElementById('confUserRole').value;
+                
+                if (!name) { alert('El nombre es obligatorio'); return; }
+
+                const users = JSON.parse(localStorage.getItem('configUsers')) || [];
+                users.push({ id: 'U' + (users.length + 1).toString().padStart(2, '0'), name, role, perm: 'Según rol asignado' });
+                localStorage.setItem('configUsers', JSON.stringify(users));
+                addAuditLog('admin', 'Configuración', 'CREAR', `Añadió al usuario ${name}`);
+                renderConfTables();
+                closeModal('modalConfUser');
+            };
+
+            function openConfVideoModal() {
+                document.getElementById('confVideoTitle').value = '';
+                document.getElementById('confVideoDesc').value = '';
+                document.getElementById('confVideoUrl').value = 'https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1';
+                openModal('modalConfVideo');
+            }
+
+            window.saveConfVideo = function() {
+                const title = document.getElementById('confVideoTitle').value.trim();
+                const desc = document.getElementById('confVideoDesc').value.trim();
+                const url = document.getElementById('confVideoUrl').value.trim() || 'https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1';
+                
+                if (!title) { alert('El título es obligatorio'); return; }
+
+                const videos = JSON.parse(localStorage.getItem('configVideos')) || [];
+                videos.push({ id: 'VID' + (videos.length + 1).toString().padStart(2, '0'), title, desc, url });
+                localStorage.setItem('configVideos', JSON.stringify(videos));
+                addAuditLog('admin', 'Configuración', 'CREAR', `Añadió un nuevo video: ${title}`);
+                renderConfTables();
+                closeModal('modalConfVideo');
+            };
+
+            function openConfAsociadoModal() {
+                document.getElementById('confAsocDni').value = '';
+                document.getElementById('confAsocName').value = '';
+                document.getElementById('confAsocZona').value = '';
+                document.getElementById('confAsocHa').value = '';
+                openModal('modalConfAsociado');
+            }
+
+            window.saveConfAsociado = function() {
+                const dni = document.getElementById('confAsocDni').value.trim();
+                const name = document.getElementById('confAsocName').value.trim();
+                const zona = document.getElementById('confAsocZona').value.trim() || 'Sin registrar';
+                const ha = parseFloat(document.getElementById('confAsocHa').value) || 0;
+                
+                if (!dni || !name) { alert('DNI y Nombre son obligatorios'); return; }
+
+                const asoc = JSON.parse(localStorage.getItem('cooperativaAsociados')) || [];
+                asoc.push({ dni, name, zona, ha });
+                localStorage.setItem('cooperativaAsociados', JSON.stringify(asoc));
+                addAuditLog('admin', 'Configuración', 'CREAR', `Añadió al asociado ${name}`);
+                renderConfTables();
+                closeModal('modalConfAsociado');
+            };
 
         </script>
 </body>
