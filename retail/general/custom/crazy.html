@@ -1,0 +1,1686 @@
+<!doctype html>
+<html lang="es" class="h-full">
+
+<head>
+    <script src="/_sdk/telemetry_sdk.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URBAN STYLE - Moda Urbana Masculina</title>
+    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+    <script src="/_sdk/element_sdk.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&amp;family=Space+Mono:wght@400;700&amp;display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        outfit: ['Outfit', 'sans-serif'],
+                        mono: ['Space Mono', 'monospace']
+                    },
+                    colors: {
+                        surface: '#f8f9fa',
+                        dark: '#1a1a1a',
+                        accent: '#1a56db',
+                        success: '#16a34a',
+                        warning: '#f59e0b',
+                        danger: '#dc2626'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+        }
+
+        .app-root {
+            height: 100%;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 3px;
+        }
+
+        .nav-item {
+            transition: all 0.2s;
+        }
+
+        .nav-item:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-item.active {
+            background: rgba(26, 86, 219, 0.08);
+            color: #1a56db;
+            border-right: 3px solid #1a56db;
+        }
+
+        .card-hover {
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .fade-in {
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide-in {
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+            }
+
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        .pulse-dot {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        .gradient-mesh {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+        }
+
+        .price-tier:hover {
+            background: #f0f7ff;
+            border-color: #1a56db;
+        }
+
+        .tab-active {
+            border-bottom: 2px solid #1a1a1a;
+            color: #1a1a1a;
+            font-weight: 600;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #1a56db;
+            box-shadow: 0 0 0 3px rgba(26, 86, 219, 0.1);
+        }
+
+        .progress-bar {
+            transition: width 0.5s ease;
+        }
+
+        .badge {
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 10px;
+        }
+    </style>
+    <style>
+        body {
+            box-sizing: border-box;
+        }
+    </style>
+    <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+</head>
+
+<body class="h-full bg-white font-outfit text-dark">
+    <div class="app-root" id="app"><!-- NAVIGATION SYSTEM -->
+        <div id="main-nav" class="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-100"><!-- Top Bar -->
+            <div class="bg-dark text-white text-xs py-1.5 px-4 flex justify-between items-center"><span>🚚 Envío gratis
+                    en compras +S/199 | B2B: Descuentos desde 12 unidades</span>
+                <div class="hidden md:flex gap-4"><button onclick="switchMode('b2c')"
+                        class="hover:text-blue-300 transition" id="mode-b2c">Tienda</button> <button
+                        onclick="switchMode('b2b')" class="hover:text-blue-300 transition"
+                        id="mode-b2b">Mayorista</button> <button onclick="navigate('admin')"
+                        class="hover:text-blue-300 transition">Admin</button>
+                </div>
+            </div><!-- Main Header -->
+            <div class="px-4 md:px-8 py-3 flex items-center justify-between gap-4"><button class="md:hidden"
+                    onclick="toggleMobileMenu()"><i data-lucide="menu" class="w-6 h-6"></i></button>
+                <h1 class="font-black text-xl md:text-2xl tracking-tight cursor-pointer" onclick="navigate('home')"
+                    id="brand-text">URBAN STYLE</h1><!-- Search -->
+                <div class="hidden md:flex flex-1 max-w-xl mx-8">
+                    <div class="relative w-full"><input type="text" placeholder="Buscar polos, hoodies, joggers..."
+                            class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm"
+                            id="search-input" oninput="handleSearch(this.value)"> <i data-lucide="search"
+                            class="absolute right-3 top-3 w-4 h-4 text-gray-400"></i>
+                        <div id="search-dropdown"
+                            class="hidden absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-xl border p-4 z-50">
+                        </div>
+                    </div>
+                </div><!-- Actions -->
+                <div class="flex items-center gap-3"><button class="relative p-2 hover:bg-gray-50 rounded-lg"
+                        onclick="navigate('wishlist')"><i data-lucide="heart" class="w-5 h-5"></i><span
+                            class="absolute -top-1 -right-1 bg-dark text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center">3</span></button>
+                    <button class="relative p-2 hover:bg-gray-50 rounded-lg" onclick="toggleCart()"><i
+                            data-lucide="shopping-bag" class="w-5 h-5"></i><span
+                            class="absolute -top-1 -right-1 bg-accent text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center">2</span></button>
+                    <button class="hidden md:flex p-2 hover:bg-gray-50 rounded-lg" onclick="navigate('account')"><i
+                            data-lucide="user" class="w-5 h-5"></i></button>
+                </div>
+            </div><!-- Category Nav -->
+            <div class="hidden md:flex px-8 pb-2 gap-6 text-sm font-medium text-gray-600 overflow-x-auto"><button
+                    onclick="navigate('catalog','polos')" class="hover:text-dark whitespace-nowrap pb-1">Polos</button>
+                <button onclick="navigate('catalog','poleras')"
+                    class="hover:text-dark whitespace-nowrap pb-1">Poleras</button> <button
+                    onclick="navigate('catalog','hoodies')"
+                    class="hover:text-dark whitespace-nowrap pb-1">Hoodies</button> <button
+                    onclick="navigate('catalog','conjuntos')"
+                    class="hover:text-dark whitespace-nowrap pb-1">Conjuntos</button> <button
+                    onclick="navigate('catalog','joggers')"
+                    class="hover:text-dark whitespace-nowrap pb-1">Joggers</button> <button
+                    onclick="navigate('catalog','pantalones')"
+                    class="hover:text-dark whitespace-nowrap pb-1">Pantalones</button> <button
+                    onclick="navigate('catalog','shorts')"
+                    class="hover:text-dark whitespace-nowrap pb-1">Shorts</button> <button
+                    onclick="navigate('catalog','casacas')"
+                    class="hover:text-dark whitespace-nowrap pb-1">Casacas</button> <button
+                    onclick="navigate('catalog','accesorios')"
+                    class="hover:text-dark whitespace-nowrap pb-1">Accesorios</button> <button
+                    onclick="navigate('catalog')" class="text-accent font-semibold whitespace-nowrap pb-1">Ver
+                    todo</button>
+            </div>
+        </div><!-- MOBILE MENU -->
+        <div id="mobile-menu" class="fixed inset-0 z-[60] hidden">
+            <div class="absolute inset-0 bg-black/50" onclick="toggleMobileMenu()"></div>
+            <div class="absolute left-0 top-0 bottom-0 w-80 bg-white slide-in overflow-y-auto">
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-8"><span class="font-black text-xl">URBAN
+                            STYLE</span> <button onclick="toggleMobileMenu()"><i data-lucide="x"
+                                class="w-6 h-6"></i></button>
+                    </div>
+                    <div class="space-y-1"><button onclick="navigate('home');toggleMobileMenu()"
+                            class="w-full text-left px-4 py-3 rounded-lg hover:bg-gray-50 font-medium">Inicio</button>
+                        <button onclick="navigate('catalog');toggleMobileMenu()"
+                            class="w-full text-left px-4 py-3 rounded-lg hover:bg-gray-50 font-medium">Catálogo</button>
+                        <button onclick="navigate('b2b');toggleMobileMenu()"
+                            class="w-full text-left px-4 py-3 rounded-lg hover:bg-gray-50 font-medium">Portal
+                            Mayorista</button> <button onclick="navigate('account');toggleMobileMenu()"
+                            class="w-full text-left px-4 py-3 rounded-lg hover:bg-gray-50 font-medium">Mi
+                            Cuenta</button> <button onclick="navigate('admin');toggleMobileMenu()"
+                            class="w-full text-left px-4 py-3 rounded-lg hover:bg-gray-50 font-medium">Administración</button>
+                    </div>
+                    <div class="mt-8 pt-6 border-t">
+                        <p class="text-xs text-gray-500 mb-3">Categorías</p>
+                        <div class="grid grid-cols-2 gap-2"><button
+                                onclick="navigate('catalog','polos');toggleMobileMenu()"
+                                class="text-left px-3 py-2 text-sm rounded-lg bg-gray-50">Polos</button> <button
+                                onclick="navigate('catalog','poleras');toggleMobileMenu()"
+                                class="text-left px-3 py-2 text-sm rounded-lg bg-gray-50">Poleras</button> <button
+                                onclick="navigate('catalog','hoodies');toggleMobileMenu()"
+                                class="text-left px-3 py-2 text-sm rounded-lg bg-gray-50">Hoodies</button> <button
+                                onclick="navigate('catalog','conjuntos');toggleMobileMenu()"
+                                class="text-left px-3 py-2 text-sm rounded-lg bg-gray-50">Conjuntos</button> <button
+                                onclick="navigate('catalog','joggers');toggleMobileMenu()"
+                                class="text-left px-3 py-2 text-sm rounded-lg bg-gray-50">Joggers</button> <button
+                                onclick="navigate('catalog','casacas');toggleMobileMenu()"
+                                class="text-left px-3 py-2 text-sm rounded-lg bg-gray-50">Casacas</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- CART DRAWER -->
+        <div id="cart-drawer" class="fixed inset-0 z-[60] hidden">
+            <div class="absolute inset-0 bg-black/50" onclick="toggleCart()"></div>
+            <div class="absolute right-0 top-0 bottom-0 w-full max-w-md bg-white slide-in overflow-y-auto">
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="font-bold text-lg">Tu Carrito (2)</h2><button onclick="toggleCart()"><i
+                                data-lucide="x" class="w-6 h-6"></i></button>
+                    </div><!-- Progress -->
+                    <div class="bg-blue-50 rounded-xl p-3 mb-6">
+                        <div class="flex justify-between text-xs mb-1.5"><span class="text-accent font-medium">¡Casi
+                                llegas al envío gratis!</span> <span class="font-bold">S/149 / S/199</span>
+                        </div>
+                        <div class="h-2 bg-blue-100 rounded-full">
+                            <div class="h-2 bg-accent rounded-full progress-bar" style="width:75%"></div>
+                        </div>
+                    </div><!-- Items -->
+                    <div class="space-y-4 mb-6">
+                        <div class="flex gap-3 p-3 bg-gray-50 rounded-xl">
+                            <div class="w-20 h-20 bg-gray-200 rounded-lg flex items-center justify-center text-2xl">
+                                👕
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium text-sm">Polo Oversize Premium</p>
+                                <p class="text-xs text-gray-500">Negro / L</p>
+                                <div class="flex justify-between items-center mt-2">
+                                    <div class="flex items-center gap-2 bg-white rounded-lg border px-2 py-1"><button
+                                            class="text-gray-400 hover:text-dark">-</button> <span
+                                            class="text-sm font-medium w-4 text-center">1</span> <button
+                                            class="text-gray-400 hover:text-dark">+</button>
+                                    </div><span class="font-bold text-sm">S/89.90</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex gap-3 p-3 bg-gray-50 rounded-xl">
+                            <div class="w-20 h-20 bg-gray-200 rounded-lg flex items-center justify-center text-2xl">
+                                🧥
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium text-sm">Hoodie Essential</p>
+                                <p class="text-xs text-gray-500">Gris / M</p>
+                                <div class="flex justify-between items-center mt-2">
+                                    <div class="flex items-center gap-2 bg-white rounded-lg border px-2 py-1"><button
+                                            class="text-gray-400 hover:text-dark">-</button> <span
+                                            class="text-sm font-medium w-4 text-center">1</span> <button
+                                            class="text-gray-400 hover:text-dark">+</button>
+                                    </div><span class="font-bold text-sm">S/129.90</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- Summary -->
+                    <div class="border-t pt-4 space-y-2">
+                        <div class="flex justify-between text-sm">
+                            <span>Subtotal</span><span class="font-medium">S/219.80</span>
+                        </div>
+                        <div class="flex justify-between text-sm text-success">
+                            <span>Envío</span><span class="font-medium">GRATIS</span>
+                        </div>
+                        <div class="flex justify-between text-base font-bold pt-2 border-t">
+                            <span>Total</span><span>S/219.80</span>
+                        </div>
+                    </div><button onclick="navigate('checkout');toggleCart()"
+                        class="w-full mt-6 bg-dark text-white py-3.5 rounded-xl font-semibold hover:bg-gray-800 transition">Ir
+                        al Checkout</button> <button onclick="toggleCart()"
+                        class="w-full mt-2 py-3 text-sm text-gray-500 hover:text-dark transition">Seguir
+                        comprando</button>
+                </div>
+            </div>
+        </div><!-- PAGES CONTAINER -->
+        <div class="pt-[130px] md:pt-[145px]" id="pages-container"><!-- HOME PAGE -->
+            <div id="page-home" class="page fade-in"><!-- Hero -->
+                <section class="gradient-mesh text-white px-6 md:px-12 py-16 md:py-24 relative overflow-hidden">
+                    <div class="absolute inset-0 opacity-10"
+                        style="background-image: url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2260%22 height=%2260%22><rect fill=%22none%22 stroke=%22white%22 stroke-width=%220.5%22 width=%2260%22 height=%2260%22/></svg>');">
+                    </div>
+                    <div class="max-w-6xl mx-auto relative">
+                        <div class="max-w-2xl"><span
+                                class="inline-block bg-white/10 backdrop-blur px-3 py-1 rounded-full text-xs font-medium mb-4">Nueva
+                                Colección 2025</span>
+                            <h2 class="text-4xl md:text-6xl font-black leading-tight mb-4" id="hero-headline">Define
+                                Your Style</h2>
+                            <p class="text-lg md:text-xl text-gray-300 mb-8" id="hero-subtext">Moda urbana masculina
+                                premium. Diseños exclusivos para quienes marcan tendencia.</p>
+                            <div class="flex flex-wrap gap-3"><button onclick="navigate('catalog')"
+                                    class="bg-white text-dark px-8 py-3.5 rounded-xl font-semibold hover:bg-gray-100 transition">Explorar
+                                    Colección</button> <button onclick="navigate('b2b')"
+                                    class="border border-white/30 px-8 py-3.5 rounded-xl font-medium hover:bg-white/10 transition">Compras
+                                    Mayoristas →</button>
+                            </div>
+                        </div>
+                        <div class="absolute right-0 top-1/2 -translate-y-1/2 hidden lg:block text-[200px] opacity-20">
+                            🧥
+                        </div>
+                    </div>
+                </section><!-- Categories -->
+                <section class="px-6 md:px-12 py-12">
+                    <div class="max-w-6xl mx-auto">
+                        <div class="flex justify-between items-center mb-8">
+                            <h3 class="text-2xl font-bold">Categorías</h3><button onclick="navigate('catalog')"
+                                class="text-sm text-accent font-medium">Ver todas →</button>
+                        </div>
+                        <div class="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-9 gap-4"><button
+                                onclick="navigate('catalog','polos')"
+                                class="flex flex-col items-center gap-2 p-4 rounded-2xl bg-gray-50 hover:bg-gray-100 transition card-hover">
+                                <span class="text-3xl">👕</span><span class="text-xs font-medium">Polos</span> </button>
+                            <button onclick="navigate('catalog','poleras')"
+                                class="flex flex-col items-center gap-2 p-4 rounded-2xl bg-gray-50 hover:bg-gray-100 transition card-hover">
+                                <span class="text-3xl">👔</span><span class="text-xs font-medium">Poleras</span>
+                            </button> <button onclick="navigate('catalog','hoodies')"
+                                class="flex flex-col items-center gap-2 p-4 rounded-2xl bg-gray-50 hover:bg-gray-100 transition card-hover">
+                                <span class="text-3xl">🧥</span><span class="text-xs font-medium">Hoodies</span>
+                            </button> <button onclick="navigate('catalog','conjuntos')"
+                                class="flex flex-col items-center gap-2 p-4 rounded-2xl bg-gray-50 hover:bg-gray-100 transition card-hover">
+                                <span class="text-3xl">🎽</span><span class="text-xs font-medium">Conjuntos</span>
+                            </button> <button onclick="navigate('catalog','joggers')"
+                                class="flex flex-col items-center gap-2 p-4 rounded-2xl bg-gray-50 hover:bg-gray-100 transition card-hover">
+                                <span class="text-3xl">👖</span><span class="text-xs font-medium">Joggers</span>
+                            </button> <button onclick="navigate('catalog','pantalones')"
+                                class="flex flex-col items-center gap-2 p-4 rounded-2xl bg-gray-50 hover:bg-gray-100 transition card-hover">
+                                <span class="text-3xl">👖</span><span class="text-xs font-medium">Pantalones</span>
+                            </button> <button onclick="navigate('catalog','shorts')"
+                                class="flex flex-col items-center gap-2 p-4 rounded-2xl bg-gray-50 hover:bg-gray-100 transition card-hover">
+                                <span class="text-3xl">🩳</span><span class="text-xs font-medium">Shorts</span>
+                            </button> <button onclick="navigate('catalog','casacas')"
+                                class="flex flex-col items-center gap-2 p-4 rounded-2xl bg-gray-50 hover:bg-gray-100 transition card-hover">
+                                <span class="text-3xl">🧥</span><span class="text-xs font-medium">Casacas</span>
+                            </button> <button onclick="navigate('catalog','accesorios')"
+                                class="flex flex-col items-center gap-2 p-4 rounded-2xl bg-gray-50 hover:bg-gray-100 transition card-hover">
+                                <span class="text-3xl">🧢</span><span class="text-xs font-medium">Accesorios</span>
+                            </button>
+                        </div>
+                    </div>
+                </section><!-- Featured Products -->
+                <section class="px-6 md:px-12 py-12 bg-surface">
+                    <div class="max-w-6xl mx-auto">
+                        <div class="flex justify-between items-center mb-8">
+                            <h3 class="text-2xl font-bold">Más Vendidos 🔥</h3>
+                            <div class="flex gap-2"><button
+                                    class="px-4 py-1.5 text-xs font-medium bg-dark text-white rounded-full">Todos</button>
+                                <button class="px-4 py-1.5 text-xs font-medium bg-white rounded-full">Polos</button>
+                                <button class="px-4 py-1.5 text-xs font-medium bg-white rounded-full">Hoodies</button>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+                            <div class="card-hover cursor-pointer rounded-2xl bg-white overflow-hidden"
+                                onclick="navigate('product')">
+                                <div
+                                    class="relative aspect-[3/4] bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center text-6xl">
+                                    👕 <span
+                                        class="absolute top-3 left-3 bg-dark text-white text-[10px] px-2 py-0.5 rounded-full font-medium">NEW</span>
+                                    <button
+                                        class="absolute top-3 right-3 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-sm hover:scale-110 transition"
+                                        onclick="event.stopPropagation()"><i data-lucide="heart"
+                                            class="w-4 h-4"></i></button>
+                                </div>
+                                <div class="p-4">
+                                    <p class="text-xs text-gray-500 mb-1">URBAN STYLE</p>
+                                    <p class="font-medium text-sm mb-2">Polo Oversize Premium</p>
+                                    <div class="flex items-center gap-2"><span class="font-bold">S/89.90</span> <span
+                                            class="text-xs text-gray-400 line-through">S/119.90</span> <span
+                                            class="text-xs text-success font-medium">-25%</span>
+                                    </div>
+                                    <div class="flex gap-1 mt-2"><span
+                                            class="w-4 h-4 rounded-full bg-black border-2 border-gray-300"></span> <span
+                                            class="w-4 h-4 rounded-full bg-white border border-gray-300"></span> <span
+                                            class="w-4 h-4 rounded-full bg-gray-500 border border-gray-300"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-hover cursor-pointer rounded-2xl bg-white overflow-hidden"
+                                onclick="navigate('product')">
+                                <div
+                                    class="relative aspect-[3/4] bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center text-6xl">
+                                    🧥 <span
+                                        class="absolute top-3 left-3 bg-danger text-white text-[10px] px-2 py-0.5 rounded-full font-medium">-30%</span>
+                                    <button
+                                        class="absolute top-3 right-3 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-sm"
+                                        onclick="event.stopPropagation()"><i data-lucide="heart"
+                                            class="w-4 h-4"></i></button>
+                                </div>
+                                <div class="p-4">
+                                    <p class="text-xs text-gray-500 mb-1">URBAN STYLE</p>
+                                    <p class="font-medium text-sm mb-2">Hoodie Essential Drop</p>
+                                    <div class="flex items-center gap-2"><span class="font-bold">S/129.90</span> <span
+                                            class="text-xs text-gray-400 line-through">S/179.90</span>
+                                    </div>
+                                    <div class="flex gap-1 mt-2"><span
+                                            class="w-4 h-4 rounded-full bg-gray-700 border-2 border-gray-300"></span>
+                                        <span class="w-4 h-4 rounded-full bg-blue-900 border border-gray-300"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-hover cursor-pointer rounded-2xl bg-white overflow-hidden"
+                                onclick="navigate('product')">
+                                <div
+                                    class="relative aspect-[3/4] bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center text-6xl">
+                                    👖 <button
+                                        class="absolute top-3 right-3 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-sm"
+                                        onclick="event.stopPropagation()"><i data-lucide="heart"
+                                            class="w-4 h-4"></i></button>
+                                </div>
+                                <div class="p-4">
+                                    <p class="text-xs text-gray-500 mb-1">URBAN STYLE</p>
+                                    <p class="font-medium text-sm mb-2">Jogger Cargo Street</p>
+                                    <div class="flex items-center gap-2">
+                                        <span class="font-bold">S/109.90</span>
+                                    </div>
+                                    <div class="flex gap-1 mt-2"><span
+                                            class="w-4 h-4 rounded-full bg-black border-2 border-gray-300"></span> <span
+                                            class="w-4 h-4 rounded-full bg-green-900 border border-gray-300"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-hover cursor-pointer rounded-2xl bg-white overflow-hidden hidden md:block"
+                                onclick="navigate('product')">
+                                <div
+                                    class="relative aspect-[3/4] bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center text-6xl">
+                                    🎽 <span
+                                        class="absolute top-3 left-3 bg-accent text-white text-[10px] px-2 py-0.5 rounded-full font-medium">B2B</span>
+                                    <button
+                                        class="absolute top-3 right-3 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-sm"
+                                        onclick="event.stopPropagation()"><i data-lucide="heart"
+                                            class="w-4 h-4"></i></button>
+                                </div>
+                                <div class="p-4">
+                                    <p class="text-xs text-gray-500 mb-1">URBAN STYLE</p>
+                                    <p class="font-medium text-sm mb-2">Conjunto Urban Tech</p>
+                                    <div class="flex items-center gap-2">
+                                        <span class="font-bold">S/189.90</span>
+                                    </div>
+                                    <p class="text-[10px] text-accent mt-1">Desde S/120 por mayor</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section><!-- B2B Banner -->
+                <section class="px-6 md:px-12 py-12">
+                    <div class="max-w-6xl mx-auto">
+                        <div
+                            class="bg-gradient-to-r from-dark to-gray-800 rounded-3xl p-8 md:p-12 text-white relative overflow-hidden">
+                            <div
+                                class="absolute right-0 top-0 bottom-0 w-1/3 opacity-10 flex items-center justify-center text-[150px]">
+                                📦
+                            </div>
+                            <div class="relative max-w-lg"><span
+                                    class="inline-block bg-accent px-3 py-1 rounded-full text-xs font-medium mb-4">Portal
+                                    Mayorista</span>
+                                <h3 class="text-2xl md:text-3xl font-bold mb-3">Compra al por mayor con descuentos
+                                    exclusivos</h3>
+                                <p class="text-gray-300 mb-6">Precios escalonados, crédito empresarial, logística
+                                    dedicada y atención personalizada para tu negocio.</p>
+                                <div class="flex flex-wrap gap-3"><button onclick="navigate('b2b')"
+                                        class="bg-white text-dark px-6 py-3 rounded-xl font-semibold hover:bg-gray-100 transition">Acceder
+                                        al Portal B2B</button> <button
+                                        class="border border-white/30 px-6 py-3 rounded-xl font-medium hover:bg-white/10 transition">Solicitar
+                                        Cotización</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section><!-- Benefits -->
+                <section class="px-6 md:px-12 py-12 bg-surface">
+                    <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6">
+                        <div class="text-center p-4">
+                            <div
+                                class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-sm">
+                                <i data-lucide="truck" class="w-5 h-5"></i>
+                            </div>
+                            <p class="font-semibold text-sm">Envío Express</p>
+                            <p class="text-xs text-gray-500 mt-1">Lima 24h - Provincias 48h</p>
+                        </div>
+                        <div class="text-center p-4">
+                            <div
+                                class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-sm">
+                                <i data-lucide="shield-check" class="w-5 h-5"></i>
+                            </div>
+                            <p class="font-semibold text-sm">Compra Segura</p>
+                            <p class="text-xs text-gray-500 mt-1">Garantía de devolución</p>
+                        </div>
+                        <div class="text-center p-4">
+                            <div
+                                class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-sm">
+                                <i data-lucide="credit-card" class="w-5 h-5"></i>
+                            </div>
+                            <p class="font-semibold text-sm">Pago Flexible</p>
+                            <p class="text-xs text-gray-500 mt-1">Todas las tarjetas y Yape</p>
+                        </div>
+                        <div class="text-center p-4">
+                            <div
+                                class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-sm">
+                                <i data-lucide="headphones" class="w-5 h-5"></i>
+                            </div>
+                            <p class="font-semibold text-sm">Soporte 24/7</p>
+                            <p class="text-xs text-gray-500 mt-1">WhatsApp y chat</p>
+                        </div>
+                    </div>
+                </section><!-- Footer -->
+                <footer class="bg-dark text-white px-6 md:px-12 py-12">
+                    <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
+                        <div>
+                            <h4 class="font-bold mb-4">URBAN STYLE</h4>
+                            <p class="text-sm text-gray-400">Moda urbana masculina premium para toda Latinoamérica.</p>
+                        </div>
+                        <div>
+                            <h5 class="font-medium text-sm mb-3">Tienda</h5>
+                            <div class="space-y-2 text-sm text-gray-400">
+                                <p class="hover:text-white cursor-pointer">Nuevos</p>
+                                <p class="hover:text-white cursor-pointer">Más Vendidos</p>
+                                <p class="hover:text-white cursor-pointer">Ofertas</p>
+                                <p class="hover:text-white cursor-pointer">Outlet</p>
+                            </div>
+                        </div>
+                        <div>
+                            <h5 class="font-medium text-sm mb-3">Empresa</h5>
+                            <div class="space-y-2 text-sm text-gray-400">
+                                <p class="hover:text-white cursor-pointer">Nosotros</p>
+                                <p class="hover:text-white cursor-pointer">Mayoristas</p>
+                                <p class="hover:text-white cursor-pointer">Contacto</p>
+                                <p class="hover:text-white cursor-pointer">Blog</p>
+                            </div>
+                        </div>
+                        <div>
+                            <h5 class="font-medium text-sm mb-3">Ayuda</h5>
+                            <div class="space-y-2 text-sm text-gray-400">
+                                <p class="hover:text-white cursor-pointer">Tallas</p>
+                                <p class="hover:text-white cursor-pointer">Envíos</p>
+                                <p class="hover:text-white cursor-pointer">Devoluciones</p>
+                                <p class="hover:text-white cursor-pointer">FAQ</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="max-w-6xl mx-auto mt-8 pt-6 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-500">
+                        <span>© 2025 Urban Style. Todos los derechos reservados.</span>
+                        <div class="flex gap-4"><span class="cursor-pointer hover:text-white">Instagram</span> <span
+                                class="cursor-pointer hover:text-white">TikTok</span> <span
+                                class="cursor-pointer hover:text-white">Facebook</span>
+                        </div>
+                    </div>
+                </footer>
+            </div><!-- CATALOG PAGE -->
+            <div id="page-catalog" class="page hidden fade-in">
+                <div class="max-w-7xl mx-auto px-6 md:px-12 py-8"><!-- Breadcrumb -->
+                    <div class="flex items-center gap-2 text-sm text-gray-500 mb-6"><span
+                            class="cursor-pointer hover:text-dark" onclick="navigate('home')">Inicio</span> <i
+                            data-lucide="chevron-right" class="w-3 h-3"></i> <span class="font-medium text-dark"
+                            id="catalog-title">Catálogo</span>
+                    </div>
+                    <div class="flex gap-8"><!-- Filters Sidebar -->
+                        <aside class="hidden lg:block w-64 shrink-0">
+                            <div class="sticky top-40 space-y-6">
+                                <div>
+                                    <h4 class="font-semibold text-sm mb-3">Categoría</h4>
+                                    <div class="space-y-2"><label
+                                            class="flex items-center gap-2 text-sm cursor-pointer"><input
+                                                type="checkbox" class="rounded"> Polos</label> <label
+                                            class="flex items-center gap-2 text-sm cursor-pointer"><input
+                                                type="checkbox" class="rounded"> Poleras</label> <label
+                                            class="flex items-center gap-2 text-sm cursor-pointer"><input
+                                                type="checkbox" class="rounded"> Hoodies</label> <label
+                                            class="flex items-center gap-2 text-sm cursor-pointer"><input
+                                                type="checkbox" class="rounded"> Joggers</label> <label
+                                            class="flex items-center gap-2 text-sm cursor-pointer"><input
+                                                type="checkbox" class="rounded"> Casacas</label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-sm mb-3">Talla</h4>
+                                    <div class="flex flex-wrap gap-2"><button
+                                            class="px-3 py-1.5 text-xs border rounded-lg hover:border-dark">S</button>
+                                        <button
+                                            class="px-3 py-1.5 text-xs border rounded-lg hover:border-dark bg-dark text-white">M</button>
+                                        <button
+                                            class="px-3 py-1.5 text-xs border rounded-lg hover:border-dark">L</button>
+                                        <button
+                                            class="px-3 py-1.5 text-xs border rounded-lg hover:border-dark">XL</button>
+                                        <button
+                                            class="px-3 py-1.5 text-xs border rounded-lg hover:border-dark">XXL</button>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-sm mb-3">Color</h4>
+                                    <div class="flex flex-wrap gap-2"><button
+                                            class="w-7 h-7 rounded-full bg-black border-2 border-gray-300"></button>
+                                        <button class="w-7 h-7 rounded-full bg-white border border-gray-300"></button>
+                                        <button
+                                            class="w-7 h-7 rounded-full bg-gray-500 border border-gray-300"></button>
+                                        <button
+                                            class="w-7 h-7 rounded-full bg-blue-900 border border-gray-300"></button>
+                                        <button
+                                            class="w-7 h-7 rounded-full bg-green-800 border border-gray-300"></button>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-sm mb-3">Precio</h4>
+                                    <div class="flex gap-2"><input type="number" placeholder="Min"
+                                            class="w-full px-3 py-2 border rounded-lg text-sm"> <input type="number"
+                                            placeholder="Max" class="w-full px-3 py-2 border rounded-lg text-sm">
+                                    </div>
+                                </div>
+                                <div><label class="flex items-center gap-2 text-sm cursor-pointer"><input
+                                            type="checkbox" class="rounded"> Solo con stock</label> <label
+                                        class="flex items-center gap-2 text-sm cursor-pointer mt-2"><input
+                                            type="checkbox" class="rounded"> Disponible mayoreo</label>
+                                </div>
+                            </div>
+                        </aside><!-- Products Grid -->
+                        <div class="flex-1">
+                            <div class="flex justify-between items-center mb-6">
+                                <p class="text-sm text-gray-500">128 productos</p><select
+                                    class="px-3 py-2 border rounded-lg text-sm bg-white">
+                                    <option>Más vendidos</option>
+                                    <option>Más recientes</option>
+                                    <option>Precio: menor a mayor</option>
+                                    <option>Precio: mayor a menor</option>
+                                    <option>Popularidad</option>
+                                </select>
+                            </div>
+                            <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6" id="catalog-grid">
+                                <!-- Products generated by JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- PRODUCT DETAIL PAGE -->
+            <div id="page-product" class="page hidden fade-in">
+                <div class="max-w-7xl mx-auto px-6 md:px-12 py-8">
+                    <div class="flex items-center gap-2 text-sm text-gray-500 mb-6"><span
+                            class="cursor-pointer hover:text-dark" onclick="navigate('home')">Inicio</span> <i
+                            data-lucide="chevron-right" class="w-3 h-3"></i> <span
+                            class="cursor-pointer hover:text-dark" onclick="navigate('catalog')">Catálogo</span> <i
+                            data-lucide="chevron-right" class="w-3 h-3"></i> <span class="font-medium text-dark">Polo
+                            Oversize Premium</span>
+                    </div>
+                    <div class="grid lg:grid-cols-2 gap-8 lg:gap-12"><!-- Gallery -->
+                        <div>
+                            <div
+                                class="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 rounded-3xl flex items-center justify-center text-[120px] mb-4 relative">
+                                👕 <button
+                                    class="absolute bottom-4 right-4 bg-white/90 backdrop-blur px-3 py-2 rounded-lg text-xs font-medium shadow"><i
+                                        data-lucide="maximize-2" class="w-3 h-3 inline mr-1"></i>Zoom</button>
+                            </div>
+                            <div class="grid grid-cols-4 gap-2">
+                                <div
+                                    class="aspect-square bg-gray-100 rounded-xl flex items-center justify-center text-2xl border-2 border-dark">
+                                    👕
+                                </div>
+                                <div
+                                    class="aspect-square bg-gray-100 rounded-xl flex items-center justify-center text-2xl border border-gray-200">
+                                    👕
+                                </div>
+                                <div
+                                    class="aspect-square bg-gray-100 rounded-xl flex items-center justify-center text-2xl border border-gray-200">
+                                    👕
+                                </div>
+                                <div
+                                    class="aspect-square bg-gray-100 rounded-xl flex items-center justify-center text-xs border border-gray-200 text-gray-400">
+                                    360°
+                                </div>
+                            </div>
+                        </div><!-- Info -->
+                        <div>
+                            <div class="flex items-center gap-2 mb-2"><span class="badge bg-green-100 text-green-700">En
+                                    Stock</span> <span class="badge bg-blue-100 text-blue-700">B2B Disponible</span>
+                            </div>
+                            <h1 class="text-2xl md:text-3xl font-bold mb-1">Polo Oversize Premium</h1>
+                            <p class="text-sm text-gray-500 mb-4">SKU: US-POL-001 | Código: 78234</p>
+                            <div class="flex items-baseline gap-3 mb-6"><span class="text-3xl font-black">S/89.90</span>
+                                <span class="text-lg text-gray-400 line-through">S/119.90</span> <span
+                                    class="text-sm font-semibold text-success">Ahorras S/30</span>
+                            </div><!-- B2B Pricing -->
+                            <div class="bg-blue-50 border border-blue-100 rounded-2xl p-5 mb-6">
+                                <h4 class="font-semibold text-sm mb-3 flex items-center gap-2"><i data-lucide="package"
+                                        class="w-4 h-4 text-accent"></i> Precios por Mayor</h4>
+                                <div class="grid grid-cols-3 gap-2">
+                                    <div
+                                        class="price-tier text-center p-3 bg-white rounded-xl border border-transparent cursor-pointer transition">
+                                        <p class="text-xs text-gray-500">1-11 und.</p>
+                                        <p class="font-bold text-lg">S/50</p>
+                                    </div>
+                                    <div
+                                        class="price-tier text-center p-3 bg-white rounded-xl border border-transparent cursor-pointer transition">
+                                        <p class="text-xs text-gray-500">12-49 und.</p>
+                                        <p class="font-bold text-lg text-accent">S/35</p>
+                                        <p class="text-[10px] text-success">-30%</p>
+                                    </div>
+                                    <div
+                                        class="price-tier text-center p-3 bg-white rounded-xl border border-transparent cursor-pointer transition">
+                                        <p class="text-xs text-gray-500">50+ und.</p>
+                                        <p class="font-bold text-lg text-accent">S/25</p>
+                                        <p class="text-[10px] text-success">-50%</p>
+                                    </div>
+                                </div>
+                            </div><!-- Size & Color -->
+                            <div class="mb-4">
+                                <div class="flex justify-between items-center mb-2"><span
+                                        class="font-medium text-sm">Talla</span> <button
+                                        class="text-xs text-accent">Guía de tallas</button>
+                                </div>
+                                <div class="flex gap-2"><button
+                                        class="px-4 py-2.5 border rounded-xl text-sm hover:border-dark transition">S</button>
+                                    <button class="px-4 py-2.5 border rounded-xl text-sm bg-dark text-white">M</button>
+                                    <button
+                                        class="px-4 py-2.5 border rounded-xl text-sm hover:border-dark transition">L</button>
+                                    <button
+                                        class="px-4 py-2.5 border rounded-xl text-sm hover:border-dark transition">XL</button>
+                                    <button
+                                        class="px-4 py-2.5 border rounded-xl text-sm text-gray-300 border-gray-200 cursor-not-allowed">XXL</button>
+                                </div>
+                            </div>
+                            <div class="mb-6"><span class="font-medium text-sm mb-2 block">Color: <span
+                                        class="text-gray-500 font-normal">Negro</span></span>
+                                <div class="flex gap-2"><button
+                                        class="w-9 h-9 rounded-full bg-black border-2 border-dark ring-2 ring-offset-2 ring-dark"></button>
+                                    <button class="w-9 h-9 rounded-full bg-white border border-gray-300"></button>
+                                    <button class="w-9 h-9 rounded-full bg-gray-500 border border-gray-300"></button>
+                                </div>
+                            </div><!-- Quantity & Add -->
+                            <div class="flex gap-3 mb-6">
+                                <div class="flex items-center border rounded-xl px-4"><button
+                                        class="text-lg font-medium text-gray-400 hover:text-dark"
+                                        onclick="updateQty(-1)">−</button> <span class="w-10 text-center font-semibold"
+                                        id="qty-display">1</span> <button
+                                        class="text-lg font-medium text-gray-400 hover:text-dark"
+                                        onclick="updateQty(1)">+</button>
+                                </div><button
+                                    class="flex-1 bg-dark text-white py-3.5 rounded-xl font-semibold hover:bg-gray-800 transition flex items-center justify-center gap-2">
+                                    <i data-lucide="shopping-bag" class="w-4 h-4"></i> Agregar al Carrito </button>
+                                <button class="p-3.5 border rounded-xl hover:bg-gray-50"><i data-lucide="heart"
+                                        class="w-5 h-5"></i></button>
+                            </div><!-- B2B Calculator -->
+                            <div class="bg-gray-50 rounded-2xl p-5">
+                                <h4 class="font-semibold text-sm mb-3">🧮 Calculadora Mayorista</h4>
+                                <div class="grid grid-cols-4 gap-2 text-xs font-medium text-center mb-3">
+                                    <div class="bg-white rounded-lg p-2">
+                                        <p class="text-gray-500">Talla</p>
+                                        <p>S</p>
+                                    </div>
+                                    <div class="bg-white rounded-lg p-2">
+                                        <p class="text-gray-500">Color</p>
+                                        <p>Negro</p>
+                                    </div>
+                                    <div class="bg-white rounded-lg p-2">
+                                        <p class="text-gray-500">Cant.</p>
+                                        <p>24</p>
+                                    </div>
+                                    <div class="bg-white rounded-lg p-2">
+                                        <p class="text-gray-500">Precio</p>
+                                        <p class="text-accent">S/35</p>
+                                    </div>
+                                </div>
+                                <div class="flex justify-between items-center pt-3 border-t"><span
+                                        class="font-medium text-sm">Subtotal estimado:</span> <span
+                                        class="text-xl font-black text-accent">S/840.00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- CHECKOUT PAGE -->
+            <div id="page-checkout" class="page hidden fade-in">
+                <div class="max-w-5xl mx-auto px-6 md:px-12 py-8">
+                    <h2 class="text-2xl font-bold mb-8">Checkout</h2><!-- Steps -->
+                    <div class="flex items-center gap-2 mb-8 overflow-x-auto pb-2">
+                        <div class="flex items-center gap-2 shrink-0"><span
+                                class="w-8 h-8 bg-dark text-white rounded-full flex items-center justify-center text-xs font-bold">1</span>
+                            <span class="text-sm font-medium">Datos</span>
+                        </div>
+                        <div class="h-px w-8 bg-gray-300"></div>
+                        <div class="flex items-center gap-2 shrink-0"><span
+                                class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center text-xs font-bold">2</span>
+                            <span class="text-sm text-gray-400">Dirección</span>
+                        </div>
+                        <div class="h-px w-8 bg-gray-300"></div>
+                        <div class="flex items-center gap-2 shrink-0"><span
+                                class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center text-xs font-bold">3</span>
+                            <span class="text-sm text-gray-400">Envío</span>
+                        </div>
+                        <div class="h-px w-8 bg-gray-300"></div>
+                        <div class="flex items-center gap-2 shrink-0"><span
+                                class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center text-xs font-bold">4</span>
+                            <span class="text-sm text-gray-400">Pago</span>
+                        </div>
+                        <div class="h-px w-8 bg-gray-300"></div>
+                        <div class="flex items-center gap-2 shrink-0"><span
+                                class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center text-xs font-bold">5</span>
+                            <span class="text-sm text-gray-400">Confirmar</span>
+                        </div>
+                    </div>
+                    <div class="grid lg:grid-cols-3 gap-8"><!-- Form -->
+                        <div class="lg:col-span-2 space-y-6">
+                            <div class="bg-white border rounded-2xl p-6">
+                                <h3 class="font-semibold mb-4">Datos del Cliente</h3>
+                                <div class="grid md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="text-xs text-gray-500 mb-1 block"
+                                            for="ch-name">Nombre</label><input id="ch-name" type="text"
+                                            class="w-full px-4 py-2.5 border rounded-xl text-sm" placeholder="Juan">
+                                    </div>
+                                    <div>
+                                        <label class="text-xs text-gray-500 mb-1 block"
+                                            for="ch-last">Apellido</label><input id="ch-last" type="text"
+                                            class="w-full px-4 py-2.5 border rounded-xl text-sm" placeholder="Pérez">
+                                    </div>
+                                    <div>
+                                        <label class="text-xs text-gray-500 mb-1 block"
+                                            for="ch-email">Email</label><input id="ch-email" type="email"
+                                            class="w-full px-4 py-2.5 border rounded-xl text-sm"
+                                            placeholder="juan@email.com">
+                                    </div>
+                                    <div>
+                                        <label class="text-xs text-gray-500 mb-1 block"
+                                            for="ch-phone">Teléfono</label><input id="ch-phone" type="tel"
+                                            class="w-full px-4 py-2.5 border rounded-xl text-sm"
+                                            placeholder="999 888 777">
+                                    </div>
+                                    <div>
+                                        <label class="text-xs text-gray-500 mb-1 block" for="ch-doc">DNI /
+                                            RUC</label><input id="ch-doc" type="text"
+                                            class="w-full px-4 py-2.5 border rounded-xl text-sm" placeholder="12345678">
+                                    </div>
+                                    <div>
+                                        <label class="text-xs text-gray-500 mb-1 block"
+                                            for="ch-type">Tipo</label><select id="ch-type"
+                                            class="w-full px-4 py-2.5 border rounded-xl text-sm bg-white">
+                                            <option>Persona Natural</option>
+                                            <option>Empresa</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div><button
+                                class="w-full bg-dark text-white py-3.5 rounded-xl font-semibold hover:bg-gray-800 transition">Continuar
+                                →</button>
+                        </div><!-- Summary Sticky -->
+                        <div class="lg:sticky lg:top-40 h-fit">
+                            <div class="bg-gray-50 rounded-2xl p-6">
+                                <h3 class="font-semibold mb-4">Resumen</h3>
+                                <div class="space-y-3 mb-4">
+                                    <div class="flex gap-3 items-center">
+                                        <div class="w-12 h-12 bg-gray-200 rounded-lg flex items-center justify-center">
+                                            👕
+                                        </div>
+                                        <div class="flex-1">
+                                            <p class="text-sm font-medium">Polo Oversize</p>
+                                            <p class="text-xs text-gray-500">Negro / L × 1</p>
+                                        </div><span class="text-sm font-bold">S/89.90</span>
+                                    </div>
+                                    <div class="flex gap-3 items-center">
+                                        <div class="w-12 h-12 bg-gray-200 rounded-lg flex items-center justify-center">
+                                            🧥
+                                        </div>
+                                        <div class="flex-1">
+                                            <p class="text-sm font-medium">Hoodie Essential</p>
+                                            <p class="text-xs text-gray-500">Gris / M × 1</p>
+                                        </div><span class="text-sm font-bold">S/129.90</span>
+                                    </div>
+                                </div>
+                                <div class="border-t pt-3 space-y-2 text-sm">
+                                    <div class="flex justify-between">
+                                        <span>Subtotal</span><span>S/219.80</span>
+                                    </div>
+                                    <div class="flex justify-between text-success">
+                                        <span>Envío</span><span>GRATIS</span>
+                                    </div>
+                                    <div class="flex justify-between font-bold text-base pt-2 border-t">
+                                        <span>Total</span><span>S/219.80</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- B2B PORTAL -->
+            <div id="page-b2b" class="page hidden fade-in">
+                <div class="max-w-7xl mx-auto px-6 md:px-12 py-8">
+                    <div class="flex justify-between items-center mb-8">
+                        <div>
+                            <h2 class="text-2xl font-bold">Portal Mayorista</h2>
+                            <p class="text-sm text-gray-500">Bienvenido, Empresa ABC S.A.C.</p>
+                        </div><span class="badge bg-accent text-white px-3 py-1">Nivel Gold</span>
+                    </div><!-- Stats -->
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                        <div class="bg-white border rounded-2xl p-5">
+                            <p class="text-xs text-gray-500">Pedidos Activos</p>
+                            <p class="text-2xl font-black mt-1">12</p>
+                        </div>
+                        <div class="bg-white border rounded-2xl p-5">
+                            <p class="text-xs text-gray-500">Crédito Disponible</p>
+                            <p class="text-2xl font-black mt-1 text-success">S/15,000</p>
+                        </div>
+                        <div class="bg-white border rounded-2xl p-5">
+                            <p class="text-xs text-gray-500">Compras este mes</p>
+                            <p class="text-2xl font-black mt-1">S/8,450</p>
+                        </div>
+                        <div class="bg-white border rounded-2xl p-5">
+                            <p class="text-xs text-gray-500">Ahorro total</p>
+                            <p class="text-2xl font-black mt-1 text-accent">S/3,200</p>
+                        </div>
+                    </div><!-- Quick Actions -->
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8"><button
+                            class="p-4 bg-dark text-white rounded-2xl text-sm font-medium hover:bg-gray-800 transition text-left"><i
+                                data-lucide="repeat" class="w-5 h-5 mb-2"></i><br>
+                            Recomprar Pedido</button> <button
+                            class="p-4 bg-white border rounded-2xl text-sm font-medium hover:bg-gray-50 transition text-left"><i
+                                data-lucide="file-text" class="w-5 h-5 mb-2"></i><br>
+                            Nueva Cotización</button> <button onclick="navigate('catalog')"
+                            class="p-4 bg-white border rounded-2xl text-sm font-medium hover:bg-gray-50 transition text-left"><i
+                                data-lucide="package" class="w-5 h-5 mb-2"></i><br>
+                            Catálogo B2B</button> <button
+                            class="p-4 bg-white border rounded-2xl text-sm font-medium hover:bg-gray-50 transition text-left"><i
+                                data-lucide="bar-chart-2" class="w-5 h-5 mb-2"></i><br>
+                            Estado de Cuenta</button>
+                    </div><!-- Recent Orders -->
+                    <div class="bg-white border rounded-2xl overflow-hidden">
+                        <div class="p-5 border-b flex justify-between items-center">
+                            <h3 class="font-semibold">Últimos Pedidos</h3><button
+                                class="text-xs text-accent font-medium">Ver todos →</button>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-sm">
+                                <thead class="bg-gray-50 text-left text-xs text-gray-500">
+                                    <tr>
+                                        <th class="px-5 py-3">Pedido</th>
+                                        <th class="px-5 py-3">Fecha</th>
+                                        <th class="px-5 py-3">Items</th>
+                                        <th class="px-5 py-3">Total</th>
+                                        <th class="px-5 py-3">Estado</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="border-t">
+                                        <td class="px-5 py-3 font-medium">#B2B-1024</td>
+                                        <td class="px-5 py-3">15 Ene 2025</td>
+                                        <td class="px-5 py-3">120 und.</td>
+                                        <td class="px-5 py-3 font-bold">S/4,200</td>
+                                        <td class="px-5 py-3"><span
+                                                class="badge bg-green-100 text-green-700">Entregado</span></td>
+                                    </tr>
+                                    <tr class="border-t">
+                                        <td class="px-5 py-3 font-medium">#B2B-1025</td>
+                                        <td class="px-5 py-3">22 Ene 2025</td>
+                                        <td class="px-5 py-3">60 und.</td>
+                                        <td class="px-5 py-3 font-bold">S/2,100</td>
+                                        <td class="px-5 py-3"><span class="badge bg-blue-100 text-blue-700">En
+                                                tránsito</span></td>
+                                    </tr>
+                                    <tr class="border-t">
+                                        <td class="px-5 py-3 font-medium">#B2B-1026</td>
+                                        <td class="px-5 py-3">28 Ene 2025</td>
+                                        <td class="px-5 py-3">200 und.</td>
+                                        <td class="px-5 py-3 font-bold">S/5,000</td>
+                                        <td class="px-5 py-3"><span
+                                                class="badge bg-yellow-100 text-yellow-700">Producción</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- ACCOUNT PAGE -->
+            <div id="page-account" class="page hidden fade-in">
+                <div class="max-w-5xl mx-auto px-6 md:px-12 py-8">
+                    <h2 class="text-2xl font-bold mb-8">Mi Cuenta</h2>
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="space-y-2"><button
+                                class="w-full text-left px-4 py-3 rounded-xl bg-dark text-white font-medium text-sm">Perfil</button>
+                            <button class="w-full text-left px-4 py-3 rounded-xl hover:bg-gray-50 text-sm">Mis
+                                Pedidos</button> <button
+                                class="w-full text-left px-4 py-3 rounded-xl hover:bg-gray-50 text-sm">Direcciones</button>
+                            <button
+                                class="w-full text-left px-4 py-3 rounded-xl hover:bg-gray-50 text-sm">Favoritos</button>
+                            <button
+                                class="w-full text-left px-4 py-3 rounded-xl hover:bg-gray-50 text-sm">Devoluciones</button>
+                        </div>
+                        <div class="md:col-span-2 bg-white border rounded-2xl p-6">
+                            <h3 class="font-semibold mb-4">Datos Personales</h3>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="text-xs text-gray-500 block mb-1" for="ac-name">Nombre</label><input
+                                        id="ac-name" type="text" value="Juan Pérez"
+                                        class="w-full px-4 py-2.5 border rounded-xl text-sm">
+                                </div>
+                                <div>
+                                    <label class="text-xs text-gray-500 block mb-1" for="ac-email">Email</label><input
+                                        id="ac-email" type="email" value="juan@email.com"
+                                        class="w-full px-4 py-2.5 border rounded-xl text-sm">
+                                </div>
+                                <div>
+                                    <label class="text-xs text-gray-500 block mb-1"
+                                        for="ac-phone">Teléfono</label><input id="ac-phone" type="tel"
+                                        value="999 888 777" class="w-full px-4 py-2.5 border rounded-xl text-sm">
+                                </div>
+                                <div>
+                                    <label class="text-xs text-gray-500 block mb-1" for="ac-doc">DNI</label><input
+                                        id="ac-doc" type="text" value="12345678"
+                                        class="w-full px-4 py-2.5 border rounded-xl text-sm">
+                                </div>
+                            </div><button
+                                class="mt-6 bg-dark text-white px-6 py-2.5 rounded-xl text-sm font-medium">Guardar
+                                Cambios</button>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- ADMIN PANEL -->
+            <div id="page-admin" class="page hidden fade-in">
+                <div class="flex h-[calc(100%-0px)]"><!-- Sidebar -->
+                    <aside class="hidden md:block w-60 border-r bg-white shrink-0 overflow-y-auto">
+                        <div class="p-4 border-b">
+                            <span class="font-black text-sm">URBAN ADMIN</span>
+                        </div>
+                        <nav class="p-2 space-y-0.5 text-sm"><button onclick="showAdminTab('dashboard')"
+                                class="nav-item active w-full text-left px-4 py-2.5 rounded-lg flex items-center gap-3"
+                                id="admin-nav-dashboard"><i data-lucide="bar-chart-2"
+                                    class="w-4 h-4"></i>Dashboard</button> <button onclick="showAdminTab('products')"
+                                class="nav-item w-full text-left px-4 py-2.5 rounded-lg flex items-center gap-3"
+                                id="admin-nav-products"><i data-lucide="package" class="w-4 h-4"></i>Productos</button>
+                            <button onclick="showAdminTab('orders')"
+                                class="nav-item w-full text-left px-4 py-2.5 rounded-lg flex items-center gap-3"
+                                id="admin-nav-orders"><i data-lucide="shopping-bag" class="w-4 h-4"></i>Pedidos</button>
+                            <button onclick="showAdminTab('inventory')"
+                                class="nav-item w-full text-left px-4 py-2.5 rounded-lg flex items-center gap-3"
+                                id="admin-nav-inventory"><i data-lucide="layers" class="w-4 h-4"></i>Inventario</button>
+                            <button onclick="showAdminTab('clients')"
+                                class="nav-item w-full text-left px-4 py-2.5 rounded-lg flex items-center gap-3"
+                                id="admin-nav-clients"><i data-lucide="users" class="w-4 h-4"></i>Clientes</button>
+                            <button onclick="showAdminTab('finance')"
+                                class="nav-item w-full text-left px-4 py-2.5 rounded-lg flex items-center gap-3"
+                                id="admin-nav-finance"><i data-lucide="dollar-sign"
+                                    class="w-4 h-4"></i>Finanzas</button> <button onclick="showAdminTab('marketing')"
+                                class="nav-item w-full text-left px-4 py-2.5 rounded-lg flex items-center gap-3"
+                                id="admin-nav-marketing"><i data-lucide="megaphone"
+                                    class="w-4 h-4"></i>Marketing</button> <button
+                                class="nav-item w-full text-left px-4 py-2.5 rounded-lg flex items-center gap-3"><i
+                                    data-lucide="settings" class="w-4 h-4"></i>Config</button>
+                        </nav>
+                    </aside><!-- Content -->
+                    <div class="flex-1 overflow-y-auto bg-surface p-6 md:p-8"><!-- Dashboard Tab -->
+                        <div id="admin-tab-dashboard">
+                            <div class="flex justify-between items-center mb-6">
+                                <h2 class="text-xl font-bold">Dashboard</h2><select
+                                    class="px-3 py-2 border rounded-lg text-sm bg-white">
+                                    <option>Hoy</option>
+                                    <option>Esta semana</option>
+                                    <option>Este mes</option>
+                                </select>
+                            </div>
+                            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                                <div class="bg-white rounded-2xl p-5 border">
+                                    <p class="text-xs text-gray-500">Ventas Hoy</p>
+                                    <p class="text-2xl font-black mt-1">S/12,450</p>
+                                    <p class="text-xs text-success mt-1">↑ 12% vs ayer</p>
+                                </div>
+                                <div class="bg-white rounded-2xl p-5 border">
+                                    <p class="text-xs text-gray-500">Pedidos</p>
+                                    <p class="text-2xl font-black mt-1">34</p>
+                                    <p class="text-xs text-success mt-1">↑ 8 nuevos</p>
+                                </div>
+                                <div class="bg-white rounded-2xl p-5 border">
+                                    <p class="text-xs text-gray-500">Conversión</p>
+                                    <p class="text-2xl font-black mt-1">3.8%</p>
+                                    <p class="text-xs text-success mt-1">↑ 0.4%</p>
+                                </div>
+                                <div class="bg-white rounded-2xl p-5 border">
+                                    <p class="text-xs text-gray-500">Ticket Promedio</p>
+                                    <p class="text-2xl font-black mt-1">S/186</p>
+                                    <p class="text-xs text-danger mt-1">↓ 2%</p>
+                                </div>
+                            </div><!-- Chart placeholder -->
+                            <div class="bg-white rounded-2xl border p-6 mb-6">
+                                <h3 class="font-semibold mb-4">Ventas - Últimos 7 días</h3>
+                                <div class="flex items-end gap-2 h-32">
+                                    <div class="flex-1 bg-gray-100 rounded-t" style="height:60%"></div>
+                                    <div class="flex-1 bg-gray-100 rounded-t" style="height:45%"></div>
+                                    <div class="flex-1 bg-gray-100 rounded-t" style="height:75%"></div>
+                                    <div class="flex-1 bg-gray-100 rounded-t" style="height:50%"></div>
+                                    <div class="flex-1 bg-gray-100 rounded-t" style="height:80%"></div>
+                                    <div class="flex-1 bg-gray-100 rounded-t" style="height:65%"></div>
+                                    <div class="flex-1 bg-accent rounded-t" style="height:90%"></div>
+                                </div>
+                                <div class="flex justify-between mt-2 text-[10px] text-gray-400">
+                                    <span>Lun</span><span>Mar</span><span>Mié</span><span>Jue</span><span>Vie</span><span>Sáb</span><span
+                                        class="font-bold text-dark">Hoy</span>
+                                </div>
+                            </div><!-- Recent Orders -->
+                            <div class="bg-white rounded-2xl border overflow-hidden">
+                                <div class="p-5 border-b">
+                                    <h3 class="font-semibold">Pedidos Recientes</h3>
+                                </div>
+                                <div class="overflow-x-auto">
+                                    <table class="w-full text-sm">
+                                        <thead class="bg-gray-50 text-xs text-gray-500 text-left">
+                                            <tr>
+                                                <th class="px-5 py-3">#</th>
+                                                <th class="px-5 py-3">Cliente</th>
+                                                <th class="px-5 py-3">Tipo</th>
+                                                <th class="px-5 py-3">Total</th>
+                                                <th class="px-5 py-3">Estado</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="border-t">
+                                                <td class="px-5 py-3 font-medium">#4521</td>
+                                                <td class="px-5 py-3">Carlos M.</td>
+                                                <td class="px-5 py-3"><span class="badge bg-gray-100">B2C</span></td>
+                                                <td class="px-5 py-3 font-bold">S/245</td>
+                                                <td class="px-5 py-3"><span
+                                                        class="badge bg-yellow-100 text-yellow-700">Pendiente</span>
+                                                </td>
+                                            </tr>
+                                            <tr class="border-t">
+                                                <td class="px-5 py-3 font-medium">#4520</td>
+                                                <td class="px-5 py-3">Distribuidora XYZ</td>
+                                                <td class="px-5 py-3"><span
+                                                        class="badge bg-blue-100 text-blue-700">B2B</span></td>
+                                                <td class="px-5 py-3 font-bold">S/3,500</td>
+                                                <td class="px-5 py-3"><span
+                                                        class="badge bg-green-100 text-green-700">Confirmado</span></td>
+                                            </tr>
+                                            <tr class="border-t">
+                                                <td class="px-5 py-3 font-medium">#4519</td>
+                                                <td class="px-5 py-3">Ana R.</td>
+                                                <td class="px-5 py-3"><span class="badge bg-gray-100">B2C</span></td>
+                                                <td class="px-5 py-3 font-bold">S/189</td>
+                                                <td class="px-5 py-3"><span
+                                                        class="badge bg-green-100 text-green-700">Enviado</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div><!-- Products Tab -->
+                        <div id="admin-tab-products" class="hidden">
+                            <div class="flex justify-between items-center mb-6">
+                                <h2 class="text-xl font-bold">Productos</h2><button
+                                    class="bg-dark text-white px-4 py-2.5 rounded-xl text-sm font-medium flex items-center gap-2"><i
+                                        data-lucide="plus" class="w-4 h-4"></i>Nuevo Producto</button>
+                            </div>
+                            <div class="bg-white rounded-2xl border overflow-hidden">
+                                <div class="p-4 border-b flex gap-3"><input type="text" placeholder="Buscar producto..."
+                                        class="flex-1 px-4 py-2 border rounded-lg text-sm"> <select
+                                        class="px-3 py-2 border rounded-lg text-sm bg-white">
+                                        <option>Todas las categorías</option>
+                                    </select>
+                                </div>
+                                <div class="overflow-x-auto">
+                                    <table class="w-full text-sm">
+                                        <thead class="bg-gray-50 text-xs text-gray-500 text-left">
+                                            <tr>
+                                                <th class="px-5 py-3">Producto</th>
+                                                <th class="px-5 py-3">SKU</th>
+                                                <th class="px-5 py-3">Stock</th>
+                                                <th class="px-5 py-3">Precio</th>
+                                                <th class="px-5 py-3">Estado</th>
+                                                <th class="px-5 py-3"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="border-t">
+                                                <td class="px-5 py-3 font-medium flex items-center gap-3"><span
+                                                        class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">👕</span>Polo
+                                                    Oversize Premium</td>
+                                                <td class="px-5 py-3 font-mono text-xs">US-POL-001</td>
+                                                <td class="px-5 py-3"><span class="text-success font-medium">245</span>
+                                                </td>
+                                                <td class="px-5 py-3 font-bold">S/89.90</td>
+                                                <td class="px-5 py-3"><span
+                                                        class="badge bg-green-100 text-green-700">Activo</span></td>
+                                                <td class="px-5 py-3"><button class="text-gray-400 hover:text-dark"><i
+                                                            data-lucide="more-horizontal" class="w-4 h-4"></i></button>
+                                                </td>
+                                            </tr>
+                                            <tr class="border-t">
+                                                <td class="px-5 py-3 font-medium flex items-center gap-3"><span
+                                                        class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">🧥</span>Hoodie
+                                                    Essential Drop</td>
+                                                <td class="px-5 py-3 font-mono text-xs">US-HOD-003</td>
+                                                <td class="px-5 py-3"><span class="text-warning font-medium">18</span>
+                                                </td>
+                                                <td class="px-5 py-3 font-bold">S/129.90</td>
+                                                <td class="px-5 py-3"><span
+                                                        class="badge bg-green-100 text-green-700">Activo</span></td>
+                                                <td class="px-5 py-3"><button class="text-gray-400 hover:text-dark"><i
+                                                            data-lucide="more-horizontal" class="w-4 h-4"></i></button>
+                                                </td>
+                                            </tr>
+                                            <tr class="border-t">
+                                                <td class="px-5 py-3 font-medium flex items-center gap-3"><span
+                                                        class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">👖</span>Jogger
+                                                    Cargo Street</td>
+                                                <td class="px-5 py-3 font-mono text-xs">US-JOG-005</td>
+                                                <td class="px-5 py-3"><span class="text-danger font-medium">3</span>
+                                                </td>
+                                                <td class="px-5 py-3 font-bold">S/109.90</td>
+                                                <td class="px-5 py-3"><span class="badge bg-red-100 text-red-700">Stock
+                                                        bajo</span></td>
+                                                <td class="px-5 py-3"><button class="text-gray-400 hover:text-dark"><i
+                                                            data-lucide="more-horizontal" class="w-4 h-4"></i></button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div><!-- Orders Tab -->
+                        <div id="admin-tab-orders" class="hidden">
+                            <div class="flex justify-between items-center mb-6">
+                                <h2 class="text-xl font-bold">Pedidos</h2>
+                                <div class="flex gap-2"><button
+                                        class="px-4 py-2 text-xs font-medium bg-dark text-white rounded-full">Todos</button>
+                                    <button
+                                        class="px-4 py-2 text-xs font-medium bg-white border rounded-full">Pendientes</button>
+                                    <button class="px-4 py-2 text-xs font-medium bg-white border rounded-full">En
+                                        proceso</button>
+                                </div>
+                            </div>
+                            <div class="space-y-3">
+                                <div
+                                    class="bg-white rounded-2xl border p-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                                    <div>
+                                        <p class="font-bold">#4521</p>
+                                        <p class="text-xs text-gray-500">Carlos M. · B2C · 15 Ene 2025</p>
+                                    </div>
+                                    <div class="flex items-center gap-4">
+                                        <span class="font-bold">S/245</span><span
+                                            class="badge bg-yellow-100 text-yellow-700">Pendiente</span><button
+                                            class="text-xs text-accent font-medium">Ver detalle →</button>
+                                    </div>
+                                </div>
+                                <div
+                                    class="bg-white rounded-2xl border p-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                                    <div>
+                                        <p class="font-bold">#4520</p>
+                                        <p class="text-xs text-gray-500">Distribuidora XYZ · B2B · 14 Ene 2025</p>
+                                    </div>
+                                    <div class="flex items-center gap-4">
+                                        <span class="font-bold">S/3,500</span><span
+                                            class="badge bg-blue-100 text-blue-700">Preparando</span><button
+                                            class="text-xs text-accent font-medium">Ver detalle →</button>
+                                    </div>
+                                </div>
+                                <div
+                                    class="bg-white rounded-2xl border p-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                                    <div>
+                                        <p class="font-bold">#4519</p>
+                                        <p class="text-xs text-gray-500">Ana R. · B2C · 13 Ene 2025</p>
+                                    </div>
+                                    <div class="flex items-center gap-4">
+                                        <span class="font-bold">S/189</span><span
+                                            class="badge bg-green-100 text-green-700">Enviado</span><button
+                                            class="text-xs text-accent font-medium">Ver detalle →</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- Inventory Tab -->
+                        <div id="admin-tab-inventory" class="hidden">
+                            <h2 class="text-xl font-bold mb-6">Inventario</h2>
+                            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                                <div class="bg-white rounded-2xl border p-4">
+                                    <p class="text-xs text-gray-500">Total SKUs</p>
+                                    <p class="text-xl font-black mt-1">342</p>
+                                </div>
+                                <div class="bg-white rounded-2xl border p-4">
+                                    <p class="text-xs text-gray-500">Stock Total</p>
+                                    <p class="text-xl font-black mt-1">12,450</p>
+                                </div>
+                                <div class="bg-white rounded-2xl border p-4">
+                                    <p class="text-xs text-gray-500">Stock Bajo</p>
+                                    <p class="text-xl font-black mt-1 text-warning">18</p>
+                                </div>
+                                <div class="bg-white rounded-2xl border p-4">
+                                    <p class="text-xs text-gray-500">Sin Stock</p>
+                                    <p class="text-xl font-black mt-1 text-danger">5</p>
+                                </div>
+                            </div>
+                            <div class="bg-white rounded-2xl border p-6">
+                                <h3 class="font-semibold mb-4">Alertas de Stock</h3>
+                                <div class="space-y-3">
+                                    <div class="flex items-center justify-between p-3 bg-red-50 rounded-xl">
+                                        <div class="flex items-center gap-3">
+                                            <span class="w-2 h-2 bg-danger rounded-full pulse-dot"></span><span
+                                                class="text-sm font-medium">Jogger Cargo - Negro/L</span>
+                                        </div><span class="text-xs font-bold text-danger">3 und.</span>
+                                    </div>
+                                    <div class="flex items-center justify-between p-3 bg-yellow-50 rounded-xl">
+                                        <div class="flex items-center gap-3">
+                                            <span class="w-2 h-2 bg-warning rounded-full"></span><span
+                                                class="text-sm font-medium">Hoodie Essential - Gris/M</span>
+                                        </div><span class="text-xs font-bold text-warning">18 und.</span>
+                                    </div>
+                                    <div class="flex items-center justify-between p-3 bg-yellow-50 rounded-xl">
+                                        <div class="flex items-center gap-3">
+                                            <span class="w-2 h-2 bg-warning rounded-full"></span><span
+                                                class="text-sm font-medium">Polo Premium - Blanco/XL</span>
+                                        </div><span class="text-xs font-bold text-warning">22 und.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- Clients Tab -->
+                        <div id="admin-tab-clients" class="hidden">
+                            <h2 class="text-xl font-bold mb-6">Clientes</h2>
+                            <div class="grid md:grid-cols-2 gap-4 mb-6">
+                                <div class="bg-white rounded-2xl border p-5">
+                                    <div class="flex justify-between">
+                                        <div>
+                                            <p class="text-xs text-gray-500">Clientes B2C</p>
+                                            <p class="text-2xl font-black mt-1">2,340</p>
+                                        </div><span class="badge bg-gray-100">Retail</span>
+                                    </div>
+                                </div>
+                                <div class="bg-white rounded-2xl border p-5">
+                                    <div class="flex justify-between">
+                                        <div>
+                                            <p class="text-xs text-gray-500">Clientes B2B</p>
+                                            <p class="text-2xl font-black mt-1">87</p>
+                                        </div><span class="badge bg-blue-100 text-blue-700">Mayorista</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-white rounded-2xl border overflow-hidden">
+                                <table class="w-full text-sm">
+                                    <thead class="bg-gray-50 text-xs text-gray-500 text-left">
+                                        <tr>
+                                            <th class="px-5 py-3">Cliente</th>
+                                            <th class="px-5 py-3">Tipo</th>
+                                            <th class="px-5 py-3">Compras</th>
+                                            <th class="px-5 py-3">Última Compra</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="border-t">
+                                            <td class="px-5 py-3 font-medium">Distribuidora Lima SAC</td>
+                                            <td class="px-5 py-3"><span class="badge bg-blue-100 text-blue-700">B2B
+                                                    Gold</span></td>
+                                            <td class="px-5 py-3 font-bold">S/45,000</td>
+                                            <td class="px-5 py-3">Hace 2 días</td>
+                                        </tr>
+                                        <tr class="border-t">
+                                            <td class="px-5 py-3 font-medium">Carlos Mendoza</td>
+                                            <td class="px-5 py-3"><span class="badge bg-gray-100">B2C</span></td>
+                                            <td class="px-5 py-3 font-bold">S/1,200</td>
+                                            <td class="px-5 py-3">Hace 5 días</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div><!-- Finance Tab -->
+                        <div id="admin-tab-finance" class="hidden">
+                            <h2 class="text-xl font-bold mb-6">Finanzas</h2>
+                            <div class="grid grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+                                <div class="bg-white rounded-2xl border p-5">
+                                    <p class="text-xs text-gray-500">Ingresos (Mes)</p>
+                                    <p class="text-2xl font-black mt-1 text-success">S/85,400</p>
+                                </div>
+                                <div class="bg-white rounded-2xl border p-5">
+                                    <p class="text-xs text-gray-500">Gastos (Mes)</p>
+                                    <p class="text-2xl font-black mt-1 text-danger">S/32,100</p>
+                                </div>
+                                <div class="bg-white rounded-2xl border p-5">
+                                    <p class="text-xs text-gray-500">Utilidad Neta</p>
+                                    <p class="text-2xl font-black mt-1">S/53,300</p>
+                                </div>
+                            </div>
+                            <div class="bg-white rounded-2xl border p-6">
+                                <h3 class="font-semibold mb-4">Flujo de Caja - Enero 2025</h3>
+                                <div class="space-y-3">
+                                    <div class="flex justify-between items-center p-3 border-b">
+                                        <span class="text-sm">Ventas B2C</span><span
+                                            class="font-bold text-success">+S/42,300</span>
+                                    </div>
+                                    <div class="flex justify-between items-center p-3 border-b">
+                                        <span class="text-sm">Ventas B2B</span><span
+                                            class="font-bold text-success">+S/43,100</span>
+                                    </div>
+                                    <div class="flex justify-between items-center p-3 border-b">
+                                        <span class="text-sm">Proveedores</span><span
+                                            class="font-bold text-danger">-S/22,000</span>
+                                    </div>
+                                    <div class="flex justify-between items-center p-3 border-b">
+                                        <span class="text-sm">Logística</span><span
+                                            class="font-bold text-danger">-S/5,600</span>
+                                    </div>
+                                    <div class="flex justify-between items-center p-3">
+                                        <span class="text-sm">Marketing</span><span
+                                            class="font-bold text-danger">-S/4,500</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- Marketing Tab -->
+                        <div id="admin-tab-marketing" class="hidden">
+                            <h2 class="text-xl font-bold mb-6">Marketing</h2>
+                            <div class="grid md:grid-cols-3 gap-4 mb-6">
+                                <div class="bg-white rounded-2xl border p-5">
+                                    <p class="text-xs text-gray-500">Cupones Activos</p>
+                                    <p class="text-2xl font-black mt-1">8</p>
+                                </div>
+                                <div class="bg-white rounded-2xl border p-5">
+                                    <p class="text-xs text-gray-500">Campañas</p>
+                                    <p class="text-2xl font-black mt-1">3</p>
+                                </div>
+                                <div class="bg-white rounded-2xl border p-5">
+                                    <p class="text-xs text-gray-500">Emails Enviados</p>
+                                    <p class="text-2xl font-black mt-1">4,200</p>
+                                </div>
+                            </div>
+                            <div class="bg-white rounded-2xl border p-6">
+                                <div class="flex justify-between items-center mb-4">
+                                    <h3 class="font-semibold">Cupones</h3><button
+                                        class="text-xs bg-dark text-white px-3 py-1.5 rounded-lg font-medium">+ Nuevo
+                                        Cupón</button>
+                                </div>
+                                <div class="space-y-3">
+                                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-xl">
+                                        <div>
+                                            <p class="font-medium text-sm">VERANO25</p>
+                                            <p class="text-xs text-gray-500">25% OFF - Min S/150</p>
+                                        </div><span class="badge bg-green-100 text-green-700">Activo</span>
+                                    </div>
+                                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-xl">
+                                        <div>
+                                            <p class="font-medium text-sm">B2BWELCOME</p>
+                                            <p class="text-xs text-gray-500">10% primer pedido mayorista</p>
+                                        </div><span class="badge bg-green-100 text-green-700">Activo</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- WISHLIST PAGE -->
+            <div id="page-wishlist" class="page hidden fade-in">
+                <div class="max-w-5xl mx-auto px-6 md:px-12 py-8">
+                    <h2 class="text-2xl font-bold mb-6">Mis Favoritos (3)</h2>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        <div class="card-hover rounded-2xl bg-white border overflow-hidden">
+                            <div class="aspect-[3/4] bg-gray-100 flex items-center justify-center text-5xl relative">
+                                👕<button
+                                    class="absolute top-3 right-3 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow text-danger"><i
+                                        data-lucide="heart" class="w-4 h-4 fill-current"></i></button>
+                            </div>
+                            <div class="p-4">
+                                <p class="font-medium text-sm">Polo Oversize Premium</p>
+                                <p class="font-bold mt-1">S/89.90</p><button
+                                    class="w-full mt-3 bg-dark text-white py-2 rounded-lg text-xs font-medium">Agregar
+                                    al carrito</button>
+                            </div>
+                        </div>
+                        <div class="card-hover rounded-2xl bg-white border overflow-hidden">
+                            <div class="aspect-[3/4] bg-gray-100 flex items-center justify-center text-5xl relative">
+                                🧥<button
+                                    class="absolute top-3 right-3 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow text-danger"><i
+                                        data-lucide="heart" class="w-4 h-4 fill-current"></i></button>
+                            </div>
+                            <div class="p-4">
+                                <p class="font-medium text-sm">Hoodie Essential</p>
+                                <p class="font-bold mt-1">S/129.90</p><button
+                                    class="w-full mt-3 bg-dark text-white py-2 rounded-lg text-xs font-medium">Agregar
+                                    al carrito</button>
+                            </div>
+                        </div>
+                        <div class="card-hover rounded-2xl bg-white border overflow-hidden">
+                            <div class="aspect-[3/4] bg-gray-100 flex items-center justify-center text-5xl relative">
+                                👖<button
+                                    class="absolute top-3 right-3 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow text-danger"><i
+                                        data-lucide="heart" class="w-4 h-4 fill-current"></i></button>
+                            </div>
+                            <div class="p-4">
+                                <p class="font-medium text-sm">Jogger Cargo Street</p>
+                                <p class="font-bold mt-1">S/109.90</p><button
+                                    class="w-full mt-3 bg-dark text-white py-2 rounded-lg text-xs font-medium">Agregar
+                                    al carrito</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- end pages-container -->
+    </div><!-- end app -->
+    <script>
+        // State
+        let currentPage = 'home';
+        let currentMode = 'b2c';
+        let qty = 1;
+
+        // Navigation
+        function navigate(page, sub) {
+            document.querySelectorAll('.page').forEach(p => p.classList.add('hidden'));
+            const el = document.getElementById('page-' + page);
+            if (el) { el.classList.remove('hidden'); el.classList.add('fade-in'); }
+            currentPage = page;
+            if (page === 'catalog') populateCatalog(sub);
+            window.scrollTo(0, 0);
+        }
+
+        function switchMode(mode) {
+            currentMode = mode;
+            document.getElementById('mode-b2c').classList.toggle('font-bold', mode === 'b2c');
+            document.getElementById('mode-b2b').classList.toggle('font-bold', mode === 'b2b');
+            if (mode === 'b2b') navigate('b2b');
+            else navigate('home');
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+
+        function toggleCart() {
+            document.getElementById('cart-drawer').classList.toggle('hidden');
+        }
+
+        function updateQty(delta) {
+            qty = Math.max(1, qty + delta);
+            document.getElementById('qty-display').textContent = qty;
+        }
+
+        // Admin tabs
+        function showAdminTab(tab) {
+            document.querySelectorAll('[id^="admin-tab-"]').forEach(t => t.classList.add('hidden'));
+            document.getElementById('admin-tab-' + tab).classList.remove('hidden');
+            document.querySelectorAll('[id^="admin-nav-"]').forEach(n => n.classList.remove('active'));
+            const nav = document.getElementById('admin-nav-' + tab);
+            if (nav) nav.classList.add('active');
+        }
+
+        // Catalog
+        function populateCatalog(category) {
+            const title = document.getElementById('catalog-title');
+            title.textContent = category ? category.charAt(0).toUpperCase() + category.slice(1) : 'Catálogo';
+            const items = [
+                { name: 'Polo Oversize Premium', price: 'S/89.90', emoji: '👕', tag: 'NEW' },
+                { name: 'Hoodie Essential Drop', price: 'S/129.90', emoji: '🧥', tag: '-30%' },
+                { name: 'Jogger Cargo Street', price: 'S/109.90', emoji: '👖', tag: '' },
+                { name: 'Conjunto Urban Tech', price: 'S/189.90', emoji: '🎽', tag: 'B2B' },
+                { name: 'Polera Basic Crew', price: 'S/59.90', emoji: '👔', tag: '' },
+                { name: 'Short Mesh Sport', price: 'S/69.90', emoji: '🩳', tag: 'NEW' },
+            ];
+            const grid = document.getElementById('catalog-grid');
+            grid.innerHTML = items.map(i => `
+    <div class="card-hover cursor-pointer rounded-2xl bg-white border overflow-hidden" onclick="navigate('product')">
+      <div class="relative aspect-[3/4] bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center text-5xl">
+        ${i.emoji}
+        ${i.tag ? `<span class="absolute top-3 left-3 bg-dark text-white text-[10px] px-2 py-0.5 rounded-full font-medium">${i.tag}</span>` : ''}
+      </div>
+      <div class="p-4"><p class="text-xs text-gray-500">URBAN STYLE</p><p class="font-medium text-sm mt-1">${i.name}</p><p class="font-bold mt-1">${i.price}</p></div>
+    </div>
+  `).join('');
+        }
+
+        // Search
+        function handleSearch(val) {
+            const dd = document.getElementById('search-dropdown');
+            if (val.length > 1) {
+                dd.classList.remove('hidden');
+                dd.innerHTML = `<p class="text-xs text-gray-500 mb-2">Resultados para "${val}"</p>
+      <div class="space-y-2">
+        <div class="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 cursor-pointer" onclick="navigate('product')"><span class="text-xl">👕</span><div><p class="text-sm font-medium">Polo Oversize Premium</p><p class="text-xs text-gray-500">S/89.90</p></div></div>
+        <div class="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 cursor-pointer" onclick="navigate('product')"><span class="text-xl">🧥</span><div><p class="text-sm font-medium">Hoodie Essential</p><p class="text-xs text-gray-500">S/129.90</p></div></div>
+      </div>`;
+            } else { dd.classList.add('hidden'); }
+        }
+
+        // Init
+        populateCatalog();
+        lucide.createIcons();
+
+        // Element SDK
+        const defaultConfig = {
+            brand_name: 'URBAN STYLE',
+            hero_headline: 'Define Your Style',
+            hero_subtext: 'Moda urbana masculina premium. Diseños exclusivos para quienes marcan tendencia.',
+            background_color: '#ffffff',
+            surface_color: '#f8f9fa',
+            text_color: '#1a1a1a',
+            primary_action_color: '#1a1a1a',
+            secondary_action_color: '#1a56db',
+            font_family: 'Outfit',
+            font_size: 16
+        };
+
+        window.elementSdk.init({
+            defaultConfig,
+            onConfigChange: async (config) => {
+                document.getElementById('brand-text').textContent = config.brand_name || defaultConfig.brand_name;
+                document.getElementById('hero-headline').textContent = config.hero_headline || defaultConfig.hero_headline;
+                document.getElementById('hero-subtext').textContent = config.hero_subtext || defaultConfig.hero_subtext;
+
+                const bg = config.background_color || defaultConfig.background_color;
+                const surface = config.surface_color || defaultConfig.surface_color;
+                const text = config.text_color || defaultConfig.text_color;
+                const primary = config.primary_action_color || defaultConfig.primary_action_color;
+                const accent = config.secondary_action_color || defaultConfig.secondary_action_color;
+                const font = config.font_family || defaultConfig.font_family;
+                const size = config.font_size || defaultConfig.font_size;
+
+                document.body.style.backgroundColor = bg;
+                document.body.style.color = text;
+                document.body.style.fontFamily = `${font}, Outfit, sans-serif`;
+                document.body.style.fontSize = `${size}px`;
+            },
+            mapToCapabilities: (config) => ({
+                recolorables: [
+                    { get: () => config.background_color || defaultConfig.background_color, set: (v) => { config.background_color = v; window.elementSdk.setConfig({ background_color: v }); } },
+                    { get: () => config.surface_color || defaultConfig.surface_color, set: (v) => { config.surface_color = v; window.elementSdk.setConfig({ surface_color: v }); } },
+                    { get: () => config.text_color || defaultConfig.text_color, set: (v) => { config.text_color = v; window.elementSdk.setConfig({ text_color: v }); } },
+                    { get: () => config.primary_action_color || defaultConfig.primary_action_color, set: (v) => { config.primary_action_color = v; window.elementSdk.setConfig({ primary_action_color: v }); } },
+                    { get: () => config.secondary_action_color || defaultConfig.secondary_action_color, set: (v) => { config.secondary_action_color = v; window.elementSdk.setConfig({ secondary_action_color: v }); } },
+                ],
+                borderables: [],
+                fontEditable: { get: () => config.font_family || defaultConfig.font_family, set: (v) => { config.font_family = v; window.elementSdk.setConfig({ font_family: v }); } },
+                fontSizeable: { get: () => config.font_size || defaultConfig.font_size, set: (v) => { config.font_size = v; window.elementSdk.setConfig({ font_size: v }); } }
+            }),
+            mapToEditPanelValues: (config) => new Map([
+                ['brand_name', config.brand_name || defaultConfig.brand_name],
+                ['hero_headline', config.hero_headline || defaultConfig.hero_headline],
+                ['hero_subtext', config.hero_subtext || defaultConfig.hero_subtext]
+            ])
+        });
+    </script>
+    <script>(function () { function c() { var b = a.contentDocument || a.contentWindow.document; if (b) { var d = b.createElement('script'); d.innerHTML = "window.__CF$cv$params={r:'a0a08db97ca4b08a',t:'MTc4MTE4MDI1Ng=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);"; b.getElementsByTagName('head')[0].appendChild(d) } } if (document.body) { var a = document.createElement('iframe'); a.height = 1; a.width = 1; a.style.position = 'absolute'; a.style.top = 0; a.style.left = 0; a.style.border = 'none'; a.style.visibility = 'hidden'; document.body.appendChild(a); if ('loading' !== document.readyState) c(); else if (window.addEventListener) document.addEventListener('DOMContentLoaded', c); else { var e = document.onreadystatechange || function () { }; document.onreadystatechange = function (b) { e(b); 'loading' !== document.readyState && (document.onreadystatechange = e, c()) } } } })();</script>
+</body>
+
+</html>
