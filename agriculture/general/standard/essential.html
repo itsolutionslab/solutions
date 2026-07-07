@@ -4,8 +4,542 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#5AA436" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)">
     <title>Andina Corporation | Consultoría y Ejecutora</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
+
+        :root {
+            --color-primary: #5AA436;
+            --color-primary-dark: #1E5B2B;
+            --color-accent: #FDCB29;
+            
+            --bg-color: #f8f9fa;
+            --text-color: #333333;
+            --text-muted: #666666;
+            --surface-color: #ffffff;
+            --surface-glass: rgba(255, 255, 255, 0.75);
+            --border-color: rgba(0,0,0,0.06);
+
+            --font-family: 'Outfit', sans-serif;
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --radius-xl: 32px;
+            
+            --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 10px 20px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.12);
+            
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #0f172a;
+                --text-color: #f1f5f9;
+                --text-muted: #94a3b8;
+                --surface-color: #1e293b;
+                --surface-glass: rgba(15, 23, 42, 0.75);
+                --border-color: rgba(255,255,255,0.08);
+                --shadow-md: 0 10px 20px rgba(0, 0, 0, 0.3);
+                --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.4);
+            }
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* TOP BAR (Mobile First) */
+        .top-bar {
+            background-color: var(--color-primary-dark);
+            color: #e2e8f0;
+            padding: 0.75rem 1rem;
+            font-size: 0.85rem;
+        }
+
+        .top-bar-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center; 
+            gap: 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .top-bar-left, .top-bar-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-align: center;
+            flex-direction: column;
+        }
+
+        .icon-circle {
+            background: rgba(255,255,255,0.1);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            transition: var(--transition);
+        }
+
+        .icon-circle:hover {
+            background: var(--color-accent);
+            color: var(--color-primary-dark);
+            transform: scale(1.1);
+        }
+
+        .logo-center {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+        .logo-center svg {
+            height: 55px; 
+            width: auto;
+        }
+
+        /* NAVIGATION */
+        .nav-bar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--surface-glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+            padding: 0.8rem 1rem;
+            overflow-x: auto; 
+            scrollbar-width: none; 
+        }
+        .nav-bar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            justify-content: flex-start;
+            gap: 1rem;
+            list-style: none;
+            max-width: 1200px;
+            margin: 0 auto;
+            flex-wrap: nowrap; 
+            white-space: nowrap;
+        }
+
+        .nav-menu li a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-xl);
+            transition: var(--transition);
+            display: inline-block;
+        }
+
+        .nav-menu li a:hover, .nav-menu li.active a {
+            background: var(--color-primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(90, 164, 54, 0.3);
+        }
+
+        /* HERO SECTION */
+        .hero {
+            position: relative;
+            min-height: 70vh; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(to right, rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.6)), url('https://images.unsplash.com/photo-1541888946425-d81bb19480c5?auto=format&fit=crop&q=80') center/cover fixed;
+            text-align: center;
+            color: white;
+            clip-path: polygon(0 0, 100% 0, 100% 96%, 0 100%);
+            margin-bottom: 2rem;
+            padding: 4rem 1rem;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 8vw, 4.5rem);
+            line-height: 1.1;
+            margin-bottom: 1.2rem;
+            font-weight: 800;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.4);
+        }
+
+        .hero h1 span { color: var(--color-accent); }
+
+        .hero p {
+            font-size: clamp(1rem, 4vw, 1.25rem);
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .btn-green {
+            display: inline-block;
+            background: var(--color-primary);
+            color: white;
+            text-decoration: none;
+            padding: 1rem 2rem;
+            border-radius: var(--radius-xl);
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            box-shadow: 0 8px 20px rgba(90, 164, 54, 0.4);
+            font-size: 0.95rem;
+        }
+
+        .btn-green:hover {
+            background: var(--color-primary-dark);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(90, 164, 54, 0.6);
+        }
+
+        /* SECTION GLOBAL */
+        section {
+            padding: 4rem 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: clamp(2rem, 6vw, 2.5rem);
+            color: var(--text-color);
+            margin-bottom: 3rem;
+            font-weight: 800;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: var(--color-primary);
+            border-radius: 2px;
+        }
+
+        /* DIFERENTES GRID */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-box {
+            background: var(--surface-color);
+            padding: 2.5rem 1.5rem;
+            border-radius: var(--radius-lg);
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-box::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 5px;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .feature-box:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .feature-box:hover::before { transform: scaleX(1); }
+
+        .feature-icon-wrapper {
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+
+        .feature-icon-wrapper img {
+            width: 80px; height: 80px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid var(--color-accent);
+            padding: 4px;
+            background: var(--surface-color);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .feature-box h4 {
+            font-size: 1.25rem;
+            margin-bottom: 0.8rem;
+            color: var(--text-color);
+            font-weight: 800;
+        }
+
+        .feature-box p {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        /* SERVICIOS GRID */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .service-card {
+            position: relative;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            box-shadow: var(--shadow-sm);
+            cursor: pointer;
+            background-color: var(--surface-color);
+        }
+
+        .service-card img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .service-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(15, 23, 42, 0.9) 0%, rgba(15, 23, 42, 0.1) 100%);
+            display: flex;
+            align-items: flex-end;
+            padding: 2rem;
+            transition: background 0.4s ease;
+        }
+
+        .service-card:hover img { transform: scale(1.08); }
+
+        .service-card:hover .service-overlay {
+            background: linear-gradient(to top, rgba(30, 91, 43, 0.95) 0%, rgba(0,0,0,0.3) 100%);
+        }
+
+        .service-overlay h4 {
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            transform: translateY(10px);
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .service-card:hover .service-overlay h4 { transform: translateY(0); }
+
+        /* INDUSTRIES BANNER */
+        .industries-banner {
+            display: flex;
+            flex-direction: column; 
+            width: 100%;
+            margin-top: 2rem;
+        }
+
+        .industry-item {
+            width: 100%;
+            position: relative;
+            aspect-ratio: 16/9; 
+            overflow: hidden;
+        }
+
+        .industry-item img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .industry-label {
+            position: absolute;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.6);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            transition: var(--transition);
+            backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(2px);
+        }
+
+        .industry-item:hover img { transform: scale(1.12); }
+
+        .industry-item:hover .industry-label {
+            background: rgba(30, 91, 43, 0.85);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+        }
+
+        .industry-label h4 {
+            font-size: 1.3rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            transform: translateY(5px);
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .industry-item:hover .industry-label h4 { transform: translateY(0); }
+
+        .industry-label p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            transform: translateY(5px);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .industry-item:hover .industry-label p {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* EMPRESAS GRID */
+        .companies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .company-card {
+            background: var(--surface-color);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem 2rem;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .company-card::after {
+            content: ''; position: absolute; bottom: 0; right: 0;
+            width: 100px; height: 100px;
+            background: radial-gradient(circle, var(--color-accent) 0%, transparent 70%);
+            opacity: 0; transition: var(--transition);
+            transform: translate(30%, 30%);
+        }
+
+        .company-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(90, 164, 54, 0.2);
+        }
+
+        .company-card:hover::after { opacity: 0.15; }
+
+        .company-logo {
+            height: 80px; display: flex; align-items: center; justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .company-card h4 { font-size: 1.2rem; color: var(--text-color); margin-bottom: 0.5rem; font-weight: 800; }
+        .company-card span { display: block; font-size: 0.85rem; color: var(--color-primary); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 1rem; font-weight: 800; }
+        .company-card p { color: var(--text-muted); font-size: 1rem; }
+
+        /* FOOTER */
+        footer {
+            background-color: #0f172a; color: #94a3b8;
+            padding: 4rem 1.5rem 3rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .footer-inner {
+            max-width: 1200px; margin: 0 auto;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            gap: 2.5rem; text-align: center;
+        }
+
+        .footer-logo { display: flex; align-items: center; gap: 1rem; flex-direction: column; }
+        .footer-logo h3 { line-height: 1.2; }
+        .footer-copy { font-size: 0.9rem; opacity: 0.8; }
+        .footer-social { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; justify-content: center; }
+
+        .social-icon {
+            width: 42px; height: 42px;
+            background: rgba(255,255,255,0.05); color: white;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 50%; text-decoration: none; transition: var(--transition);
+        }
+
+        .social-icon:hover {
+            background: var(--color-primary); transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(90, 164, 54, 0.4);
+        }
+
+        .btn-up {
+            width: 42px; height: 42px;
+            background: var(--color-accent); color: #0f172a;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: var(--radius-sm); cursor: pointer; font-weight: 800; transition: var(--transition);
+        }
+
+        .btn-up:hover {
+            background: white; transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(253, 203, 41, 0.4);
+        }
+
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* TABLET AND DESKTOP (min-width: 768px) */
+        @media (min-width: 768px) {
+            .top-bar { padding: 0.75rem 2rem; }
+            .top-bar-inner { flex-direction: row; justify-content: space-between; }
+            .top-bar-left, .top-bar-right { flex-direction: row; text-align: left; }
+            .logo-center svg { height: 70px; }
+            
+            .nav-bar { padding: 1rem 2rem; overflow-x: visible; }
+            .nav-menu { justify-content: center; flex-wrap: wrap; white-space: normal; }
+            .nav-menu li a { padding: 0.6rem 1.2rem; }
+
+            .hero { min-height: 85vh; clip-path: polygon(0 0, 100% 0, 100% 92%, 0 100%); }
+            .hero h1 { margin-bottom: 1.5rem; }
+            .btn-green { padding: 1.1rem 2.8rem; font-size: 1rem; }
+
+            section { padding: 5rem 2rem; }
+
+            .industries-banner { flex-direction: row; flex-wrap: wrap; }
+            .industry-item { flex: 1 1 20%; min-width: 200px; aspect-ratio: 1; }
+            
+            .footer-inner { flex-direction: row; justify-content: space-between; text-align: left; }
+            .footer-logo { flex-direction: row; gap: 1.5rem; }
+            .footer-logo h3 { text-align: left; }
+            .btn-up { margin-left: 1rem; }
+        }
+    </style>
 </head>
 
 <body>
@@ -14,24 +548,24 @@
     <div class="top-bar">
         <div class="top-bar-inner">
             <div class="top-bar-left">
-                <div class="icon-circle">📞</div>
+                <div class="icon-circle">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                </div>
                 <p>(051) 496 6384<br>RPM: #976-765606 / RPC: 980-967317</p>
             </div>
 
             <div class="logo-center">
-                <!-- SVG placeholder para el logo original de la tuerca amarilla y texto verde -->
                 <svg width="180" height="90" viewBox="0 0 180 90" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="90" cy="45" r="35" fill="none" stroke="#FDCB29" stroke-width="8"
-                        stroke-dasharray="10 5" />
-                    <text x="90" y="52" font-family="Arial" font-weight="bold" font-size="28" fill="#5AA436"
-                        text-anchor="middle">Andina</text>
-                    <text x="90" y="65" font-family="Arial" font-size="10" fill="#206229"
-                        text-anchor="middle">Corporation Of Consultants</text>
+                    <circle cx="90" cy="45" r="35" fill="none" stroke="#FDCB29" stroke-width="8" stroke-dasharray="10 5" />
+                    <text x="90" y="52" font-family="Outfit, Arial, sans-serif" font-weight="800" font-size="28" fill="#5AA436" text-anchor="middle">Andina</text>
+                    <text x="90" y="65" font-family="Outfit, Arial, sans-serif" font-size="10" fill="#206229" text-anchor="middle">Corporation Of Consultants</text>
                 </svg>
             </div>
 
             <div class="top-bar-right">
-                <div class="icon-circle">📍</div>
+                <div class="icon-circle">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                </div>
                 <p>Psj. Olaya 110 Ofc. 601<br>Plaza Mayor Cercado de Lima - Lima</p>
             </div>
         </div>
@@ -40,35 +574,25 @@
     <!-- NAV BAR AMARILLA -->
     <nav class="nav-bar">
         <ul class="nav-menu">
-            <li class="active"><a href="index.html">INICIO</a></li>
-            <li><a href="nosotros.html">EMPRESA</a></li>
-            <li><a href="servicios.html">SERVICIO ⌄</a></li>
-            <li><a href="productos.html">PRODUCTOS</a></li>
-            <li><a href="proyectos.html">PROYECTOS</a></li>
-            <li><a href="contacto.html">CONTACTO</a></li>
-            <li><a href="andinacorp-ecommerce.html">ECOMMERCE</a></li>
-            <li><a href="#" style="padding: 15px 15px;">🔍</a></li>
+            <li class="active"><a href="javascript:void(0)">INICIO</a></li>
+            <li><a href="javascript:void(0)">EMPRESA</a></li>
+            <li><a href="javascript:void(0)">SERVICIO ⌄</a></li>
+            <li><a href="javascript:void(0)">PRODUCTOS</a></li>
+            <li><a href="javascript:void(0)">PROYECTOS</a></li>
+            <li><a href="javascript:void(0)">CONTACTO</a></li>
+            <li><a href="javascript:void(0)">ECOMMERCE</a></li>
+            <li><a href="javascript:void(0)" style="display:flex; align-items:center;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </a></li>
         </ul>
     </nav>
 
-    <!-- HERO SECTION (FONDO, CORTE DIAGONAL Y CASCO) -->
+    <!-- HERO SECTION -->
     <section class="hero">
-        <div class="hero-overlay">
-            <div class="hero-content">
-                <h1>CONSULTORA Y EJECUTORA<br>DE OBRAS CIVILES DIVERSAS</h1>
-                <p>Somos un grupo de Profesionales y Consultores<br>Expertos en construcción Civil.</p>
-                <a href="servicios.html" class="btn-green">NUESTROS SERVICIOS</a>
-            </div>
-        </div>
-
-        <div class="hero-bottom-cut"></div>
-
-        <div class="helmet-circle">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M2 18h20" />
-                <path d="M12 2a6 6 0 0 0-6 6v2a6 6 0 0 0 12 0V8a6 6 0 0 0-6-6z" />
-                <rect x="9" y="10" width="6" height="4" rx="1" />
-            </svg>
+        <div class="hero-content">
+            <h1>CONSULTORA Y EJECUTORA<br>DE OBRAS <span>CIVILES DIVERSAS</span></h1>
+            <p>Somos un grupo de Profesionales y Consultores<br>Expertos en construcción Civil.</p>
+            <a href="javascript:void(0)" class="btn-green">NUESTROS SERVICIOS</a>
         </div>
     </section>
 
@@ -78,29 +602,24 @@
         <div class="features-grid">
             <div class="feature-box">
                 <div class="feature-icon-wrapper">
-                    <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=200"
-                        alt="Tecnología">
+                    <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=200" alt="Tecnología">
                 </div>
                 <h4>Tecnología moderna</h4>
                 <p>Implementamos proyectos con la más alta y moderna tecnología.</p>
             </div>
             <div class="feature-box">
                 <div class="feature-icon-wrapper">
-                    <!-- Utilizando un ícono genérico para simular las manos entrelazadas o el check -->
-                    <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80&w=200"
-                        alt="Especialistas">
+                    <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80&w=200" alt="Especialistas">
                 </div>
                 <h4>Especialistas Calificados</h4>
                 <p>Contamos con profesionales de más de 15 años de experiencia.</p>
             </div>
             <div class="feature-box">
                 <div class="feature-icon-wrapper">
-                    <img src="https://images.unsplash.com/photo-1454165833767-027ffea9e77b?auto=format&fit=crop&q=80&w=200"
-                        alt="Calidad">
+                    <img src="https://images.unsplash.com/photo-1454165833767-027ffea9e77b?auto=format&fit=crop&q=80&w=200" alt="Calidad">
                 </div>
                 <h4>Calidad Servicio</h4>
-                <p>Andina ofrece todo tipo de servicios de consultoría y elaboración de proyectos de construcción civil.
-                </p>
+                <p>Andina ofrece todo tipo de servicios de consultoría y elaboración de proyectos de construcción civil.</p>
             </div>
         </div>
     </section>
@@ -110,43 +629,37 @@
         <h2 class="section-title">NUESTROS SERVICIOS</h2>
         <div class="services-grid">
             <div class="service-card">
-                <img src="https://images.unsplash.com/photo-1541888946425-d81bb19480c5?auto=format&fit=crop&q=80&w=600"
-                    alt="Pavimentación">
+                <img src="https://images.unsplash.com/photo-1541888946425-d81bb19480c5?auto=format&fit=crop&q=80&w=600" alt="Pavimentación">
                 <div class="service-overlay">
                     <h4>PAVIMENTACIÓN</h4>
                 </div>
             </div>
             <div class="service-card">
-                <img src="https://images.unsplash.com/photo-1595113316349-9fa4eb24f884?auto=format&fit=crop&q=80&w=600"
-                    alt="Agricultura">
+                <img src="https://images.unsplash.com/photo-1595113316349-9fa4eb24f884?auto=format&fit=crop&q=80&w=600" alt="Agricultura">
                 <div class="service-overlay">
                     <h4>AGRICULTURA</h4>
                 </div>
             </div>
             <div class="service-card">
-                <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=600"
-                    alt="Medición de metales">
+                <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=600" alt="Medición de metales">
                 <div class="service-overlay">
                     <h4>MEDICIÓN DE METALES</h4>
                 </div>
             </div>
             <div class="service-card">
-                <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&q=80&w=600"
-                    alt="Irrigación">
+                <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&q=80&w=600" alt="Irrigación">
                 <div class="service-overlay">
                     <h4>IRRIGACIÓN</h4>
                 </div>
             </div>
             <div class="service-card">
-                <img src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&q=80&w=600"
-                    alt="Electrificación">
+                <img src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&q=80&w=600" alt="Electrificación">
                 <div class="service-overlay">
                     <h4>ELECTRIFICACIÓN</h4>
                 </div>
             </div>
             <div class="service-card">
-                <img src="https://images.unsplash.com/photo-1605289982774-9a6fef564df8?auto=format&fit=crop&q=80&w=600"
-                    alt="Industria Textil">
+                <img src="https://images.unsplash.com/photo-1605289982774-9a6fef564df8?auto=format&fit=crop&q=80&w=600" alt="Industria Textil">
                 <div class="service-overlay">
                     <h4>INDUSTRIA TEXTIL</h4>
                 </div>
@@ -157,58 +670,51 @@
     <!-- FRANJA DE 5 INDUSTRIAS (Grid sin separación) -->
     <div class="industries-banner">
         <div class="industry-item">
-            <img src="https://images.unsplash.com/photo-1533552755457-5b4bbecbd948?auto=format&fit=crop&q=80&w=400"
-                alt="Crianza">
+            <img src="https://images.unsplash.com/photo-1533552755457-5b4bbecbd948?auto=format&fit=crop&q=80&w=400" alt="Crianza">
             <div class="industry-label">
                 <h4>CRIANZA</h4>
                 <p>Cuyes</p>
             </div>
         </div>
         <div class="industry-item">
-            <img src="https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&q=80&w=400"
-                alt="Comercio">
+            <img src="https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&q=80&w=400" alt="Comercio">
             <div class="industry-label">
                 <h4>COMERCIO</h4>
                 <p>Productos mayoristas</p>
             </div>
         </div>
         <div class="industry-item">
-            <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=400"
-                alt="Reforestación">
+            <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=400" alt="Reforestación">
             <div class="industry-label">
                 <h4>REFORESTACIÓN</h4>
                 <p>Asesoría Agroforestal</p>
             </div>
         </div>
         <div class="industry-item">
-            <img src="https://images.unsplash.com/photo-1587293852726-6925abb35b2e?auto=format&fit=crop&q=80&w=400"
-                alt="Fabricación">
+            <img src="https://images.unsplash.com/photo-1587293852726-6925abb35b2e?auto=format&fit=crop&q=80&w=400" alt="Fabricación">
             <div class="industry-label">
                 <h4>FABRICACIÓN</h4>
                 <p>Productores Lácteos</p>
             </div>
         </div>
         <div class="industry-item">
-            <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&q=80&w=400"
-                alt="Construcción">
+            <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&q=80&w=400" alt="Construcción">
             <div class="industry-label" style="background: rgba(30, 91, 43, 0.85);">
                 <h4>CONSTRUCCIÓN</h4>
                 <p>Carreteras, vías, puentes...</p>
-                <div style="margin-top: 8px; font-size: 11px; font-weight: bold; cursor:pointer;">VER MÁS</div>
+                <div style="margin-top: 8px; font-size: 12px; font-weight: 800; cursor:pointer; text-decoration: underline; text-underline-offset: 4px;">VER MÁS</div>
             </div>
         </div>
     </div>
 
     <!-- SECCIÓN: EMPRESAS -->
     <section class="section-empresas">
-        <h2 class="section-title" style="margin-bottom: 20px;">EMPRESAS</h2>
-        <div style="width: 50px; height: 3px; background-color:#1E5B2B; margin: 0 auto 50px;"></div>
+        <h2 class="section-title">EMPRESAS</h2>
 
         <div class="companies-grid">
             <div class="company-card">
                 <div class="company-logo">
-                    <!-- Placeholder estilizado para Confyex -->
-                    <h3 style="color:#007635; font-size: 24px;">CONFYEX S.R.L.</h3>
+                    <h3 style="color:#007635; font-size: 26px; font-weight: 800;">CONFYEX S.R.L.</h3>
                 </div>
                 <h4>INDUSTRIAL CONFYEX S.R.L.</h4>
                 <span>Industria Textil</span>
@@ -217,8 +723,7 @@
 
             <div class="company-card">
                 <div class="company-logo">
-                    <!-- Placeholder estilizado para Frozen Milk -->
-                    <h3 style="color:#1E90FF; font-family: cursive; font-size: 28px;">Frozen Milk</h3>
+                    <h3 style="color:#1E90FF; font-family: cursive; font-size: 32px; text-shadow: 2px 2px 4px rgba(0,0,0,0.1);">Frozen Milk</h3>
                 </div>
                 <h4>FROZEN MILK S.A.C.</h4>
                 <span>Industria Productores</span>
@@ -227,8 +732,7 @@
 
             <div class="company-card">
                 <div class="company-logo">
-                    <!-- Placeholder estilizado para Sany -->
-                    <h3 style="color:#FFCA28; font-size: 24px;">SANY INDUSTRY</h3>
+                    <h3 style="color:#FDCB29; font-size: 26px; font-weight: 800; -webkit-text-stroke: 1px #888;">SANY INDUSTRY</h3>
                 </div>
                 <h4>SANY INDUSTRY S.R.L.</h4>
                 <span>Sany Industry</span>
@@ -237,16 +741,16 @@
         </div>
     </section>
 
-    <!-- FOOTER GRIS OSCURO -->
+    <!-- FOOTER -->
     <footer>
         <div class="footer-inner">
             <div class="footer-logo">
                 <svg width="40" height="40" viewBox="0 0 180 90" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="45" cy="45" r="35" fill="none" stroke="#FDCB29" stroke-width="12" />
                 </svg>
-                <h3 style="color:#5AA436; font-size: 22px;">Andina<br><span
-                        style="font-size: 10px; color:white; font-family: 'Open Sans', sans-serif;">Corporation Of
-                        Consultants</span></h3>
+                <h3 style="color:#5AA436; font-size: 22px; font-weight: 800;">Andina<br>
+                    <span style="font-size: 11px; color:white; font-weight: 400;">Corporation Of Consultants</span>
+                </h3>
             </div>
 
             <div class="footer-copy">
@@ -254,12 +758,22 @@
             </div>
 
             <div class="footer-social">
-                <a href="#" class="social-icon">f</a>
-                <a href="#" class="social-icon">t</a>
-                <a href="#" class="social-icon">g</a>
-                <a href="#" class="social-icon">in</a>
-                <!-- Botón scroll up -->
-                <div class="btn-up" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">▲</div>
+                <a href="#" class="social-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                </a>
+                <a href="#" class="social-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+                </a>
+                <a href="#" class="social-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                </a>
+                <a href="#" class="social-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                </a>
+                
+                <div class="btn-up" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+                </div>
             </div>
         </div>
     </footer>
